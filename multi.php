@@ -135,26 +135,25 @@ function multirender($input, $args, $parser)
       $results[$i] = "0";
     }
     $res->free();
-    #format my vote - doesn't work with caching
-/*
-    if ($myvote !== null && $myvote === $i) {
-      $line = "<span id=\"{$voteid}-{$i}\" class=\"myvote\" style=\"font-weight:bold;\">{$line}</span>";
-      $resultstr[$i] = "<span id=\"{$voteid}-{$i}-result\" class=\"myvote\" style=\"font-weight:bold;\">" . $results[$i] . "</span>";
-    } else {*/
-      $line = "<span id=\"{$voteid}-{$i}\">{$line}</span>";
-      $resultstr[$i] = "<span id=\"{$voteid}-{$i}-result\">" . $results[$i] . "</span>";
-    /*}*/
+	#format my vote - doesn't work with caching
+	
+	$jsVoteId = Xml::encodeJsVar( $voteid );
+	$htmlVoteId = htmlspecialchars( $voteid );
+	$htmlJsVoteId = htmlspecialchars( $jsVoteId );
+
+	$line = "<span id=\"{$htmlVoteId}-{$i}\">{$line}</span>";
+	$resultstr[$i] = "<span id=\"{$htmlVoteId}-{$i}-result\">" . $results[$i] . "</span>";
     $outputlines[] = $parser->recursiveTagParse($line);
   }
 
   # script to get my vote and format it
   $boldscript = "<script type=\"text/javascript\">" .
-                  "sajax_do_call('multigetmyvote',['{$voteid}'],function (req) {" .
+                  "sajax_do_call('multigetmyvote',[$jsVoteId],function (req) {" .
                       "if (req.readyState == 4) if (req.status == 200)" .
                       "{".
                         "i = req.responseText;" .
-                        "span = document.getElementById('{$voteid}' + i + \"-result\");" .
-                        "titlespan = document.getElementById('{$voteid}' + i);" .
+                        "span = document.getElementById($jsVoteId + i + \"-result\");" .
+                        "titlespan = document.getElementById($jsVoteId + i);" .
                         "if (span) {" .
                           "if (!span.className || span.className == \"\") {" .
                              "span.className = \"myvote\";" .
@@ -192,7 +191,7 @@ function multirender($input, $args, $parser)
         "</td>" .
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .
-          "<div id=\"{$voteid}-{$i}-column\" class=\"votecolumnfront\" style=\"background:blue; width:{$percent}%; height:100%;\"></div>" .
+          "<div id=\"$htmlVoteId-{$i}-column\" class=\"votecolumnfront\" style=\"background:blue; width:{$percent}%; height:100%;\"></div>" .
           "</div>" .          
         "</td>" .
       "</tr>";
@@ -216,11 +215,11 @@ function multirender($input, $args, $parser)
           $resultstr[$i] .
         "</td>" .
         "<td class=\"multibutton\" style=\"padding-left:1em; padding-right:1em;\">" . 
-          "<a href=\"javascript:multivotesend('{$voteid}',$i," . count($outputlines) . ")\" title=\"" . wfMsg("multi-votetitle") . "\">" . wfMsg("multi-votebutton") . "</a>" .
+          "<a href=\"javascript:multivotesend($htmlJsVoteId),$i," . count($outputlines) . ")\" title=\"" . wfMsg("multi-votetitle") . "\">" . wfMsg("multi-votebutton") . "</a>" .
         "</td>" .
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .
-          "<div id=\"{$voteid}-{$i}-column\" class=\"votecolumnfront\" style=\"background:blue; width:{$percent}%; height:100%;\"></div>" .
+          "<div id=\"{$htmlVoteId}-{$i}-column\" class=\"votecolumnfront\" style=\"background:blue; width:{$percent}%; height:100%;\"></div>" .
           "</div>" .          
         "</td>" .
       "</tr>";

@@ -40,6 +40,8 @@ function checkboxesrender($input, $args, $parser)
   
   #avoid conflicts - checkbox will add check prefix
   $voteid = "set" . $voteid;
+  $htmlVoteId = htmlspecialchars( $voteid );
+  $jsVoteId = htmlspecialchars( Xml::encodeJsVar( $voteid ) );
   
   $set = $args['set'];
   if (!$set)
@@ -69,15 +71,18 @@ function checkboxesrender($input, $args, $parser)
 		if ( count($parts) >= 2 ) {
 			$title = $parts[0];
 			$id = $parts[1];
-			$id = str_replace(' ','_',$id);
+			$id = Sanitizer::escapeClass(str_replace(' ','_',$id));
 		} else {
 			//someone forgot the id, generate one for them
 			$title = $parts[0];
 			$id = Sanitizer::escapeClass($parts[0]);
 		}
-		$ids[] = "'check{$voteid}-check-{$id}'";
-		$output .= "<p><checkbox poll={$voteid}-check-{$id} closed=" . ($closed ? "yes" : "no") ." bulkmode=yes>{$title}</checkbox></p>";
-		$jshacka[] = "'check{$voteid}-check-{$id}' : document.getElementById('checkbox-input-check{$voteid}-check-{$id}').checked?1:0";
+		$jsId = Xml::encodeJsVar( "check{$voteid}-check-{$id}" );
+		$ids[] = $jsId;
+		$htmlId = htmlspecialchars( "check{$voteid}-check-{$id}" );
+		$htmlTitle = htmlspecialchars( $title );
+		$output .= "<p><checkbox poll=\"$htmlId\" closed=" . ($closed ? "yes" : "no") ." bulkmode=yes>{$htmlTitle}</checkbox></p>";
+		$jshacka[] = "$jsId : document.getElementById(" . Xml::encodeJsVar( "checkbox-input-check{$voteid}-check-{$id}" ) . ").checked?1:0";
 	}
 	$jshack = "{" . implode(',',$jshacka) . "}";
 	$output .= "</div>";
@@ -165,16 +170,19 @@ function checkboxrender($input, $args, $parser)
   wfLoadExtensionMessages('wigo3');
   $totalvotes = wfMsgExt('wigovotestotal',array('parsemag'),array($countvotes));
 
+  $jsVoteId = Xml::encodeJsVar( $voteid );
+  $htmlVoteId = htmlspecialchars( $voteid );
+
   # script to get my vote
   if (!$bulkmode) {
   $myvotescript = "<script type=\"text/javascript\">" .
-                  "sajax_do_call('wigogetmyvotes',['{$voteid}'],function (req) {" .
+                  "sajax_do_call('wigogetmyvotes',[$jsVoteId],function (req) {" .
                       "if (req.readyState == 4) if (req.status == 200)" .
                       "{".
                       	"var res = eval('(' + req.responseText + ')');" .
-                      	"if ( res['{$voteid}']!== false ) {" .
-                      		"c = document.getElementById(\"checkbox-input-{$voteid}\");" .
-                      	  "c.checked=(res['$voteid'] == 1);" .
+                      	"if ( res[$jsVoteId]!== false ) {" .
+                      		"c = document.getElementById(\"checkbox-input-\" + $jsVoteId);" .
+                      	  "c.checked=(res[$jsVoteId] == 1);" .
                       	"}" .
                       "}" .
                   "});"  . "</script>";
@@ -182,13 +190,13 @@ function checkboxrender($input, $args, $parser)
 	
   wfLoadExtensionMessages('slider');
   if (array_key_exists('closed',$args) && strcasecmp($args['closed'],"yes") === 0) {
-  	return "<input type=\"checkbox\" class=\"checkbox-input\" id=\"checkbox-input-{$voteid}\" name=\"checkbox-input-{$voteid}\" disabled=\"disabled\"" . ($myvote === 1 ? " checked=\"checked\"" : "") . "/> " .
-           "<label for=\"checkbox-input-{$voteid}\">$output</label> (<span id=\"{$voteid}\" title=\"{$totalvotes}\">{$votes}</span>)" .
+  	return "<input type=\"checkbox\" class=\"checkbox-input\" id=\"checkbox-input-{$htmlVoteId}\" name=\"checkbox-input-{$htmlVoteId}\" disabled=\"disabled\"" . ($myvote === 1 ? " checked=\"checked\"" : "") . "/> " .
+           "<label for=\"checkbox-input-{$htmlVoteId}\">$output</label> (<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$votes}</span>)" .
             $myvotescript;
   } else {
-    	return "<input type=\"checkbox\" class=\"checkbox-input\" id=\"checkbox-input-{$voteid}\" name=\"checkbox-input-{$voteid}\"" . ($myvote === 1 ? " checked=\"checked\"" : "") . "/> " .
-    			   "<label for=\"checkbox-input-{$voteid}\">$output</label> (<span id=\"{$voteid}\" title=\"{$totalvotes}\">{$votes}</span>)" .
-    			   ($bulkmode ? "" : "  <a class=\"votebutton\" href=\"javascript:wigovotesend('{$voteid}',document.getElementById('checkbox-input-{$voteid}').checked?1:0,0,1,true)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>") .
+    	return "<input type=\"checkbox\" class=\"checkbox-input\" id=\"checkbox-input-{$htmlVoteId}\" name=\"checkbox-input-{$htmlVoteId}\"" . ($myvote === 1 ? " checked=\"checked\"" : "") . "/> " .
+    			   "<label for=\"checkbox-input-{$htmlVoteId}\">$output</label> (<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$votes}</span>)" .
+    			   ($bulkmode ? "" : "  <a class=\"votebutton\" href=\"javascript:wigovotesend($jsVoteId,document.getElementById('checkbox-input-' + $jsVoteId).checked?1:0,0,1,true)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>") .
              $myvotescript;
   }
 }

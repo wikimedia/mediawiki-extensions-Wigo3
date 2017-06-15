@@ -179,14 +179,11 @@ class ApiWigoVotes extends ApiQueryBase {
     
     $this->addWhereRange('timestamp',$dir,$start,$end);
     if ( !is_null($prefix) ) {
-      #$this->addOption( 'ORDER BY', "0 + substring(id," . strlen($prefix) . "+1)" );
       $this->addWhere('id' . $this->getDB()->buildLike( $prefix, $this->getDB()->anyString() ) );
       $this->addWhereRange( 'id', $dir, null, null );
     } elseif ( !is_null($id) ) {
-      #$this->addWhere('id = ' . $this->getDB()->strencode($id) );
       $this->addWhere('id' . $this->getDB()->buildLike( $id ) );
     }
-    #$this->addWhereRange( 'sha1(voter_name)', 'newer', null, null );
     
     $this->addWhereRange('vote','newer',$min,$max,false);
 

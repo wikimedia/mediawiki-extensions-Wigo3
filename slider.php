@@ -77,12 +77,12 @@ function slidersrender($input, $args, $parser)
 	
 	//get minimum and maximum values if supplied
   if (array_key_exists('min',$args) && (intval($args['min'],10) !== 0 || $args['min'] == '0')) {
-    $minvalue = $args['min'];
+    $minvalue = intval( $args['min'] );
   } else {
     $minvalue = 0;
   }
   if (array_key_exists('max',$args) && (intval($args['max'],10) !== 0 || $args['max'] == '0')) {
-    $maxvalue = $args['max'];
+    $maxvalue = intval( $args['max'] );
   } else {
     $maxvalue = 10;
   }
@@ -94,7 +94,6 @@ function slidersrender($input, $args, $parser)
 	
 	$output = '<div class="sliderset">' . "<table class=\"slidervote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
 	$ids = array();
-	//$jshacka = array();
 	foreach ($options as $option) {
 		$parts = explode( ';', $option);
 		if ( count($parts) >= 2 ) {
@@ -106,17 +105,13 @@ function slidersrender($input, $args, $parser)
 			$title = $parts[0];
 			$id = Sanitizer::escapeClass($parts[0]);
 		}
-		$ids[] = "'slider{$voteid}-slider-{$id}'";
-		$output .= "<p><slider poll={$voteid}-slider-{$id} min={$minvalue} max={$maxvalue} closed=" . ($closed ? "yes" : "no") ." bulkmode=yes>{$title}</slider></p>";
-		//$jshacka[] = "'slider{$voteid}-slider-{$id}' : document.getElementById('slider-input-slider{$voteid}-slider-{$id}').value";
+		$optionId = "slider{$voteid}-slider-{$id}";
+		$ids[] = Xml::encodeJsVar( $optionId );
+		$output .= "<p><slider poll=\"" . htmlspecialchars( "{$voteid}-slider-{$id}" ) . " min={$minvalue} max={$maxvalue} closed=" . ($closed ? "yes" : "no") ." bulkmode=yes>" . htmlspecialchars( $title ) . "</slider></p>";
 	}
-	//$jshack = "{" . implode(',',$jshacka) . "}";
 	$output .= "</table></div>";
 	wfLoadExtensionMessages('slider');
-	/*$votebutton = "<p>" .
-                (($closed || $embedded) ? "" : "  <a href=\"javascript:wigovotesendarray({$jshack},{$minvalue},{$maxvalue})\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>") .
-                "</p>";*/
-	
+
 	//get all the votes in one request
 	$ids_l = implode(",",$ids);
 	$myvotesscript = "<script type=\"text/javascript\">" .
@@ -161,12 +156,12 @@ function sliderrender($input, $args, $parser)
   
   //get minimum and maximum values if supplied
   if (array_key_exists('min',$args) && (intval($args['min'],10) !== 0 || $args['min'] == '0')) {
-    $minvalue = $args['min'];
+    $minvalue = intval( $args['min'] );
   } else {
     $minvalue = 0;
   }
   if (array_key_exists('max',$args) && (intval($args['max'],10) !== 0 || $args['max'] == '0')) {
-    $maxvalue = $args['max'];
+    $maxvalue = intval( $args['max'] );
   } else {
     $maxvalue = 10;
   }
@@ -192,15 +187,6 @@ function sliderrender($input, $args, $parser)
 
   #get my vote
   $myvote = null;
-/*  global $wgUser, $wgWigo3ConfigStoreIPs;
-  $voter = $wgWigo3ConfigStoreIPs ? getenv ("REMOTE_ADDR") : $wgUser->getName();
-  $res = $dbr->select('wigovote','vote',array('id' => $voteid, 'voter_name' => $voter),'wigo3render');
-  if ($row = $res->fetchRow())
-  {
-    $myvote = $row['vote'];
-  }
-  $res->free();
-*/
 
   if ($countvotes != 0) {
     $voteaverage = round($votes/$countvotes,2);
@@ -210,24 +196,24 @@ function sliderrender($input, $args, $parser)
 
   $output = $parser->recursiveTagParse($input);
 
-  //Store in database - not needed for now, might be if/when bestof feature is integrated
-  /*$dbw = wfGetDB(DB_MASTER);
-  $dbw->replace('wigotext','vote_id',array('vote_id' => $voteid, 'text' => $output),__METHOD__);*/
-
   //parse magic only, to allow plural
   wfLoadExtensionMessages('wigo3');
   $totalvotes = wfMsgExt('wigovotestotal',array('parsemag'),array($countvotes));
 
+  $jsVoteId = Xml::encodeJsVar( $voteid );
+  $htmlVoteId = htmlspecialchars( $voteid );
+  $htmlJsVoteId = htmlspecialchars( $jsVoteId );
+
   # script to get my vote
   if (!$bulkmode) {
   $myvotescript = 
-                  "sajax_do_call('wigogetmyvotes',['{$voteid}'],function (req) {" .
+                  "sajax_do_call('wigogetmyvotes',[$jsVoteId],function (req) {" .
                       "if (req.readyState == 4) if (req.status == 200)" .
                       "{".
                       	"var res = eval('(' + req.responseText + ')');" .
-                      	"if ( res['{$voteid}']!== false ) {" .
-                      		"s = document.getElementById(\"slider-input-{$voteid}\");" .
-                      	  "s.value=res['$voteid']; s.onchange();" .
+                      	"if ( res[$jsVoteId]!== false ) {" .
+                      		"s = document.getElementById(\"slider-input-\" + $jsVoteId);" .
+                      	  "s.value=res[$jsVoteId]; s.onchange();" .
                       	"}" .
                       "}" .
                   "});";
@@ -238,21 +224,20 @@ function sliderrender($input, $args, $parser)
     return ($bulkmode ? "" : "<table class=\"slidervote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">") .
               "<tr>" .
                 "<td>" .
-                  "<!--$voteid-->$output" .
+                  "<!--$htmlVoteId-->$output" .
                 "</td>" .
                 "<td style=\"min-width:25px; text-align:center;\">" .
-                  "<div class=\"slider\" id=\"slider-{$voteid}\"></div>" .
+                  "<div class=\"slider\" id=\"slider-{$htmlVoteId}\"></div>" .
                 "</td>" .
                 "<td style=\"min-width:25px; text-align:center;\">" .
-                	"<input class=\"slider-input\" id=\"slider-input-{$voteid}\" name=\"slider-input-{$voteid}\" size=\"1\" disabled=\"disabled\" maxlength=\"3\"" . ($myvote !== null ? "value=\"{$myvote}\"" : "") . "/> " .
-                  "<span id=\"{$voteid}\" title=\"{$totalvotes}\">{$voteaverage}</span>" .
+                	"<input class=\"slider-input\" id=\"slider-input-{$htmlVoteId}\" name=\"slider-input-{$htmlVoteId}\" size=\"1\" disabled=\"disabled\" maxlength=\"3\"" . ($myvote !== null ? "value=\"{$myvote}\"" : "") . "/> " .
+                  "<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$voteaverage}</span>" .
                 "</td>" .
               "</tr>" .
             ($bulkmode ? "" : "</table>") .
             "<script type=\"text/javascript\">" .
-              "var s = new Slider(document.getElementById(\"slider-{$voteid}\")," .
-                                 "document.getElementById(\"slider-input-{$voteid}\"),'horizontal',true);" .
-              //($myvote !== null ? "s.setValue({$myvote});" : "") .
+              "var s = new Slider(document.getElementById(\"slider-\" + {$jsVoteId})," .
+                                 "document.getElementById(\"slider-input-\" + {$jsVoteId}),'horizontal',true);" .
               ($minvalue !== null ? "s.setMinimum({$minvalue});" : "") .
               ($maxvalue !== null ? "s.setMaximum({$maxvalue});" : "") .
             $myvotescript . "</script>";
@@ -260,26 +245,24 @@ function sliderrender($input, $args, $parser)
     return ($bulkmode ? "" : "<table class=\"slidervote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">") .
               "<tr>" .
                 "<td>" .
-                  "<!--$voteid-->$output" .
+                  "<!--$htmlVoteId-->$output" .
                 "</td>" .
                 "<td style=\"min-width:25px; text-align:center;\">" .
-                  "<div class=\"slider\" id=\"slider-{$voteid}\"></div>" .
+                  "<div class=\"slider\" id=\"slider-{$htmlVoteId}\"></div>" .
                 "</td>" .
                 "<td>" .
-                  "<input class=\"slider-input\" id=\"slider-input-{$voteid}\" name=\"slider-input-{$voteid}\" size=\"1\" maxlength=\"3\"" . ($myvote !== null ? "value=\"{$myvote}\"" : "") . "/> " .
-                  "<span id=\"{$voteid}\" title=\"{$totalvotes}\">{$voteaverage}</span> " .
-                  //($bulkmode ? "" : "<a href=\"javascript:wigovotesend('{$voteid}',document.getElementById('slider-input-{$voteid}').value,$minvalue,$maxvalue)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>") .
+                  "<input class=\"slider-input\" id=\"slider-input-{$htmlVoteId}\" name=\"slider-input-{$htmlVoteId}\" size=\"1\" maxlength=\"3\"" . ($myvote !== null ? "value=\"{$myvote}\"" : "") . "/> " .
+                  "<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$voteaverage}</span> " .
                   /*Sliders still get their own vote buttons in bulk mode, we don't want to force anyone to vote on everything if they don't want to*/
                 "</td>" .
                 "<td>" .
-                  "<a class=\"votebutton\" href=\"javascript:wigovotesend('{$voteid}',document.getElementById('slider-input-{$voteid}').value,$minvalue,$maxvalue)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>" .
+                  "<a class=\"votebutton\" href=\"javascript:wigovotesend($htmlJsVoteId,document.getElementById('slider-input-' + $htmlJsVoteId).value,$minvalue,$maxvalue)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>" .
                 "</td>" .
               "</tr>" .
             ($bulkmode ? "" : "</table>") . 
             "<script type=\"text/javascript\">" .
-              "var s = new Slider(document.getElementById(\"slider-{$voteid}\")," .
-                                 "document.getElementById(\"slider-input-{$voteid}\"));" .
-              //($myvote !== null ? "s.setValue({$myvote});" : "") .
+              "var s = new Slider(document.getElementById(\"slider-\" + $jsVoteId)," .
+                                 "document.getElementById(\"slider-input-\" + $jsVoteId));" .
               ($minvalue !== null ? "s.setMinimum({$minvalue});" : "") .
               ($maxvalue !== null ? "s.setMaximum({$maxvalue});" : "") .
             $myvotescript . "</script>";

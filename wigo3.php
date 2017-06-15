@@ -88,7 +88,7 @@ function wigovote($pollid, $vote, $min=-1, $max=1)
   global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
   $voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
   $result = $dbw->replace('wigovote',array('id','voter_name'),array('id' => $pollid, 'voter_name' => $voter, 'vote' => $vote, 'timestamp' => wfTimestampNow()),__FUNCTION__);
-  $res = $dbw->select('wigovote',array('sum(vote)','count(vote)'),array('id' => $pollid, "vote >= {$min}", "vote <= {$max}"),__FUNCTION__,array('GROUP BY' => 'id'));
+  $res = $dbw->select('wigovote',array('sum(vote)','count(vote)'),array('id' => $pollid, "vote >= " . intval($min), "vote <= " . intval($max)),__FUNCTION__,array('GROUP BY' => 'id'));
   $row = $res->fetchRow();
   $vote = $row['sum(vote)'];
   $countvotes = $row['count(vote)'];
@@ -119,7 +119,7 @@ function wigovotebatch( $min=-1, $max=1 /*,...*/ ) {
     $votes[] = array('id' => $params[$i], 'voter_name' => $voter, 'vote' => $params[$i+1], 'timestamp' => wfTimestampNow());
 	}
   $result = $dbw->replace('wigovote',array('id','voter_name'),$votes,__FUNCTION__);
-  $res = $dbw->select('wigovote',array('id','sum(vote)','count(vote)'),array('id' => $pollids, "vote >= {$min}", "vote <= {$max}"),__FUNCTION__,array('GROUP BY' => 'id'));
+  $res = $dbw->select('wigovote',array('id','sum(vote)','count(vote)'),array('id' => $pollids, "vote >= " . intval($min), "vote <= " . intval($max)),__FUNCTION__,array('GROUP BY' => 'id'));
   
   wfLoadExtensionMessages('wigo3');
   $resultvotes = array();
@@ -307,12 +307,15 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
   if ($downpercent != 0) {
     $downpercent .= "%";
   }
+
+  $htmlVoteId = htmlspecialchars( $voteid );
+  $jsVoteId = htmlspecialchars( Xml::encodeJsVar( $voteid ) );
   
   if (array_key_exists('closed',$args) && strcasecmp($args['closed'],"yes") === 0) {
     return "<table class=\"vote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">" .
               "<tr>" .
                 "<td style=\"white-space:nowrap;\">" .
-                    "<table id=\"{$voteid}-dist\" class=\"wigodistribution\" style=\"width:48px; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;\" title=\"{$distribtitle}\">" .
+                    "<table id=\"{$htmlVoteId}-dist\" class=\"wigodistribution\" style=\"width:48px; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;\" title=\"{$distribtitle}\">" .
                       "<tr>" .
                         "<td class=\"wigodist-up\" style=\"border:none; background-color:limegreen; margin:0; padding:0; width:{$uppercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
                         "<td class=\"wigodist-neutral\" style=\"border:none; background-color:orange; margin:0; padding:0; width:{$neutralpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
@@ -320,10 +323,10 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
                     "</tr></table>" .
                 "</td>" .
                 "<td style=\"min-width:25px; text-align:center;\">" .
-                  "<span id=\"{$voteid}\" title=\"{$totalvotes}\">{$votes}</span>" .
+                  "<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$votes}</span>" .
                 "</td>" .
                 "<td style=\"vertical-align:middle;\">" .
-                  "<!--$voteid-->$output" .
+                  "<!--{$htmlVoteId}-->$output" .
                 "</td>" .
               "</tr>" .
             "</table>";
@@ -361,13 +364,13 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
     return "<table class=\"vote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">" .
               "<tr>" .
                 "<td style=\"white-space:nowrap;\">" .
-                  "<a href=\"javascript:wigovoteup('{$voteid}')\" id=\"{$voteid}-up\" class=\"wigobutton wigoupbutton " . ($myvote == 1 ? "myvotebutton" : "") . " \">" .
+                  "<a href=\"javascript:wigovoteup($jsVoteId)\" id=\"{$htmlVoteId}-up\" class=\"wigobutton wigoupbutton " . ($myvote == 1 ? "myvotebutton" : "") . " \">" .
                     "<img alt=\"{$altup}\" title=\"{$titleup}\" src=\"$up\"></img></a>" .
-                  "<a href=\"javascript:wigovotereset('{$voteid}')\" id=\"{$voteid}-neutral\" class=\"wigobutton wigoneutralbutton " . ($myvote == 0 ? "myvotebutton" : "") . " \">" .
+                  "<a href=\"javascript:wigovotereset($jsVoteId)\" id=\"{$htmlVoteId}-neutral\" class=\"wigobutton wigoneutralbutton " . ($myvote == 0 ? "myvotebutton" : "") . " \">" .
                     "<img alt=\"{$altreset}\" title=\"{$titlereset}\" src=\"$reset\"></img></a>" .
-                  "<a href=\"javascript:wigovotedown('{$voteid}')\" id=\"{$voteid}-down\" class=\"wigobutton wigodownbutton " . ($myvote == -1 ? "myvotebutton" : "") . " \">" .
+                  "<a href=\"javascript:wigovotedown($jsVoteId)\" id=\"{$htmlVoteId}-down\" class=\"wigobutton wigodownbutton " . ($myvote == -1 ? "myvotebutton" : "") . " \">" .
                     "<img alt=\"{$altdown}\" title=\"{$titledown}\" src=\"$down\"></img></a>" .
-                    "<table id=\"{$voteid}-dist\" class=\"wigodistribution\" style=\"width:100%; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;\" title=\"{$distribtitle}\">" .
+                    "<table id=\"{$htmlVoteId}-dist\" class=\"wigodistribution\" style=\"width:100%; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;\" title=\"{$distribtitle}\">" .
                       "<tr>" .
                         "<td class=\"wigodist-up\" style=\"border:none; background-color:limegreen; margin:0; padding:0; width:{$uppercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
                         "<td class=\"wigodist-neutral\" style=\"border:none; background-color:orange; margin:0; padding:0; width:{$neutralpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
@@ -375,10 +378,10 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
                     "</tr></table>" .
                 "</td>" .
                 "<td style=\"min-width:25px; text-align:center;\">" .
-                  "<span id=\"{$voteid}\" title=\"{$totalvotes}\">{$votes}</span>" .
+                  "<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$votes}</span>" .
                 "</td>" .
                 "<td style=\"vertical-align:middle;\">" .
-                  "<!--$voteid-->$output" .
+                  "<!--$htmlVoteId-->$output" .
                 "</td>" .
               "</tr>" .
             "</table>";
