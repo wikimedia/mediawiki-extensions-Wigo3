@@ -47,7 +47,6 @@ if ($wgUseAjax)
 }
 
 function wigo3init( &$parser ) {
-  wfLoadExtensionMessages('wigo3');
   $parser->setHook('vote','wigo3render');
   $parser->setHook('votecp','wigo3rendercp');
   $parser->setHook('capture','wigo3rendercapture');
@@ -92,8 +91,7 @@ function wigovote($pollid, $vote, $min=-1, $max=1)
   $row = $res->fetchRow();
   $vote = $row['sum(vote)'];
   $countvotes = $row['count(vote)'];
-  wfLoadExtensionMessages('wigo3');
-  $totalvotes = wfMsgExt('wigovotestotal',array('parsemag'),array($countvotes));
+  $totalvotes = wfMessage('wigovotestotal')->params($countvotes)->text();
   $res->free();
   $dbw->commit();
   return "$pollid:$vote:$countvotes:$totalvotes:$result";
@@ -121,13 +119,12 @@ function wigovotebatch( $min=-1, $max=1 /*,...*/ ) {
   $result = $dbw->replace('wigovote',array('id','voter_name'),$votes,__FUNCTION__);
   $res = $dbw->select('wigovote',array('id','sum(vote)','count(vote)'),array('id' => $pollids, "vote >= " . intval($min), "vote <= " . intval($max)),__FUNCTION__,array('GROUP BY' => 'id'));
   
-  wfLoadExtensionMessages('wigo3');
   $resultvotes = array();
   while ($row = $res->fetchRow())
   {
     $vote = $row['sum(vote)'];
   	$countvotes = $row['count(vote)'];
-  	$totalvotes = wfMsgExt('wigovotestotal',array('parsemag'),array($countvotes));
+  	$totalvotes = wfMessage('wigovotestotal')->params($countvotes)->text();
     $resultvotes[$row['id']] = array($vote,$countvotes,$totalvotes);
   }
   $res->free();
@@ -155,13 +152,12 @@ function wigovote2($pollid, $vote)
 
   wigo3getvotes($pollid, $plus, $minus, $zero,$voter,$myvote);
   
-  wfLoadExtensionMessages('wigo3');
   $totalvotes = $plus + $minus + $zero;
-  $totaltooltip = wfMsgExt('wigovotestotald',array('parsemag'),array($totalvotes,$plus,$zero,$minus));
-/*  $totalup = wfMsgExt('wigovotestotal',array('parsemag'),array($plus));
-  $totaldown = wfMsgExt('wigovotestotal',array('parsemag'),array($minus));
-  $totalneutral = wfMsgExt('wigovotestotal',array('parsemag'),array($zero));*/
-  $distribtitle = wfMsgExt('wigovotedistrib',array('parsemag'),array($plus,$zero,$minus));
+  $totaltooltip = wfMessage('wigovotestotald')->params($totalvotes,$plus,$zero,$minus)->text();
+/*  $totalup = wfMessage('wigovotestotal')->params($plus)->text();
+  $totaldown = wfMessage('wigovotestotal')->params($minus)->text();
+  $totalneutral = wfMessage('wigovotestotal')->params($zero)->text();*/
+  $distribtitle = wfMessage('wigovotedistrib')->params($plus,$zero,$minus)->text();
   return "$pollid:$plus:$minus:$zero:$totalvotes:$totaltooltip:$distribtitle:$myvote:$result";
 }
 
@@ -228,8 +224,7 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
   {
     static $err = null;
     if (is_null($err)) {
-      wfLoadExtensionMessages('wigo3');
-      $err = wfMsg('wigoerror');
+      $err = wfMessage('wigoerror')->text();
     }
     $output = $parser->recursiveTagParse($input, $frame);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -280,14 +275,14 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
   }  
 
   //wfMsgExt resets the parser state if the message contains a parser function, breaking for example references. recursiveTagParse doesn't.
-  wfLoadExtensionMessages('wigo3');
-  //$totalvotes = wfMsgExt('wigovotestotald',array('parsemag'),array($countvotes,$plus,$zero,$minus));
-  $totalvotes = htmlspecialchars($parser->recursiveTagParse(wfMsgNoTrans('wigovotestotald',array($countvotes,$plus,$zero,$minus)), $frame));
-/*  $totalup = wfMsgExt('wigovotestotal',array('parsemag'),array($plus));
-  $totaldown = wfMsgExt('wigovotestotal',array('parsemag'),array($minus));
-  $totalneutral = wfMsgExt('wigovotestotal',array('parsemag'),array($zero));*/
-  //$distribtitle = wfMsgExt('wigovotedistrib',array('parsemag'),array($plus,$zero,$minus));
-  $distribtitle = htmlspecialchars($parser->recursiveTagParse(wfMsgNoTrans('wigovotedistrib',array($plus,$zero,$minus)), $frame));
+  // @todo: ^ apparently fixed in core
+  //$totalvotes = wfMessage('wigovotestotald')->params($countvotes,$plus,$zero,$minus)->text();
+  $totalvotes = htmlspecialchars($parser->recursiveTagParse(wfMessage('wigovotestotald')->params($countvotes,$plus,$zero,$minus)->plain(), $frame));
+/*  $totalup = wfMessage('wigovotestotal')->params($plus)->text();
+  $totaldown = wfMessage('wigovotestotal')->params($minus)->text();
+  $totalneutral = wfMessage('wigovotestotal')->params($zero)->text();*/
+  //$distribtitle = wfMessage('wigovotedistrib')->params($plus,$zero,$minus)->text();
+  $distribtitle = htmlspecialchars($parser->recursiveTagParse(wfMessage('wigovotedistrib')->params($plus,$zero,$minus)->plain(), $frame));
   if ($countvotes != 0) {
     $uppercent = ($plus / $countvotes) * 100;
     $downpercent = ($minus / $countvotes) * 100;
@@ -346,19 +341,18 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
     if ( is_null($up) || is_null($down) || is_null($reset) 
          || is_null($altup) || is_null($altdown) || is_null($altreset) 
          || is_null($titleup) || is_null($titledown) || is_null($titlereset) ) {
-      wfLoadExtensionMessages('wigo3');
-      $up = wfFindFile(wfMsg('wigouparrow'));
+      $up = wfFindFile(wfMessage('wigouparrow')->text());
       $up = $up ? $up->getFullUrl() : '';
-      $down = wfFindFile(wfMsg('wigodownarrow'));
+      $down = wfFindFile(wfMessage('wigodownarrow')->text());
       $down = $down ? $down->getFullUrl() : '';
-      $reset = wfFindFile(wfMsg('wigoresetvote'));
+      $reset = wfFindFile(wfMessage('wigoresetvote')->text());
       $reset = $reset ? $reset->getFullUrl() : '';
-      $altup = wfMsgHtml('wigoaltup');
-      $altdown = wfMsgHtml('wigoaltdown');
-      $altreset = wfMsgHtml('wigoaltreset');
-      $titleup = wfMsgHtml('wigotitleup');
-      $titledown = wfMsgHtml('wigotitledown');
-      $titlereset = wfMsgHtml('wigotitlereset');
+      $altup = wfMessage('wigoaltup')->escaped();
+      $altdown = wfMessage('wigoaltdown')->escaped();
+      $altreset = wfMessage('wigoaltreset')->escaped();
+      $titleup = wfMessage('wigotitleup')->escaped();
+      $titledown = wfMessage('wigotitledown')->escaped();
+      $titlereset = wfMessage('wigotitlereset')->escaped();
     }
 
     return "<table class=\"vote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">" .

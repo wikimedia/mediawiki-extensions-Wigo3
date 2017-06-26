@@ -9,24 +9,16 @@ $wgExtensionCredits['parserhook'][] = array(
         'description' => 'Creates a slider for voting. Requires the wigo extension'
 );
 
-//Avoid unstubbing $wgParser on setHook() too early on modern (1.12+) MW versions, as per r35980
-if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-  $wgHooks['ParserFirstCallInit'][] = 'sliderinit';
-} else { // Otherwise do things the old fashioned way
-  $wgExtensionFunctions[] = 'sliderinit';
-}
+$wgHooks['ParserFirstCallInit'][] = 'sliderinit';
 
 //$wgHooks['BeforePageDisplay'][] = 'slideraddjscss';
-
 
 $wgSliderIP = dirname( __FILE__ );
 $wgExtensionMessagesFiles['slider'] = "$wgSliderIP/slider.i18n.php";
 
-function sliderinit() {
-  global $wgParser;
-  wfLoadExtensionMessages('slider');
-  $wgParser->setHook('slider','sliderrender');
-  $wgParser->setHook('sliders','slidersrender');
+function sliderinit( &$parser ) {
+  $parser->setHook('slider','sliderrender');
+  $parser->setHook('sliders','slidersrender');
   return true;    
 }
 
@@ -50,8 +42,7 @@ function slidersrender($input, $args, $parser)
   {
     static $err = null;
     if (is_null($err)) {
-      wfLoadExtensionMessages('wigo3');
-      $err = wfMsg('wigoerror');
+      $err = wfMessage('wigoerror')->text();
     }
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -88,7 +79,7 @@ function slidersrender($input, $args, $parser)
   }
 	
 	//Get the slider set
-	$list = wfMsg("sliders/{$set}");
+	$list = wfMessage("sliders/{$set}")->text();
   $list = preg_replace("/\*/","",$list);
   $options = split("\n",$list);
 	
@@ -110,7 +101,6 @@ function slidersrender($input, $args, $parser)
 		$output .= "<p><slider poll=\"" . htmlspecialchars( "{$voteid}-slider-{$id}" ) . " min={$minvalue} max={$maxvalue} closed=" . ($closed ? "yes" : "no") ." bulkmode=yes>" . htmlspecialchars( $title ) . "</slider></p>";
 	}
 	$output .= "</table></div>";
-	wfLoadExtensionMessages('slider');
 
 	//get all the votes in one request
 	$ids_l = implode(",",$ids);
@@ -140,8 +130,7 @@ function sliderrender($input, $args, $parser)
   {
     static $err = null;
     if (is_null($err)) {
-      wfLoadExtensionMessages('wigo3');
-      $err = wfMsg('wigoerror');
+      $err = wfMessage('wigoerror')->text();
     }
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -197,8 +186,7 @@ function sliderrender($input, $args, $parser)
   $output = $parser->recursiveTagParse($input);
 
   //parse magic only, to allow plural
-  wfLoadExtensionMessages('wigo3');
-  $totalvotes = wfMsgExt('wigovotestotal',array('parsemag'),array($countvotes));
+  $totalvotes = wfMessage('wigovotestotal')->params($countvotes)->text();
 
   $jsVoteId = Xml::encodeJsVar( $voteid );
   $htmlVoteId = htmlspecialchars( $voteid );
@@ -219,7 +207,6 @@ function sliderrender($input, $args, $parser)
                   "});";
 	}
 
-  wfLoadExtensionMessages('slider');
   if (array_key_exists('closed',$args) && strcasecmp($args['closed'],"yes") === 0) {
     return ($bulkmode ? "" : "<table class=\"slidervote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">") .
               "<tr>" .
@@ -256,7 +243,7 @@ function sliderrender($input, $args, $parser)
                   /*Sliders still get their own vote buttons in bulk mode, we don't want to force anyone to vote on everything if they don't want to*/
                 "</td>" .
                 "<td>" .
-                  "<a class=\"votebutton\" href=\"javascript:wigovotesend($htmlJsVoteId,document.getElementById('slider-input-' + $htmlJsVoteId).value,$minvalue,$maxvalue)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>" .
+                  "<a class=\"votebutton\" href=\"javascript:wigovotesend($htmlJsVoteId,document.getElementById('slider-input-' + $htmlJsVoteId).value,$minvalue,$maxvalue)\" title=\"" . wfMessage("slider-votetitle")->escaped() . "\">" . wfMessage("slider-votebutton")->escaped() . "</a>" .
                 "</td>" .
               "</tr>" .
             ($bulkmode ? "" : "</table>") . 

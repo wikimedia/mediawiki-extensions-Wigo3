@@ -31,8 +31,7 @@ function checkboxesrender($input, $args, $parser)
   {
     static $err = null;
     if (is_null($err)) {
-      wfLoadExtensionMessages('wigo3');
-      $err = wfMsg('wigoerror');
+      $err = wfMessage('wigoerror')->text();
     }
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -59,7 +58,7 @@ function checkboxesrender($input, $args, $parser)
 	}
 	
 	//Get the checkbox set
-	$list = wfMsg("checkboxes/{$set}");
+	$list = wfMessage("checkboxes/{$set}")->text();
   $list = preg_replace("/\*/","",$list);
   $options = split("\n",$list);
 	
@@ -86,9 +85,8 @@ function checkboxesrender($input, $args, $parser)
 	}
 	$jshack = "{" . implode(',',$jshacka) . "}";
 	$output .= "</div>";
-	wfLoadExtensionMessages('slider');
 	$votebutton = "<p>" .
-                (($closed || $embedded) ? "" : "  <a class=\"votebutton\" href=\"javascript:wigovotesendarray({$jshack},0,1,true)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>") .
+                (($closed || $embedded) ? "" : "  <a class=\"votebutton\" href=\"javascript:wigovotesendarray({$jshack},0,1,true)\" title=\"" . wfMessage("slider-votetitle")->escaped() . "\">" . wfMessage("slider-votebutton")->escaped() . "</a>") .
                 "</p>";
 	
 	//get all the votes in one request
@@ -119,8 +117,7 @@ function checkboxrender($input, $args, $parser)
   {
     static $err = null;
     if (is_null($err)) {
-      wfLoadExtensionMessages('wigo3');
-      $err = wfMsg('wigoerror');
+      $err = wfMessage('wigoerror')->text();
     }
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -167,8 +164,7 @@ function checkboxrender($input, $args, $parser)
   $dbw->replace('wigotext','vote_id',array('vote_id' => $voteid, 'text' => $output),__METHOD__);*/
 
   //parse magic only, to allow plural
-  wfLoadExtensionMessages('wigo3');
-  $totalvotes = wfMsgExt('wigovotestotal',array('parsemag'),array($countvotes));
+  $totalvotes = wfMessage('wigovotestotal')->params($countvotes)->text();
 
   $jsVoteId = Xml::encodeJsVar( $voteid );
   $htmlVoteId = htmlspecialchars( $voteid );
@@ -188,7 +184,6 @@ function checkboxrender($input, $args, $parser)
                   "});"  . "</script>";
 	}
 	
-  wfLoadExtensionMessages('slider');
   if (array_key_exists('closed',$args) && strcasecmp($args['closed'],"yes") === 0) {
   	return "<input type=\"checkbox\" class=\"checkbox-input\" id=\"checkbox-input-{$htmlVoteId}\" name=\"checkbox-input-{$htmlVoteId}\" disabled=\"disabled\"" . ($myvote === 1 ? " checked=\"checked\"" : "") . "/> " .
            "<label for=\"checkbox-input-{$htmlVoteId}\">$output</label> (<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$votes}</span>)" .
@@ -196,7 +191,7 @@ function checkboxrender($input, $args, $parser)
   } else {
     	return "<input type=\"checkbox\" class=\"checkbox-input\" id=\"checkbox-input-{$htmlVoteId}\" name=\"checkbox-input-{$htmlVoteId}\"" . ($myvote === 1 ? " checked=\"checked\"" : "") . "/> " .
     			   "<label for=\"checkbox-input-{$htmlVoteId}\">$output</label> (<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$votes}</span>)" .
-    			   ($bulkmode ? "" : "  <a class=\"votebutton\" href=\"javascript:wigovotesend($jsVoteId,document.getElementById('checkbox-input-' + $jsVoteId).checked?1:0,0,1,true)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>") .
+    			   ($bulkmode ? "" : "  <a class=\"votebutton\" href=\"javascript:wigovotesend($jsVoteId,document.getElementById('checkbox-input-' + $jsVoteId).checked?1:0,0,1,true)\" title=\"" . wfMessage("slider-votetitle")->escaped() . "\">" . wfMessage("slider-votebutton")->escaped() . "</a>") .
              $myvotescript;
   }
 }

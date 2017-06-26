@@ -10,17 +10,10 @@ $wgExtensionCredits['parserhook'][] = array(
         'version' => '3.5'
 );
 
-//Avoid unstubbing $wgParser on setHook() too early on modern (1.12+) MW versions, as per r35980
-if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-  $wgHooks['ParserFirstCallInit'][] = 'multiinit';
-} else { // Otherwise do things the old fashioned way
-  $wgExtensionFunctions[] = 'multiinit';
-}
+$wgHooks['ParserFirstCallInit'][] = 'multiinit';
 
-function multiinit() {
-  global $wgParser;
-  wfLoadExtensionMessages('multi');
-  $wgParser->setHook('multi','multirender');
+function multiinit( &$parser ) {
+  $parser->setHook('multi','multirender');
   return true;    
 }
 
@@ -88,8 +81,7 @@ function multirender($input, $args, $parser)
   {
     static $err = null;
     if (is_null($err)) {
-      wfLoadExtensionMessages('wigo3');
-      $err = wfMsg('wigoerror');
+      $err = wfMessage('wigoerror')->text();
     }
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -172,7 +164,6 @@ function multirender($input, $args, $parser)
                   "});" .
                 "</script>";
 
-  wfLoadExtensionMessages('multi');
   if (array_key_exists('closed',$args) && strcasecmp($args['closed'],"yes") === 0) {
     $output = "<table class=\"multivote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
     foreach ($outputlines as $i => $line) {
@@ -215,7 +206,7 @@ function multirender($input, $args, $parser)
           $resultstr[$i] .
         "</td>" .
         "<td class=\"multibutton\" style=\"padding-left:1em; padding-right:1em;\">" . 
-          "<a href=\"javascript:multivotesend($htmlJsVoteId),$i," . count($outputlines) . ")\" title=\"" . wfMsg("multi-votetitle") . "\">" . wfMsg("multi-votebutton") . "</a>" .
+          "<a href=\"javascript:multivotesend($htmlJsVoteId),$i," . count($outputlines) . ")\" title=\"" . wfMessage("multi-votetitle")->escaped() . "\">" . wfMessage("multi-votebutton")->escaped() . "</a>" .
         "</td>" .
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .
