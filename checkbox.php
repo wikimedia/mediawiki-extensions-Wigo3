@@ -60,7 +60,7 @@ function checkboxesrender($input, $args, $parser)
 	//Get the checkbox set
 	$list = wfMessage("checkboxes/{$set}")->text();
   $list = preg_replace("/\*/","",$list);
-  $options = split("\n",$list);
+  $options = explode("\n",$list);
 	
 	$output = '<div class="checkboxset">';
 	$ids = array();

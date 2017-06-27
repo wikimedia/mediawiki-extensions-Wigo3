@@ -81,7 +81,7 @@ function slidersrender($input, $args, $parser)
 	//Get the slider set
 	$list = wfMessage("sliders/{$set}")->text();
   $list = preg_replace("/\*/","",$list);
-  $options = split("\n",$list);
+  $options = explode("\n",$list);
 	
 	$output = '<div class="sliderset">' . "<table class=\"slidervote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
 	$ids = array();
