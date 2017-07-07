@@ -278,6 +278,7 @@ mw.wigo = {
   voteup: wigovoteup,
   votereset: wigovotereset,
   votedown: wigovotedown,
+  invalidate: wigoinvalidate,
 };
 
 } )( jQuery, mediaWiki )

@@ -63,7 +63,7 @@ function multiupdate(req,voteid,val,count)
         }
       }
     }
-    if (invalidate) { wigoinvalidate(); }
+    if (invalidate) { mw.wigo.invalidate(); }
   } else {
     alert('An error occured: ' + req.responseText);
   }
