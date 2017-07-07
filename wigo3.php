@@ -325,7 +325,6 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
             "</table>";
   } else {
     //get up-down images
-    //static improves performance a bit
     static $up = null;
     static $down = null;
     static $reset = null;
@@ -338,13 +337,11 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
 
     if ( is_null($up) || is_null($down) || is_null($reset) 
          || is_null($altup) || is_null($altdown) || is_null($altreset) 
-         || is_null($titleup) || is_null($titledown) || is_null($titlereset) ) {
-      $up = wfFindFile(wfMessage('wigouparrow')->text());
-      $up = $up ? $up->getFullUrl() : '';
-      $down = wfFindFile(wfMessage('wigodownarrow')->text());
-      $down = $down ? $down->getFullUrl() : '';
-      $reset = wfFindFile(wfMessage('wigoresetvote')->text());
-      $reset = $reset ? $reset->getFullUrl() : '';
+		 || is_null($titleup) || is_null($titledown) || is_null($titlereset) ) {
+      global $wgExtensionAssetsPath;
+      $up = "$wgExtensionAssetsPath/Wigo3/images/wigovoteup.png";
+	  $down = "$wgExtensionAssetsPath/Wigo3/images/wigovotedown.png";
+	  $reset = "$wgExtensionAssetsPath/Wigo3/images/wigovoteneutral.png";
       $altup = wfMessage('wigoaltup')->escaped();
       $altdown = wfMessage('wigoaltdown')->escaped();
       $altreset = wfMessage('wigoaltreset')->escaped();
