@@ -34,8 +34,6 @@ $wgHooks['ParserFirstCallInit'][] = 'wigo3init';
 
 $wgHooks['LanguageGetMagic'][]       = 'wigo3magic';
 
-//$wgHooks['AjaxAddScript'][] = 'wigo3addjs';
-
 global $wgUseAjax;
 if ($wgUseAjax)
 {
@@ -45,6 +43,12 @@ if ($wgUseAjax)
   $wgAjaxExportList[] = "wigoinvalidate";
   $wgAjaxExportList[] = "wigogetmyvotes";
 }
+
+$wgResourceModules['ext.wigo3.wigo3'] = [
+  'scripts' => 'js/wigo3.js',
+  'localBasePath' => __DIR__,
+  'remoteExtPath' => 'Wigo3',
+];
 
 function wigo3init( &$parser ) {
   $parser->setHook('vote','wigo3render');
@@ -56,12 +60,6 @@ function wigo3init( &$parser ) {
 
 function wigo3magic( &$magicWords, $langCode ) {
   $magicWords['captureencode'] = array( 0, 'captureencode' );
-  return true;
-}
-
-function wigo3addjs($out) {
-  global $wgJsMimeType, $wgScriptPath;
-  $out->addScript("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/wigo3.js\"></script>");
   return true;
 }
 
@@ -231,9 +229,9 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
   }
   
   //inject js
-  global $wgJsMimeType, $wgScriptPath;
-  $parser->mOutput->addHeadItem("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/wigo3.js\"></script>",'wigo3js');
-  
+  $parserOutput = $parser->getOutput();
+  $parserOutput->addModules( 'ext.wigo3.wigo3' );
+
   $plus = 0;
   $minus = 0;
   $zero = 0;
@@ -358,11 +356,11 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
     return "<table class=\"vote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">" .
               "<tr>" .
                 "<td style=\"white-space:nowrap;\">" .
-                  "<a href=\"javascript:wigovoteup($jsVoteId)\" id=\"{$htmlVoteId}-up\" class=\"wigobutton wigoupbutton " . ($myvote == 1 ? "myvotebutton" : "") . " \">" .
+                  "<a href=\"javascript:mediaWiki.wigo.voteup($jsVoteId)\" id=\"{$htmlVoteId}-up\" class=\"wigobutton wigoupbutton " . ($myvote == 1 ? "myvotebutton" : "") . " \">" .
                     "<img alt=\"{$altup}\" title=\"{$titleup}\" src=\"$up\"></img></a>" .
-                  "<a href=\"javascript:wigovotereset($jsVoteId)\" id=\"{$htmlVoteId}-neutral\" class=\"wigobutton wigoneutralbutton " . ($myvote == 0 ? "myvotebutton" : "") . " \">" .
+                  "<a href=\"javascript:mediaWiki.wigo.votereset($jsVoteId)\" id=\"{$htmlVoteId}-neutral\" class=\"wigobutton wigoneutralbutton " . ($myvote == 0 ? "myvotebutton" : "") . " \">" .
                     "<img alt=\"{$altreset}\" title=\"{$titlereset}\" src=\"$reset\"></img></a>" .
-                  "<a href=\"javascript:wigovotedown($jsVoteId)\" id=\"{$htmlVoteId}-down\" class=\"wigobutton wigodownbutton " . ($myvote == -1 ? "myvotebutton" : "") . " \">" .
+                  "<a href=\"javascript:mediaWiki.wigo.votedown($jsVoteId)\" id=\"{$htmlVoteId}-down\" class=\"wigobutton wigodownbutton " . ($myvote == -1 ? "myvotebutton" : "") . " \">" .
                     "<img alt=\"{$altdown}\" title=\"{$titledown}\" src=\"$down\"></img></a>" .
                     "<table id=\"{$htmlVoteId}-dist\" class=\"wigodistribution\" style=\"width:100%; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;\" title=\"{$distribtitle}\">" .
                       "<tr>" .

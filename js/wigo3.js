@@ -1,4 +1,16 @@
-/*<![CDATA[*/ 
+
+( function ( $, mw ) {
+
+function wigo_ajax(name, args, callback) {
+  $.ajax( mw.util.wikiScript(), {
+      action: 'ajax',
+      rs: name,
+      rsargs: args
+  } )
+  .done( function ( data, textStatus, jqXHR  ) {
+    callback( jqXHR );
+  } );
+}
 
 //kept for compatibility
 function wigoupdate(req,avg)
@@ -175,7 +187,7 @@ function wigoinvalidated(req)
 }
 
 function wigoinvalidate() {
-  sajax_do_call('wigoinvalidate',[wgPageName],wigoinvalidated);
+  wigo_ajax('wigoinvalidate',[wgPageName],wigoinvalidated);
 }
 
 function wigovoteup(voteid)
@@ -184,7 +196,7 @@ function wigovoteup(voteid)
   button.style.display = 'none';
   removeSpinner(voteid+'-up');
   injectSpinner(button,voteid+'-up');
-  sajax_do_call('wigovote2',[voteid,1],wigoupdate2);
+  wigo_ajax('wigovote2',[voteid,1],wigoupdate2);
 }
 
 function wigovotedown(voteid)
@@ -193,7 +205,7 @@ function wigovotedown(voteid)
   button.style.display = 'none';
   removeSpinner(voteid+'-down');
   injectSpinner(button,voteid+'-down');
-  sajax_do_call('wigovote2',[voteid,-1],wigoupdate2);
+  wigo_ajax('wigovote2',[voteid,-1],wigoupdate2);
 }
 
 function wigovotereset(voteid)
@@ -202,7 +214,7 @@ function wigovotereset(voteid)
   button.style.display = 'none';
   removeSpinner(voteid+'-reset');
   injectSpinner(button,voteid+'-reset');
-  sajax_do_call('wigovote2',[voteid,0],wigoupdate2);
+  wigo_ajax('wigovote2',[voteid,0],wigoupdate2);
 }
 
 function wigoupdateavg(req)
@@ -215,11 +227,11 @@ function wigovotesend(voteid,val,min,max,total)
   if (val < min || val > max) {
     alert('Invalid value');
   } else {
-		if (total != null && total) {
-		  sajax_do_call('wigovote',[voteid,val,min,max],wigoupdate);
-		} else {
-	    sajax_do_call('wigovote',[voteid,val,min,max],wigoupdateavg);
-	  }
+        if (total != null && total) {
+          wigo_ajax('wigovote',[voteid,val,min,max],wigoupdate);
+        } else {
+        wigo_ajax('wigovote',[voteid,val,min,max],wigoupdateavg);
+      }
   }
 }
 
@@ -227,27 +239,27 @@ function wigoupdatearray(req,avg)
 {
   if (req.readyState == 4 && req.status == 200)
   {
-  	var invalidate = false;
-		var res = eval('(' + req.responseText + ')');
-		for (voteid in res) {
-			span = document.getElementById(voteid);
-			arr = res[voteid];
-	    if (span)
-	    {
-	      origvote = parseInt(span.innerHTML,10);
-	      if (avg != null && avg) {
-	        newvote = Math.round((arr[0]/arr[1])*100)/100;
-	      } else {
-	        newvote = arr[0];
-	      }
-	      if (origvote != newvote || span.title != arr[2]) {
-	        span.innerHTML = newvote;
-	        span.title = arr[2];
-	        invalidate = true;
-	      }
-	    }			
-		}
-		if (invalidate) wigoinvalidate();
+    var invalidate = false;
+        var res = eval('(' + req.responseText + ')');
+        for (voteid in res) {
+            span = document.getElementById(voteid);
+            arr = res[voteid];
+        if (span)
+        {
+          origvote = parseInt(span.innerHTML,10);
+          if (avg != null && avg) {
+            newvote = Math.round((arr[0]/arr[1])*100)/100;
+          } else {
+            newvote = arr[0];
+          }
+          if (origvote != newvote || span.title != arr[2]) {
+            span.innerHTML = newvote;
+            span.title = arr[2];
+            invalidate = true;
+          }
+        }			
+        }
+        if (invalidate) wigoinvalidate();
   } else {
     alert('An error occured: ' + req.responseText);
   }
@@ -260,15 +272,24 @@ function wigoupdatearrayavg(req)
 
 function wigovotesendarray(a,min,max,total)
 {
-	var params = new Array(min,max);
-	for (voteid in a) {
-		params.push(voteid, a[voteid])
-	}
-	if (total != null && total) {
-	  sajax_do_call('wigovotebatch',params,wigoupdatearray);
-	} else {
-	  sajax_do_call('wigovotebatch',params,wigoupdatearrayavg);
-	}
+  var params = new Array(min,max);
+  for (voteid in a) {
+    params.push(voteid, a[voteid])
+  }
+  if (total != null && total) {
+    wigo_ajax('wigovotebatch',params,wigoupdatearray);
+  } else {
+    wigo_ajax('wigovotebatch',params,wigoupdatearrayavg);
+  }
 }
 
+mw.wigo = {
+  voteup: wigovoteup,
+  votereset: wigovotereset,
+  votedown: wigovotedown,
+};
+
+};
+
+} )( jQuery, mediaWiki )
 /*]]>*/

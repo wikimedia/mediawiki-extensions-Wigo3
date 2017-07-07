@@ -1,5 +1,4 @@
 <?php
-#include ("/home/rationa1/public_html/bar.php");
 
 // Extension credits that show up on Special:Version
 $wgExtensionCredits['parserhook'][] = array(
@@ -12,16 +11,26 @@ $wgExtensionCredits['parserhook'][] = array(
 
 $wgHooks['ParserFirstCallInit'][] = 'multiinit';
 
-function multiinit( &$parser ) {
-  $parser->setHook('multi','multirender');
-  return true;    
-}
+$wgResourceModules['ext.wigo3.multi'] = [
+  'scripts' => 'js/multi.js',
+  'dependencies' => 'ext.wigo3.wigo3',
+  'localBasePath' => __DIR__,
+  'remoteExtPath' => 'Wigo3',
+];
+
+$wgMultiIP = dirname( __FILE__ );
+$wgExtensionMessagesFiles['multi'] = "$wgMultiIP/multi.i18n.php";
 
 global $wgUseAjax;
 if ($wgUseAjax)
 {
   $wgAjaxExportList[] = "multivote";
   $wgAjaxExportList[] = "multigetmyvote";
+}
+
+function multiinit( &$parser ) {
+  $parser->setHook('multi','multirender');
+  return true;    
 }
 
 function multivote($pollid, $vote, $countoptions)
@@ -62,17 +71,6 @@ function multigetmyvote($pollid) {
   return "-{$myvote}";
 }
 
-//$wgHooks['AjaxAddScript'][] = 'multiaddjs';
-
-$wgMultiIP = dirname( __FILE__ );
-$wgExtensionMessagesFiles['multi'] = "$wgMultiIP/multi.i18n.php";
-
-function multiaddjs($out) {
-  global $wgJsMimeType, $wgScriptPath;
-  $out->addScript("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/multi.js\"></script>");
-  return true;
-}
-
 function multirender($input, $args, $parser)
 {
   $voteid = $args['poll'];
@@ -88,25 +86,14 @@ function multirender($input, $args, $parser)
   }
 
   //inject js
-  global $wgJsMimeType, $wgScriptPath;
-  $parser->mOutput->addHeadItem("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/wigo3.js\"></script>",'wigo3js');
-  $parser->mOutput->addHeadItem("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/multi.js\"></script>",'multijs');
+  $parserOutput = $parser->getOutput();
+  $parserOutput->addModules( 'ext.wigo3.multi' );
+  $parserOutput->addJsConfigVars( 'wigo3MultiVoteId', $voteid );
 
   #avoid hacking wigo votes
   $voteid = "multi" . $voteid;
 
   $dbr = wfGetDB(DB_SLAVE);
-  #get my vote - doesn't work with caching
-/*  global $wgUser, $wgWigo3ConfigStoreIPs;
-  $voter = $wgWigo3ConfigStoreIPs ? getenv ("REMOTE_ADDR") : $wgUser->getName();
-  $res = $dbr->select('wigovote','vote',array('id' => $voteid, 'voter_name' => $voter),'multirender');
-  $myvote = null;
-  if ($row = $res->fetchRow())
-  {
-    $myvote = intval($row['vote'],10);
-  }
-  $res->free();
-*/
   #get the total number of votes
   $res = $dbr->select('wigovote','count(vote)',array('id' => $voteid),'multirender',array('GROUP BY' => 'id'));
   $sum = 0;
@@ -137,32 +124,6 @@ function multirender($input, $args, $parser)
 	$resultstr[$i] = "<span id=\"{$htmlVoteId}-{$i}-result\">" . $results[$i] . "</span>";
     $outputlines[] = $parser->recursiveTagParse($line);
   }
-
-  # script to get my vote and format it
-  $boldscript = "<script type=\"text/javascript\">" .
-                  "sajax_do_call('multigetmyvote',[$jsVoteId],function (req) {" .
-                      "if (req.readyState == 4) if (req.status == 200)" .
-                      "{".
-                        "i = req.responseText;" .
-                        "span = document.getElementById($jsVoteId + i + \"-result\");" .
-                        "titlespan = document.getElementById($jsVoteId + i);" .
-                        "if (span) {" .
-                          "if (!span.className || span.className == \"\") {" .
-                             "span.className = \"myvote\";" .
-                          "} else {" .
-                            "span.className += \" myvote\";" .
-                          "}" .
-                          "span.style.fontWeight = \"bold\";" .
-                          "if (!titlespan.className || titlespan.className == \"\") {" .
-                            "titlespan.className = \"myvote\";" .
-                          "} else {" .
-                            "titlespan.className += \" myvote\"; ".
-                          "}" .
-                          "titlespan.style.fontWeight = \"bold\";" .
-                        "}" .
-                      "}" .
-                  "});" .
-                "</script>";
 
   if (array_key_exists('closed',$args) && strcasecmp($args['closed'],"yes") === 0) {
     $output = "<table class=\"multivote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
@@ -206,7 +167,7 @@ function multirender($input, $args, $parser)
           $resultstr[$i] .
         "</td>" .
         "<td class=\"multibutton\" style=\"padding-left:1em; padding-right:1em;\">" . 
-          "<a href=\"javascript:multivotesend($htmlJsVoteId),$i," . count($outputlines) . ")\" title=\"" . wfMessage("multi-votetitle")->escaped() . "\">" . wfMessage("multi-votebutton")->escaped() . "</a>" .
+          "<a href=\"javascript:mediaWiki.multivote.send($htmlJsVoteId),$i," . count($outputlines) . ")\" title=\"" . wfMessage("multi-votetitle")->escaped() . "\">" . wfMessage("multi-votebutton")->escaped() . "</a>" .
         "</td>" .
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .

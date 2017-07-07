@@ -1,4 +1,4 @@
-/*<![CDATA[*/ 
+( function ( $, mw ) {
 
 function multiupdate(req,voteid,val,count)
 {
@@ -75,9 +75,52 @@ function multivotesend(voteid,val,count)
     alert('Invalid vote id');
   } else {
     //removeSpinner(voteid+'-'+val);
-    //injectSpinner(document.getElementById(voteid + '-' + val + '-column').parentNode.parentNode.previousSibling.firstChild,voteid+'-'+val);
-    sajax_do_call('multivote',[voteid,val,count],function(req) { multiupdate(req,voteid,val,count); });
+	//injectSpinner(document.getElementById(voteid + '-' + val + '-column').parentNode.parentNode.previousSibling.firstChild,voteid+'-'+val);
+	$.ajax( mw.util.wikiScript(), {
+      action: 'ajax',
+      rs: 'multivote',
+      rsargs: [voteid,val,count]
+    } )
+    .done( function ( data, textStatus, req ) { multiupdate(req,voteid,val,count); } );
   }
 }
 
-/*]]>*/
+function multivotegetmyvote( voteId ) {
+  $.ajax( mw.util.wikiScript(), {
+    action: 'ajax',
+    rs: 'multigetmyvote',
+    rsargs: [voteId]
+  } )
+  .done( function ( data, textStatus, req ) {
+    if (req.readyState == 4) if (req.status == 200)
+    {
+      i = req.responseText;
+      span = document.getElementById(voteId + i + "-result");
+      titlespan = document.getElementById(voteId + i);
+      if (span) {
+        if (!span.className || span.className == "") {
+          span.className = "myvote";
+        } else {
+          span.className += " myvote";
+        }
+        span.style.fontWeight = "bold";
+        if (!titlespan.className || titlespan.className == "") {
+          titlespan.className = "myvote";
+        } else {
+          titlespan.className += " myvote";
+        }
+        titlespan.style.fontWeight = "bold";
+      }
+    }
+  } );
+}
+
+$( document ).ready( function () {
+  multivotegetmyvote( mw.config.get( 'wigo3MultiVoteId' ) );
+}
+
+mw.multivote = {
+  send: multivotesend,
+};
+
+} )( jQuery, mediaWiki );

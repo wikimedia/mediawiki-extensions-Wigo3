@@ -150,14 +150,15 @@ class ApiWigoVotes extends ApiQueryBase {
         $this->dieUsage( 'Invalid continue param. You should pass the original ' .
                          'value returned by the previous query', '_badcontinue' );
       }
-      $encId = $this->getDB()->strencode( $continue[0] );
-      $encVoter = $this->getDB()->strencode( $continue[2] );
-      $encTS = wfTimestamp( TS_MW, $continue[1] );
+      $db = $this->getDB();
+      $encId = $db->addQuotes( $continue[0] );
+      $encVoter = $db->addQuotes( $continue[2] );
+      $encTS = $db->addQuotes( $db->timestamp( $continue[1] ) );
       $op = ( $dir == 'older' ? '<' : '>' );
       $this->addWhere(
-        "timestamp $op '$encTS' OR " .
-        "(timestamp = '$encTS' AND " .
-          "(id $op= '$encId'" .
+        "timestamp $op $encTS OR " .
+        "(timestamp = $encTS AND " .
+          "(id $op= $encId" .
           ")" .
         ")"
       );
