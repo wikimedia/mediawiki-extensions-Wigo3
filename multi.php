@@ -167,7 +167,7 @@ function multirender($input, $args, $parser)
           $resultstr[$i] .
         "</td>" .
         "<td class=\"multibutton\" style=\"padding-left:1em; padding-right:1em;\">" . 
-          "<a href=\"javascript:mediaWiki.multivote.send($htmlJsVoteId),$i," . count($outputlines) . ")\" title=\"" . wfMessage("multi-votetitle")->escaped() . "\">" . wfMessage("multi-votebutton")->escaped() . "</a>" .
+          "<a href=\"javascript:mediaWiki.multivote.send($htmlJsVoteId,$i," . count($outputlines) . ")\" title=\"" . wfMessage("multi-votetitle")->escaped() . "\">" . wfMessage("multi-votebutton")->escaped() . "</a>" .
         "</td>" .
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .
