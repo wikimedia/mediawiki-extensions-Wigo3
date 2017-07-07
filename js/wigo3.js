@@ -64,17 +64,14 @@ function wigoupdate2(req)
       downbutton = document.getElementById(arr[0] + "-down");
  
       if (upbutton && upbutton.style.display=='none' ) {
-        $.removeSpinner(arr[0]+'-up');
         upbutton.style.display='';
       }
         
       if (neutralbutton && neutralbutton.style.display=='none' ) {
-        $.removeSpinner(arr[0]+'-reset');
         neutralbutton.style.display='';
       }
       
       if (downbutton && downbutton.style.display=='none' ) {
-        $.removeSpinner(arr[0]+'-down');
         downbutton.style.display='';
       }
  
@@ -194,8 +191,6 @@ function wigovoteup(voteid)
 {
   button = document.getElementById(voteid+'-up');
   button.style.display = 'none';
-  $.removeSpinner(voteid+'-up');
-  $.injectSpinner(button,voteid+'-up');
   wigo_ajax('wigovote2',[voteid,1],wigoupdate2);
 }
 
@@ -203,8 +198,6 @@ function wigovotedown(voteid)
 {
   button = document.getElementById(voteid+'-down');
   button.style.display = 'none';
-  $.removeSpinner(voteid+'-down');
-  $.injectSpinner(button,voteid+'-down');
   wigo_ajax('wigovote2',[voteid,-1],wigoupdate2);
 }
 
@@ -212,8 +205,6 @@ function wigovotereset(voteid)
 {
   button = document.getElementById(voteid+'-neutral');
   button.style.display = 'none';
-  $.removeSpinner(voteid+'-reset');
-  $.injectSpinner(button,voteid+'-reset');
   wigo_ajax('wigovote2',[voteid,0],wigoupdate2);
 }
 

@@ -48,7 +48,6 @@ $wgResourceModules['ext.wigo3.wigo3'] = [
   'scripts' => 'js/wigo3.js',
   'localBasePath' => __DIR__,
   'remoteExtPath' => 'Wigo3',
-  'dependencies' => [ 'jquery.spinner' ],
 ];
 
 function wigo3init( &$parser ) {
