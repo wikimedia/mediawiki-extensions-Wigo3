@@ -76,11 +76,11 @@ function multivotesend(voteid,val,count)
   } else {
     //removeSpinner(voteid+'-'+val);
 	//injectSpinner(document.getElementById(voteid + '-' + val + '-column').parentNode.parentNode.previousSibling.firstChild,voteid+'-'+val);
-	$.ajax( mw.util.wikiScript(), {
+	$.ajax( mw.util.wikiScript(), { data: {
       action: 'ajax',
       rs: 'multivote',
       rsargs: [voteid,val,count]
-    } )
+    } } )
     .done( function ( data, textStatus, req ) { multiupdate(req,voteid,val,count); } );
   }
 }
