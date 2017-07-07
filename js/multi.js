@@ -117,7 +117,7 @@ function multivotegetmyvote( voteId ) {
 
 $( document ).ready( function () {
   multivotegetmyvote( mw.config.get( 'wigo3MultiVoteId' ) );
-}
+} );
 
 mw.multivote = {
   send: multivotesend,
