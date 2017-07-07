@@ -86,11 +86,11 @@ function multivotesend(voteid,val,count)
 }
 
 function multivotegetmyvote( voteId ) {
-  $.ajax( mw.util.wikiScript(), {
+  $.ajax( mw.util.wikiScript(), { data: {
     action: 'ajax',
     rs: 'multigetmyvote',
     rsargs: [voteId]
-  } )
+  } } )
   .done( function ( data, textStatus, req ) {
     if (req.readyState == 4) if (req.status == 200)
     {

@@ -2,11 +2,11 @@
 ( function ( $, mw ) {
 
 function wigo_ajax(name, args, callback) {
-  $.ajax( mw.util.wikiScript(), {
+  $.ajax( mw.util.wikiScript(), { data: {
       action: 'ajax',
       rs: name,
       rsargs: args
-  } )
+  } } )
   .done( function ( data, textStatus, jqXHR  ) {
     callback( jqXHR );
   } );
