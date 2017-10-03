@@ -9,18 +9,10 @@ $wgExtensionCredits['parserhook'][] = array(
         'description' => 'Checkbox voting. Requires the wigo and slider extensions'
 );
 
-//Avoid unstubbing $wgParser on setHook() too early on modern (1.12+) MW versions, as per r35980
-if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-  $wgHooks['ParserFirstCallInit'][] = 'checkboxinit';
-} else { // Otherwise do things the old fashioned way
-  $wgExtensionFunctions[] = 'checkboxinit';
-}
-
-function checkboxinit() {
-  global $wgParser;
-  $wgParser->setHook('checkbox','checkboxrender');
-  $wgParser->setHook('checkboxes','checkboxesrender');
-  return true;    
+$wgHooks['ParserFirstCallInit'][] = function( $parser ) {
+  $parser->setHook('checkbox','checkboxrender');
+  $parser->setHook('checkboxes','checkboxesrender');
+  return true;
 }
 
 function checkboxesrender($input, $args, $parser)
@@ -37,10 +29,10 @@ function checkboxesrender($input, $args, $parser)
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
   }
-  
+
   #avoid conflicts - checkbox will add check prefix
   $voteid = "set" . $voteid;
-  
+
   $set = $args['set'];
   if (!$set)
   {
@@ -55,12 +47,12 @@ function checkboxesrender($input, $args, $parser)
 	if (array_key_exists('embedded',$args) && strcasecmp($args['embedded'],"yes") === 0) {
 		$embedded = true;
 	}
-	
+
 	//Get the checkbox set
 	$list = wfMsg("checkboxes/{$set}");
   $list = preg_replace("/\*/","",$list);
   $options = split("\n",$list);
-	
+
 	$output = '<div class="checkboxset">';
 	$ids = array();
 	$jshacka = array();
@@ -85,7 +77,7 @@ function checkboxesrender($input, $args, $parser)
 	$votebutton = "<p>" .
                 (($closed || $embedded) ? "" : "  <a class=\"votebutton\" href=\"javascript:wigovotesendarray({$jshack},0,1,true)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>") .
                 "</p>";
-	
+
 	//get all the votes in one request
 	$ids_l = implode(",",$ids);
 	$myvotesscript = "<script type=\"text/javascript\">" .
@@ -101,7 +93,7 @@ function checkboxesrender($input, $args, $parser)
                       	"}" .
                       "}" .
                   "});"  . "</script>";
-	
+
 	return $parser->recursiveTagParse($output) . $votebutton . $myvotesscript;
 }
 
@@ -120,11 +112,11 @@ function checkboxrender($input, $args, $parser)
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
   }
-  
+
   //inject js
   global $wgJsMimeType, $wgScriptPath;
   $parser->mOutput->addHeadItem("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/wigo3.js\"></script>",'wigo3js');
-  
+
   if (array_key_exists('bulkmode',$args) && strcasecmp($args['bulkmode'],"yes") === 0) {
   	$bulkmode = true;
   } else {
@@ -179,7 +171,7 @@ function checkboxrender($input, $args, $parser)
                       "}" .
                   "});"  . "</script>";
 	}
-	
+
   wfLoadExtensionMessages('slider');
   if (array_key_exists('closed',$args) && strcasecmp($args['closed'],"yes") === 0) {
   	return "<input type=\"checkbox\" class=\"checkbox-input\" id=\"checkbox-input-{$voteid}\" name=\"checkbox-input-{$voteid}\" disabled=\"disabled\"" . ($myvote === 1 ? " checked=\"checked\"" : "") . "/> " .

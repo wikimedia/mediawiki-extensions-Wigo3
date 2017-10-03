@@ -10,18 +10,10 @@ $wgExtensionCredits['parserhook'][] = array(
         'version' => '3.5'
 );
 
-//Avoid unstubbing $wgParser on setHook() too early on modern (1.12+) MW versions, as per r35980
-if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-  $wgHooks['ParserFirstCallInit'][] = 'multiinit';
-} else { // Otherwise do things the old fashioned way
-  $wgExtensionFunctions[] = 'multiinit';
-}
 
-function multiinit() {
-  global $wgParser;
-  wfLoadExtensionMessages('multi');
-  $wgParser->setHook('multi','multirender');
-  return true;    
+$wgHooks['ParserFirstCallInit'][] = function( $parser ) {
+  $parser->setHook('multi','multirender');
+  return true;
 }
 
 global $wgUseAjax;
@@ -184,7 +176,7 @@ function multirender($input, $args, $parser)
       }
       $output .=
       "<tr>" .
-        "<td class=\"multioption\" style=\"width:20em;\">" . 
+        "<td class=\"multioption\" style=\"width:20em;\">" .
           $line .
         "</td>" .
         "<td class=\"multiresult\" style=\"width:2em;\">" .
@@ -193,7 +185,7 @@ function multirender($input, $args, $parser)
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .
           "<div id=\"{$voteid}-{$i}-column\" class=\"votecolumnfront\" style=\"background:blue; width:{$percent}%; height:100%;\"></div>" .
-          "</div>" .          
+          "</div>" .
         "</td>" .
       "</tr>";
     }
@@ -209,19 +201,19 @@ function multirender($input, $args, $parser)
       }
       $output .=
       "<tr>" .
-        "<td class=\"multioption\" style=\"width:14em;\">" . 
+        "<td class=\"multioption\" style=\"width:14em;\">" .
           $line .
         "</td>" .
         "<td class=\"multiresult\" style=\"width:2em;\">" .
           $resultstr[$i] .
         "</td>" .
-        "<td class=\"multibutton\" style=\"padding-left:1em; padding-right:1em;\">" . 
+        "<td class=\"multibutton\" style=\"padding-left:1em; padding-right:1em;\">" .
           "<a href=\"javascript:multivotesend('{$voteid}',$i," . count($outputlines) . ")\" title=\"" . wfMsg("multi-votetitle") . "\">" . wfMsg("multi-votebutton") . "</a>" .
         "</td>" .
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .
           "<div id=\"{$voteid}-{$i}-column\" class=\"votecolumnfront\" style=\"background:blue; width:{$percent}%; height:100%;\"></div>" .
-          "</div>" .          
+          "</div>" .
         "</td>" .
       "</tr>";
     }

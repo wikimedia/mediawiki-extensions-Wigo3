@@ -9,12 +9,12 @@ $wgExtensionCredits['parserhook'][] = array(
         'description' => 'Creates a slider for voting. Requires the wigo extension'
 );
 
-//Avoid unstubbing $wgParser on setHook() too early on modern (1.12+) MW versions, as per r35980
 if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-  $wgHooks['ParserFirstCallInit'][] = 'sliderinit';
-} else { // Otherwise do things the old fashioned way
-  $wgExtensionFunctions[] = 'sliderinit';
-}
+  $wgHooks['ParserFirstCallInit'][] = function( $parser ) {
+    $parser->setHook('slider','sliderrender');
+    $parser->setHook('sliders','slidersrender');
+    return true;
+  }
 
 //$wgHooks['BeforePageDisplay'][] = 'slideraddjscss';
 
@@ -22,15 +22,9 @@ if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 $wgSliderIP = dirname( __FILE__ );
 $wgExtensionMessagesFiles['slider'] = "$wgSliderIP/slider.i18n.php";
 
-function sliderinit() {
-  global $wgParser;
-  wfLoadExtensionMessages('slider');
-  $wgParser->setHook('slider','sliderrender');
-  $wgParser->setHook('sliders','slidersrender');
-  return true;    
-}
 
-function slideraddjscss(&$out, &$sk) 
+
+function slideraddjscss(&$out, &$sk)
 {
   global $wgJsMimeType, $wgScriptPath;
   /*$out->addScript("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/slider/js/range.js\"></script>");
@@ -56,10 +50,10 @@ function slidersrender($input, $args, $parser)
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
   }
-  
+
   #avoid conflicts - sliders will add slider prefix
   $voteid = "set" . $voteid;
-  
+
   $set = $args['set'];
   if (!$set)
   {
@@ -74,7 +68,7 @@ function slidersrender($input, $args, $parser)
 	if (array_key_exists('embedded',$args) && strcasecmp($args['embedded'],"yes") === 0) {
 		$embedded = true;
 	}
-	
+
 	//get minimum and maximum values if supplied
   if (array_key_exists('min',$args) && (intval($args['min'],10) !== 0 || $args['min'] == '0')) {
     $minvalue = $args['min'];
@@ -86,12 +80,12 @@ function slidersrender($input, $args, $parser)
   } else {
     $maxvalue = 10;
   }
-	
+
 	//Get the slider set
 	$list = wfMsg("sliders/{$set}");
   $list = preg_replace("/\*/","",$list);
   $options = split("\n",$list);
-	
+
 	$output = '<div class="sliderset">' . "<table class=\"slidervote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
 	$ids = array();
 	//$jshacka = array();
@@ -116,7 +110,7 @@ function slidersrender($input, $args, $parser)
 	/*$votebutton = "<p>" .
                 (($closed || $embedded) ? "" : "  <a href=\"javascript:wigovotesendarray({$jshack},{$minvalue},{$maxvalue})\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>") .
                 "</p>";*/
-	
+
 	//get all the votes in one request
 	$ids_l = implode(",",$ids);
 	$myvotesscript = "<script type=\"text/javascript\">" .
@@ -132,7 +126,7 @@ function slidersrender($input, $args, $parser)
                       	"}" .
                       "}" .
                   "});"  . "</script>";
-	
+
 	return $parser->recursiveTagParse($output) /*. $votebutton*/ . $myvotesscript;
 }
 
@@ -151,14 +145,14 @@ function sliderrender($input, $args, $parser)
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
   }
-  
+
   //inject js and css
-  global $wgJsMimeType, $wgScriptPath;  
+  global $wgJsMimeType, $wgScriptPath;
   $parser->mOutput->addHeadItem("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/wigo3.js\"></script>",'wigo3js');
   $parser->mOutput->addHeadItem("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/slider-combined.js\"></script>",'sliderjs');
   global $wgOut;
   $wgOut->addStyle("{$wgScriptPath}/extensions/wigo3/css/rational/rational.css");
-  
+
   //get minimum and maximum values if supplied
   if (array_key_exists('min',$args) && (intval($args['min'],10) !== 0 || $args['min'] == '0')) {
     $minvalue = $args['min'];
@@ -170,7 +164,7 @@ function sliderrender($input, $args, $parser)
   } else {
     $maxvalue = 10;
   }
-  
+
   if (array_key_exists('bulkmode',$args) && strcasecmp($args['bulkmode'],"yes") === 0) {
   	$bulkmode = true;
   } else {
@@ -220,7 +214,7 @@ function sliderrender($input, $args, $parser)
 
   # script to get my vote
   if (!$bulkmode) {
-  $myvotescript = 
+  $myvotescript =
                   "sajax_do_call('wigogetmyvotes',['{$voteid}'],function (req) {" .
                       "if (req.readyState == 4) if (req.status == 200)" .
                       "{".
@@ -275,7 +269,7 @@ function sliderrender($input, $args, $parser)
                   "<a class=\"votebutton\" href=\"javascript:wigovotesend('{$voteid}',document.getElementById('slider-input-{$voteid}').value,$minvalue,$maxvalue)\" title=\"" . wfMsg("slider-votetitle") . "\">" . wfMsg("slider-votebutton") . "</a>" .
                 "</td>" .
               "</tr>" .
-            ($bulkmode ? "" : "</table>") . 
+            ($bulkmode ? "" : "</table>") .
             "<script type=\"text/javascript\">" .
               "var s = new Slider(document.getElementById(\"slider-{$voteid}\")," .
                                  "document.getElementById(\"slider-input-{$voteid}\"));" .
@@ -285,4 +279,3 @@ function sliderrender($input, $args, $parser)
             $myvotescript . "</script>";
   }
 }
-
