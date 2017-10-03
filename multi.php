@@ -30,7 +30,7 @@ if ($wgUseAjax)
 
 function multiinit( &$parser ) {
   $parser->setHook('multi','multirender');
-  return true;    
+  return true;
 }
 
 function multivote($pollid, $vote, $countoptions)
@@ -115,7 +115,7 @@ function multirender($input, $args, $parser)
     }
     $res->free();
 	#format my vote - doesn't work with caching
-	
+
 	$jsVoteId = Xml::encodeJsVar( $voteid );
 	$htmlVoteId = htmlspecialchars( $voteid );
 	$htmlJsVoteId = htmlspecialchars( $jsVoteId );
@@ -135,7 +135,7 @@ function multirender($input, $args, $parser)
       }
       $output .=
       "<tr>" .
-        "<td class=\"multioption\" style=\"width:20em;\">" . 
+        "<td class=\"multioption\" style=\"width:20em;\">" .
           $line .
         "</td>" .
         "<td class=\"multiresult\" style=\"width:2em;\">" .
@@ -144,7 +144,7 @@ function multirender($input, $args, $parser)
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .
           "<div id=\"$htmlVoteId-{$i}-column\" class=\"votecolumnfront\" style=\"background:blue; width:{$percent}%; height:100%;\"></div>" .
-          "</div>" .          
+          "</div>" .
         "</td>" .
       "</tr>";
     }
@@ -160,19 +160,19 @@ function multirender($input, $args, $parser)
       }
       $output .=
       "<tr>" .
-        "<td class=\"multioption\" style=\"width:14em;\">" . 
+        "<td class=\"multioption\" style=\"width:14em;\">" .
           $line .
         "</td>" .
         "<td class=\"multiresult\" style=\"width:2em;\">" .
           $resultstr[$i] .
         "</td>" .
-        "<td class=\"multibutton\" style=\"padding-left:1em; padding-right:1em;\">" . 
+        "<td class=\"multibutton\" style=\"padding-left:1em; padding-right:1em;\">" .
           "<a href=\"javascript:mediaWiki.multivote.send($htmlJsVoteId,$i," . count($outputlines) . ")\" title=\"" . wfMessage("multi-votetitle")->escaped() . "\">" . wfMessage("multi-votebutton")->escaped() . "</a>" .
         "</td>" .
         "<td style=\"margin:0; padding:0;\">" .
           "<div class=\"votecolumnback\" style=\"border: 1px solid black; background:#F0F0F0; width:220px; height:1em;\">" .
           "<div id=\"{$htmlVoteId}-{$i}-column\" class=\"votecolumnfront\" style=\"background:blue; width:{$percent}%; height:100%;\"></div>" .
-          "</div>" .          
+          "</div>" .
         "</td>" .
       "</tr>";
     }

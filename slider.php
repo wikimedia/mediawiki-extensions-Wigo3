@@ -19,10 +19,11 @@ $wgExtensionMessagesFiles['slider'] = "$wgSliderIP/slider.i18n.php";
 function sliderinit( &$parser ) {
   $parser->setHook('slider','sliderrender');
   $parser->setHook('sliders','slidersrender');
-  return true;    
+  return true;
 }
 
-function slideraddjscss(&$out, &$sk) 
+
+function slideraddjscss(&$out, &$sk)
 {
   global $wgJsMimeType, $wgScriptPath;
   /*$out->addScript("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/slider/js/range.js\"></script>");
@@ -47,10 +48,10 @@ function slidersrender($input, $args, $parser)
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
   }
-  
+
   #avoid conflicts - sliders will add slider prefix
   $voteid = "set" . $voteid;
-  
+
   $set = $args['set'];
   if (!$set)
   {
@@ -65,7 +66,7 @@ function slidersrender($input, $args, $parser)
 	if (array_key_exists('embedded',$args) && strcasecmp($args['embedded'],"yes") === 0) {
 		$embedded = true;
 	}
-	
+
 	//get minimum and maximum values if supplied
   if (array_key_exists('min',$args) && (intval($args['min'],10) !== 0 || $args['min'] == '0')) {
     $minvalue = intval( $args['min'] );
@@ -77,12 +78,12 @@ function slidersrender($input, $args, $parser)
   } else {
     $maxvalue = 10;
   }
-	
+
 	//Get the slider set
 	$list = wfMessage("sliders/{$set}")->text();
   $list = preg_replace("/\*/","",$list);
   $options = explode("\n",$list);
-	
+
 	$output = '<div class="sliderset">' . "<table class=\"slidervote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
 	$ids = array();
 	foreach ($options as $option) {
@@ -117,7 +118,7 @@ function slidersrender($input, $args, $parser)
                       	"}" .
                       "}" .
                   "});"  . "</script>";
-	
+
 	return $parser->recursiveTagParse($output) /*. $votebutton*/ . $myvotesscript;
 }
 
@@ -135,14 +136,14 @@ function sliderrender($input, $args, $parser)
     $output = $parser->recursiveTagParse($input);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
   }
-  
+
   //inject js and css
-  global $wgJsMimeType, $wgScriptPath;  
+  global $wgJsMimeType, $wgScriptPath;
   $parser->mOutput->addHeadItem("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/wigo3.js\"></script>",'wigo3js');
   $parser->mOutput->addHeadItem("<script type=\"{$wgJsMimeType}\" src=\"{$wgScriptPath}/extensions/wigo3/js/slider-combined.js\"></script>",'sliderjs');
   global $wgOut;
   $wgOut->addStyle("{$wgScriptPath}/extensions/wigo3/css/rational/rational.css");
-  
+
   //get minimum and maximum values if supplied
   if (array_key_exists('min',$args) && (intval($args['min'],10) !== 0 || $args['min'] == '0')) {
     $minvalue = intval( $args['min'] );
@@ -154,7 +155,7 @@ function sliderrender($input, $args, $parser)
   } else {
     $maxvalue = 10;
   }
-  
+
   if (array_key_exists('bulkmode',$args) && strcasecmp($args['bulkmode'],"yes") === 0) {
   	$bulkmode = true;
   } else {
@@ -194,7 +195,7 @@ function sliderrender($input, $args, $parser)
 
   # script to get my vote
   if (!$bulkmode) {
-  $myvotescript = 
+  $myvotescript =
                   "sajax_do_call('wigogetmyvotes',[$jsVoteId],function (req) {" .
                       "if (req.readyState == 4) if (req.status == 200)" .
                       "{".
@@ -246,7 +247,7 @@ function sliderrender($input, $args, $parser)
                   "<a class=\"votebutton\" href=\"javascript:wigovotesend($htmlJsVoteId,document.getElementById('slider-input-' + $htmlJsVoteId).value,$minvalue,$maxvalue)\" title=\"" . wfMessage("slider-votetitle")->escaped() . "\">" . wfMessage("slider-votebutton")->escaped() . "</a>" .
                 "</td>" .
               "</tr>" .
-            ($bulkmode ? "" : "</table>") . 
+            ($bulkmode ? "" : "</table>") .
             "<script type=\"text/javascript\">" .
               "var s = new Slider(document.getElementById(\"slider-\" + $jsVoteId)," .
                                  "document.getElementById(\"slider-input-\" + $jsVoteId));" .
@@ -255,4 +256,3 @@ function sliderrender($input, $args, $parser)
             $myvotescript . "</script>";
   }
 }
-
