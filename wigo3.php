@@ -25,14 +25,13 @@ $wgAPIListModules['wigovotes'] = 'ApiWigoVotes';
 
 $wgWigoIP = dirname( __FILE__ );
 $wgExtensionMessagesFiles['wigo3'] = "$wgWigoIP/wigo3.i18n.php";
+$wgExtensionMessagesFiles['wigo3magic'] = "$wgWigoIP/wigo3.i18n.magic.php";
 
 # Load classes
 $wgAutoloadClasses['ApiWigo'] =  "$wgWigoIP/wigo3.body.php";
 $wgAutoloadClasses['ApiWigoVotes'] =  "$wgWigoIP/wigo3.body.php";
 
 $wgHooks['ParserFirstCallInit'][] = 'wigo3init';
-
-$wgHooks['LanguageGetMagic'][]       = 'wigo3magic';
 
 global $wgUseAjax;
 if ($wgUseAjax)
@@ -58,14 +57,9 @@ function wigo3init( &$parser ) {
   return true;
 }
 
-function wigo3magic( &$magicWords, $langCode ) {
-  $magicWords['captureencode'] = array( 0, 'captureencode' );
-  return true;
-}
-
 function wigoinvalidate($pagename)
 {
-  //$pagename is wgPageName from javascript  
+  //$pagename is wgPageName from javascript
   $title = Title::newFromText($pagename);
   if ($title->invalidateCache() === true) {
     $dbw = wfGetDB(DB_MASTER);
@@ -116,7 +110,7 @@ function wigovotebatch( $min=-1, $max=1 /*,...*/ ) {
 	}
   $result = $dbw->replace('wigovote',array('id','voter_name'),$votes,__FUNCTION__);
   $res = $dbw->select('wigovote',array('id','sum(vote)','count(vote)'),array('id' => $pollids, "vote >= " . intval($min), "vote <= " . intval($max)),__FUNCTION__,array('GROUP BY' => 'id'));
-  
+
   $resultvotes = array();
   while ($row = $res->fetchRow())
   {
@@ -141,7 +135,7 @@ function wigovote2($pollid, $vote)
   $voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
   $result = $dbw->replace('wigovote',array('id','voter_name'),array('id' => $pollid, 'voter_name' => $voter, 'vote' => $vote, 'timestamp' => wfTimestampNow()),__FUNCTION__);
   $dbw->commit();
-  
+
   /*get updated data to update page*/
   $plus = 0;
   $minus = 0;
@@ -149,7 +143,7 @@ function wigovote2($pollid, $vote)
   $myvote = -2;
 
   wigo3getvotes($pollid, $plus, $minus, $zero,$voter,$myvote);
-  
+
   $totalvotes = $plus + $minus + $zero;
   $totaltooltip = wfMessage('wigovotestotald')->params($totalvotes,$plus,$zero,$minus)->text();
 /*  $totalup = wfMessage('wigovotestotal')->params($plus)->text();
@@ -227,7 +221,7 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
     $output = $parser->recursiveTagParse($input, $frame);
     return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
   }
-  
+
   //inject js
   $parserOutput = $parser->getOutput();
   $parserOutput->addModules( 'ext.wigo3.wigo3' );
@@ -237,7 +231,7 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
   $zero = 0;
   $myvote = -2;
   global $wgUser, $wgWigo3ConfigStoreIPs,$wgRequest;
-  $voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName(); 
+  $voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
   wigo3getvotes($voteid,$plus,$minus,$zero,$voter,$myvote);
   $votes = $plus - $minus;
   $countvotes = $plus + $minus + $zero;
@@ -254,7 +248,7 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
     } while ($count);
   }
 
-  $output = $parser->recursiveTagParse($input, $frame);  
+  $output = $parser->recursiveTagParse($input, $frame);
   //votecp img tag handling
   if ($cp)
   {
@@ -266,11 +260,11 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
       $text = $matches[1][$i][0];
       $img = $parser->recursiveTagParse("<span class=\"wigocapture\"><sup>[[:Image:$imgname|img]]</sup></span>", $frame);
       $nextlength = (($i == $matchi-1) ? (strlen($output) - ($matches[1][$i][1] + strlen($text))) : ($matches[1][$i+1][1] - ($matches[1][$i][1] + strlen($text))));
-      $newoutput .= substr($output,$matches[1][$i][1],strlen($text)) . $img . 
+      $newoutput .= substr($output,$matches[1][$i][1],strlen($text)) . $img .
                     substr($output,$matches[1][$i][1]+strlen($text),$nextlength);
     }
-    if ($matchi > 0) $output = $newoutput;  
-  }  
+    if ($matchi > 0) $output = $newoutput;
+  }
 
   //wfMsgExt resets the parser state if the message contains a parser function, breaking for example references. recursiveTagParse doesn't.
   // @todo: ^ apparently fixed in core
@@ -290,7 +284,7 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
     $downpercent = 0;
     $neutralpercent = 0;
   }
-  
+
   if ($uppercent != 0) {
     $uppercent .= "%";
   }
@@ -303,16 +297,16 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
 
   $htmlVoteId = htmlspecialchars( $voteid );
   $jsVoteId = htmlspecialchars( Xml::encodeJsVar( $voteid ) );
-  
+
   if (array_key_exists('closed',$args) && strcasecmp($args['closed'],"yes") === 0) {
     return "<table class=\"vote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">" .
               "<tr>" .
                 "<td style=\"white-space:nowrap;\">" .
                     "<table id=\"{$htmlVoteId}-dist\" class=\"wigodistribution\" style=\"width:48px; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;\" title=\"{$distribtitle}\">" .
                       "<tr>" .
-                        "<td class=\"wigodist-up\" style=\"border:none; background-color:limegreen; margin:0; padding:0; width:{$uppercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
-                        "<td class=\"wigodist-neutral\" style=\"border:none; background-color:orange; margin:0; padding:0; width:{$neutralpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
-                        "<td class=\"wigodist-down\" style=\"border:none; background-color:red; margin:0; padding:0; width:{$downpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
+                        "<td class=\"wigodist-up\" style=\"border:none; background-color:limegreen; margin:0; padding:0; width:{$uppercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" .
+                        "<td class=\"wigodist-neutral\" style=\"border:none; background-color:orange; margin:0; padding:0; width:{$neutralpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" .
+                        "<td class=\"wigodist-down\" style=\"border:none; background-color:red; margin:0; padding:0; width:{$downpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" .
                     "</tr></table>" .
                 "</td>" .
                 "<td style=\"min-width:25px; text-align:center;\">" .
@@ -335,8 +329,8 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
     static $titledown = null;
     static $titlereset = null;
 
-    if ( is_null($up) || is_null($down) || is_null($reset) 
-         || is_null($altup) || is_null($altdown) || is_null($altreset) 
+    if ( is_null($up) || is_null($down) || is_null($reset)
+         || is_null($altup) || is_null($altdown) || is_null($altreset)
 		 || is_null($titleup) || is_null($titledown) || is_null($titlereset) ) {
       global $wgExtensionAssetsPath;
       $up = "$wgExtensionAssetsPath/Wigo3/images/wigovoteup.png";
@@ -361,9 +355,9 @@ function wigo3render($input, $args, $parser, $frame, $cp = false) {
                     "<img alt=\"{$altdown}\" title=\"{$titledown}\" src=\"$down\"></img></a>" .
                     "<table id=\"{$htmlVoteId}-dist\" class=\"wigodistribution\" style=\"width:100%; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;\" title=\"{$distribtitle}\">" .
                       "<tr>" .
-                        "<td class=\"wigodist-up\" style=\"border:none; background-color:limegreen; margin:0; padding:0; width:{$uppercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
-                        "<td class=\"wigodist-neutral\" style=\"border:none; background-color:orange; margin:0; padding:0; width:{$neutralpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
-                        "<td class=\"wigodist-down\" style=\"border:none; background-color:red; margin:0; padding:0; width:{$downpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" . 
+                        "<td class=\"wigodist-up\" style=\"border:none; background-color:limegreen; margin:0; padding:0; width:{$uppercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" .
+                        "<td class=\"wigodist-neutral\" style=\"border:none; background-color:orange; margin:0; padding:0; width:{$neutralpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" .
+                        "<td class=\"wigodist-down\" style=\"border:none; background-color:red; margin:0; padding:0; width:{$downpercent}; height:100%; " . ($totalvotes == 0 ? "display:none;" : "") . "\"></td>" .
                     "</tr></table>" .
                 "</td>" .
                 "<td style=\"min-width:25px; text-align:center;\">" .
@@ -386,7 +380,7 @@ function wigo3rendercapture($input, $args, $parser, $frame) {
     $text = $matches[1][$i][0];
     $img = $parser->recursiveTagParse("<span class=\"wigocapture\"><sup>[[:Image:$imgname|img]]</sup></span>", $frame);
     $nextlength = (($i == $matchi-1) ? (strlen($output) - ($matches[1][$i][1] + strlen($text))) : ($matches[1][$i+1][1] - ($matches[1][$i][1] + strlen($text))));
-    $newoutput .= substr($output,$matches[1][$i][1],strlen($text)) . $img . 
+    $newoutput .= substr($output,$matches[1][$i][1],strlen($text)) . $img .
                   substr($output,$matches[1][$i][1]+strlen($text),$nextlength);
   }
   if ($matchi > 0) $output = $newoutput;
