@@ -13,7 +13,7 @@ $wgHooks['ParserFirstCallInit'][] = function( $parser ) {
   $parser->setHook('checkbox','checkboxrender');
   $parser->setHook('checkboxes','checkboxesrender');
   return true;
-}
+};
 
 function checkboxesrender($input, $args, $parser)
 {
