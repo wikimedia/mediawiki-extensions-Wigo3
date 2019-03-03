@@ -65,7 +65,7 @@ function multiupdate(req,voteid,val,count)
     }
     if (invalidate) { mw.wigo.invalidate(); }
   } else {
-    alert('An error occured: ' + req.responseText);
+    alert('An error occurred: ' + req.responseText);
   }
 }
 

@@ -34,7 +34,7 @@ function wigoupdate(req,avg)
       }
     }
   } else {
-    alert('An error occured: ' + req.responseText);
+    alert('An error occurred: ' + req.responseText);
   }
 }
 
@@ -166,7 +166,7 @@ function wigoupdate2(req)
       }
     }
   } else {
-    alert('An error occured: ' + req.responseText);
+    alert('An error occurred: ' + req.responseText);
   }
 }
 
@@ -175,10 +175,10 @@ function wigoinvalidated(req)
   if (req.readyState == 4 && req.status == 200)
   {
     if (req.responseText.substring(0,2) != "ok") {
-      alert('An error occured while invalidating the cache' + req.responseText);
+      alert('An error occurred while invalidating the cache' + req.responseText);
     }
   } else {
-    alert('An error occured: ' + req.responseText);
+    alert('An error occurred: ' + req.responseText);
   }
 
 }
@@ -252,7 +252,7 @@ function wigoupdatearray(req,avg)
         }
         if (invalidate) wigoinvalidate();
   } else {
-    alert('An error occured: ' + req.responseText);
+    alert('An error occurred: ' + req.responseText);
   }
 }
 
