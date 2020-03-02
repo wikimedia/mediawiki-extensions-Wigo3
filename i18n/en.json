@@ -16,5 +16,11 @@
 	"multi-votebutton": "Vote",
 	"multi-votetitle": "Click here to vote for this option",
 	"apihelp-query+wigo-summary": "Get wigo entries",
-	"apihelp-query+wigovotes-summary": "Get wigo votes"
+	"apihelp-query+wigovotes-summary": "Get wigo votes",
+	"wigo-bestof-legend": "Options",
+	"wigo-bestof-cutoff": "Cutoff for vote value",
+	"wigo-bestof-month": "Year and month to display",
+	"wigo-bestof-filter": "Filter by keyword",
+	"wigo-bestof-submit": "Submit",
+	"wigo-bestof-tooltipseparator": "&bull;"
 }
