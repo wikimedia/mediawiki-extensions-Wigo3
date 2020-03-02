@@ -3,6 +3,7 @@
 namespace Wigo3;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RenderedRevision;
 
 class Hooks {
 	public static function extensionSetup() {
@@ -17,7 +18,8 @@ class Hooks {
 	}
 
 	public static function onLoadExtensionSchemaUpdates( \DatabaseUpdater $updater ) {
-		$updater->addExtensionTable( 'wigovote', __DIR__ . '/../Wigo3.sql' );
+		$updater->addExtensionTable( 'wigovote', __DIR__ . '/../sql/wigovote.sql' );
+		$updater->addExtensionTable( 'wigotext', __DIR__ . '/../sql/wigotext.sql' );
 	}
 
 	public static function onParserFirstCallInit( \Parser &$parser ) {
@@ -26,6 +28,7 @@ class Hooks {
 		$parser->setHook( 'votecp', [ WigoParserHooks::class, 'votecp' ] );
 		$parser->setHook( 'capture', [ WigoParserHooks::class, 'capture' ] );
 		$parser->setFunctionHook( 'captureencode', [ WigoParserHooks::class, 'captureencode' ] );
+		$parser->setHook( 'bestof', [ WigoParserHooks::class, 'bestof' ] );
 
 		// multi
 		$parser->setHook( 'multi', [ MultiParserHooks::class, 'multi' ] );
@@ -96,5 +99,17 @@ class Hooks {
 		}
 		if ( $matchi > 0 ) $text = $newtext;
 		return true;
+	}
+
+	/**
+	 * @param \Title $title
+	 * @param RenderedRevision $renderedRevision
+	 * @param array &$updates
+	 */
+	public static function onRevisionDataUpdates( $title, $renderedRevision, &$updates ) {
+		$polls = $renderedRevision->getSlotParserOutput( 'main' )->getExtensionData( 'wigo' );
+		if ( $polls ) {
+			$updates[] = new WigoDataUpdate( $polls );
+		}
 	}
 }

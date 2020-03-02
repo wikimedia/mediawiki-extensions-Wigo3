@@ -2,8 +2,12 @@
 	"manifest_version": 2,
 	"name": "Wigo3",
 	"type": "parserhook",
-	"author": "[http://rationalwiki.com/wiki/User:Nx Nx]",
-	"version": "4.0.0",
+	"author": [
+		"[http://rationalwiki.com/wiki/User:Nx Nx]",
+		"[http://rationalwiki.com/wiki/User:Tmtoulouse Trent Toulouse]",
+		"Tim Starling"
+	],
+	"version": "5.0.0",
 	"descriptionmsg": "wigo3-description",
 	"APIListModules": {
 		"wigo": "Wigo3\\ApiWigo",
@@ -21,7 +25,8 @@
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": "Wigo3\\Hooks::onLoadExtensionSchemaUpdates",
 		"ParserFirstCallInit": "Wigo3\\Hooks::onParserFirstCallInit",
-		"ParserPreSaveTransformComplete": "Wigo3\\Hooks::onParserPreSaveTransformComplete"
+		"ParserPreSaveTransformComplete": "Wigo3\\Hooks::onParserPreSaveTransformComplete",
+		"RevisionDataUpdates": "Wigo3\\Hooks::onRevisionDataUpdates"
 	},
 	"ExtensionFunctions": [
 		"Wigo3\\Hooks::extensionSetup"

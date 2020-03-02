@@ -10,7 +10,7 @@ class VoteStore {
 			[ 'sum(case vote when 1 then 1 else 0 end) as plus',
 			  'sum(case vote when -1 then 1 else 0 end) as minus',
 			  'sum(case vote when 0 then 1 else 0 end) as zero' ],
-			[ 'id' => $voteid ], __FUNCTION__
+			[ 'id' => $voteid ], __METHOD__
 		);
 		if ( $row = $res->fetchRow() ) {
 			return [
