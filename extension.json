@@ -9,6 +9,9 @@
 	],
 	"version": "5.0.0",
 	"descriptionmsg": "wigo3-description",
+	"requires": {
+		"MediaWiki": ">= 1.31.0"
+	},
 	"APIListModules": {
 		"wigo": "Wigo3\\ApiWigo",
 		"wigovotes": "Wigo3\\ApiWigoVotes"
@@ -20,7 +23,7 @@
 		"Wigo3": "i18n"
 	},
 	"AutoloadNamespaces": {
-		"Wigo3\\": "src"
+		"Wigo3\\": "src/"
 	},
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": "Wigo3\\Hooks::onLoadExtensionSchemaUpdates",
