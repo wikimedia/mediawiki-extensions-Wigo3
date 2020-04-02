@@ -89,17 +89,14 @@ class CheckboxParserHooks {
 		$voteid = "check" . $voteid;
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select( 'wigovote',
-			[ 'count(vote)','sum(vote)' ],
+			[ 'count(vote)', 'sum(vote)' ],
 			[ 'id' => $voteid, "vote >= 0", "vote <= 1" ],
 			__METHOD__,
 			[ 'GROUP BY' => 'id' ]
 		);
-		$countvotes = 0;
-		$votes = 0;
-		if ( $row = $res->fetchRow() ) {
-			$votes = $row['sum(vote)'];
-			$countvotes = $row['count(vote)'];
-		}
+		$row = $res->fetchRow();
+		$votes = $row['sum(vote)'] ?? 0;
+		$countvotes = $row['count(vote)'] ?? 0;
 		$res->free();
 
 		// get my vote

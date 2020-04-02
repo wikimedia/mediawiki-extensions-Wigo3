@@ -10,7 +10,7 @@ class MultiAjax {
 		$dbw->startAtomic( __METHOD__ );
 		$dbw->replace(
 			'wigovote',
-			[ 'id','voter_name' ],
+			[ 'id', 'voter_name' ],
 			[
 				'id' => $pollid,
 				'voter_name' => $voter,
@@ -23,7 +23,7 @@ class MultiAjax {
 		//$dbr = wfGetDB(DB_SLAVE);
 		$res = $dbw->select(
 			'wigovote',
-			[ 'vote' , 'count(vote)' ],
+			[ 'vote', 'count(vote)' ],
 			[ 'id' => $pollid ],
 			__METHOD__,
 			[ 'GROUP BY' => [ 'id', 'vote' ] ]
@@ -50,14 +50,9 @@ class MultiAjax {
 			[ 'id' => $pollid, 'voter_name' => $voter ],
 			__METHOD__
 		);
-		$myvote = -1;
-		if ( $row = $res->fetchRow() ) {
-			$myvote = $row['vote'];
-		}
+		$row = $res->fetchRow();
+		$myvote = $row['vote'] ?? -1;
 		$res->free();
-		if ( $myvote === null ) {
-			$myvote = -1;
-		}
 		return "-{$myvote}";
 	}
 }

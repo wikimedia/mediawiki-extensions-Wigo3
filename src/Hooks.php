@@ -83,7 +83,9 @@ class Hooks {
 					if ( $matchi2 == 1 ) {
 						$tempi = intval( $matches2[1] );
 						//on error this will be 0, so we can skip error checking
-						if ( $tempi > $num ) $num = $tempi;
+						if ( $tempi > $num ) {
+							$num = $tempi;
+						}
 					}
 				}
 			}
@@ -97,7 +99,9 @@ class Hooks {
 				. substr( $text, $matches[1][$i][1] + strlen( $curr ), $nextlength );
 			$newnums[$pollid] = $num;
 		}
-		if ( $matchi > 0 ) $text = $newtext;
+		if ( $matchi > 0 ) {
+			$text = $newtext;
+		}
 		return true;
 	}
 

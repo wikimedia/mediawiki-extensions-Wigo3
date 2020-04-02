@@ -12,18 +12,11 @@ class VoteStore {
 			  'sum(case vote when 0 then 1 else 0 end) as zero' ],
 			[ 'id' => $voteid ], __METHOD__
 		);
-		if ( $row = $res->fetchRow() ) {
-			return [
-				'plus' => $row['plus'],
-				'minus' => $row['minus'],
-				'zero' => $row['zero']
-			];
-		} else {
-			return [
-				'plus' => 0,
-				'minus' => 0,
-				'zero' => 0
-			];
-		}
+		$row = $res->fetchRow();
+		return [
+			'plus' => $row['plus'] ?? 0,
+			'minus' => $row['minus'] ?? 0,
+			'zero' => $row['zero'] ?? 0,
+		];
 	}
 }

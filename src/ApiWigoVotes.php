@@ -113,6 +113,10 @@ class ApiWigoVotes extends ApiQueryBase {
 		$result->addIndexedTagName( [ 'query', $this->getModuleName() ], 'vote' );
 	}
 
+	/**
+	 * @param \stdClass $row
+	 * @return string
+	 */
 	private function continueStr( $row ) {
 		return $row->id . '|' . wfTimestamp( TS_ISO_8601, $row->timestamp );
 	}

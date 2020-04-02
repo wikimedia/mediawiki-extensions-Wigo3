@@ -36,7 +36,7 @@ class WigoAjax {
 		$dbw->startAtomic( __METHOD__ );
 		$result = $dbw->replace(
 			'wigovote',
-			[ [ 'id','voter_name' ] ],
+			[ [ 'id', 'voter_name' ] ],
 			[
 				'id' => $pollid,
 				'voter_name' => $voter,
@@ -64,6 +64,14 @@ class WigoAjax {
 		return "$pollid:$plus:$minus:$zero:$totalvotes:$totaltooltip:$distribtitle:$myvote:$result";
 	}
 
+	/**
+	 * @param string $voteid
+	 * @param int &$plus
+	 * @param int &$minus
+	 * @param int &$zero
+	 * @param string $voter
+	 * @param int &$myvote
+	 */
 	private static function getVotes( $voteid, &$plus, &$minus, &$zero, $voter, &$myvote ) {
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
@@ -73,30 +81,25 @@ class WigoAjax {
 			  'sum(case vote when 0 then 1 else 0 end) as zero' ],
 			[ 'id' => $voteid ], __METHOD__
 		);
-		if ( $row = $res->fetchRow() ) {
-			$plus = $row['plus'];
-			$minus = $row['minus'];
-			$zero = $row['zero'];
-		}
-		if ( $plus == null ) {
-			$plus = 0;
-		}
-		if ( $minus == null ) {
-			$minus = 0;
-		}
-		if ( $zero == null ) {
-			$zero = 0;
-		}
+		$row = $res->fetchRow();
+		$plus = $row['plus'] ?? 0;
+		$minus = $row['minus'] ?? 0;
+		$zero = $row['zero'] ?? 0;
 		$res->free();
 		$myvote = -2;
 	}
 
-	//get votes for multiple polls, to cut down on AJAX requests
+	/**
+	 * Get votes for multiple polls, to cut down on AJAX requests
+	 *
+	 * @param string[] ...$args
+	 * @return string
+	 */
 	public static function getmyvotes( ...$args ) {
 		$dbr = wfGetDB( DB_REPLICA );
 		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
 		$voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
-		$res = $dbr->select( 'wigovote', [ 'id','vote' ],
+		$res = $dbr->select( 'wigovote', [ 'id', 'vote' ],
 			[ 'id' => $args, 'voter_name' => $voter ], __METHOD__ );
 		$myvotes = [];
 		foreach ( $args as $a ) {
