@@ -3,6 +3,11 @@
 namespace Wigo3;
 
 class VoteStore {
+
+	/**
+	 * @param string $voteid
+	 * @return int[]
+	 */
 	public static function getVoteCounts( $voteid ) {
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(

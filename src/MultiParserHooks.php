@@ -8,7 +8,7 @@ use Xml;
 class MultiParserHooks {
 	/**
 	 * @param string $input
-	 * @param array $args
+	 * @param string[] $args
 	 * @param Parser $parser
 	 * @return string
 	 */

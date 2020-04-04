@@ -9,7 +9,7 @@ use Sanitizer;
 class CheckboxParserHooks {
 	/**
 	 * @param string $input
-	 * @param array $args
+	 * @param string[] $args
 	 * @param Parser $parser
 	 * @return string
 	 */
@@ -63,7 +63,7 @@ class CheckboxParserHooks {
 
 	/**
 	 * @param string $input
-	 * @param array $args
+	 * @param string[] $args
 	 * @param Parser $parser
 	 * @return string
 	 */

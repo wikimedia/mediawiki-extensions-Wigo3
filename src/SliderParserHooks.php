@@ -12,7 +12,7 @@ use Sanitizer;
 class SliderParserHooks {
 	/**
 	 * @param string $input
-	 * @param array $args
+	 * @param string[] $args
 	 * @param Parser $parser
 	 * @return string
 	 */
@@ -91,7 +91,7 @@ class SliderParserHooks {
 
 	/**
 	 * @param string $input
-	 * @param array $args
+	 * @param string[] $args
 	 * @param Parser $parser
 	 * @return string
 	 */

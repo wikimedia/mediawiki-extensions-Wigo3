@@ -3,13 +3,22 @@
 namespace Wigo3;
 
 use ApiBase;
+use ApiQuery;
 use ApiQueryBase;
 
 class ApiWigo extends ApiQueryBase {
+
+	/**
+	 * @param ApiQuery $query
+	 * @param string $moduleName
+	 */
 	public function __construct( $query, $moduleName ) {
 		parent::__construct( $query, $moduleName, 'wigo' );
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function execute() {
 		$db = $this->getDB();
 		$params = $this->extractRequestParams();
@@ -86,6 +95,9 @@ class ApiWigo extends ApiQueryBase {
 		$result->addIndexedTagName( [ 'query', $this->getModuleName() ], 'entry' );
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function getAllowedParams() {
 		return [
 			'month' => null,
@@ -102,6 +114,10 @@ class ApiWigo extends ApiQueryBase {
 		];
 	}
 
+	/**
+	 * @deprecated
+	 * @return string[]
+	 */
 	public function getParamDescription() {
 		return [
 			'month' => 'Only count votes from this month',
@@ -112,10 +128,18 @@ class ApiWigo extends ApiQueryBase {
 		];
 	}
 
+	/**
+	 * @deprecated
+	 * @return string
+	 */
 	public function getDescription() {
 		return 'Get wigo entries';
 	}
 
+	/**
+	 * @deprecated
+	 * @return string[]
+	 */
 	public function getExamples() {
 		return [
 			'api.php?action=query&list=wigo',
@@ -123,6 +147,10 @@ class ApiWigo extends ApiQueryBase {
 		];
 	}
 
+	/**
+	 * @deprecated
+	 * @return string
+	 */
 	public function getVersion() {
 		return "1.0";
 	}
