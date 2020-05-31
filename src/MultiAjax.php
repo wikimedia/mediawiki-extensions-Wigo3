@@ -19,7 +19,7 @@ class MultiAjax {
 			],
 			__METHOD__ );
 		$dbw->endAtomic( __METHOD__ );
-		//get the number of votes for each option
+		// get the number of votes for each option
 		//$dbr = wfGetDB(DB_SLAVE);
 		$res = $dbw->select(
 			'wigovote',
@@ -28,11 +28,11 @@ class MultiAjax {
 			__METHOD__,
 			[ 'GROUP BY' => [ 'id', 'vote' ] ]
 		);
-		//fill with zeroes
+		// fill with zeroes
 		for ( $i = 0; $i < $countoptions; ++$i ) {
 			$results[$i] = 0;
 		}
-		//now store values for options that have received votes
+		// now store values for options that have received votes
 		while ( $row = $res->fetchRow() ) {
 			$results[$row['vote']] = $row['count(vote)'];
 		}

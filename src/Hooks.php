@@ -64,10 +64,10 @@ class Hooks {
 			$curr = $matches[1][$i][0];
 			$cp = $matches[2][$i][0];
 			$pollid = $matches[3][$i][0];
-			//fix pollid with numbers
+			// fix pollid with numbers
 			$pollid = preg_replace( '/\d+$/', '', $pollid );
 
-			//find the next id
+			// find the next id
 			if ( array_key_exists( $pollid, $newnums ) ) {
 				$num = $newnums[$pollid];
 			} else {
@@ -82,7 +82,7 @@ class Hooks {
 						$wigos[$j], $matches2 );
 					if ( $matchi2 == 1 ) {
 						$tempi = intval( $matches2[1] );
-						//on error this will be 0, so we can skip error checking
+						// on error this will be 0, so we can skip error checking
 						if ( $tempi > $num ) {
 							$num = $tempi;
 						}

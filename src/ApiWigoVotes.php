@@ -51,7 +51,7 @@ class ApiWigoVotes extends ApiQueryBase {
 			);
 		}
 
-		//"rev_timestamp like \"{$this->year}{$this->month}%\""
+		// "rev_timestamp like \"{$this->year}{$this->month}%\""
 
 		$anyString = $this->getDB()->anyString();
 		$anyChar = $this->getDB()->anyChar();

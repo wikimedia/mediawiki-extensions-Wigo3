@@ -26,7 +26,7 @@ class ApiWigo extends ApiQueryBase {
 
 		$this->addTables( 'wigovote' );
 
-		//"rev_timestamp like \"{$this->year}{$this->month}%\""
+		// "rev_timestamp like \"{$this->year}{$this->month}%\""
 
 		$anyString = $this->getDB()->anyString();
 		$anyChar = $this->getDB()->anyChar();
