@@ -3,13 +3,22 @@
 namespace Wigo3;
 
 use ApiBase;
+use ApiQuery;
 use ApiQueryBase;
 
 class ApiWigoVotes extends ApiQueryBase {
+
+	/**
+	 * @param ApiQuery $query
+	 * @param string $moduleName
+	 */
 	public function __construct( $query, $moduleName ) {
 		parent::__construct( $query, $moduleName, 'wv' );
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function execute() {
 		$db = $this->getDB();
 		$params = $this->extractRequestParams();
@@ -121,6 +130,9 @@ class ApiWigoVotes extends ApiQueryBase {
 		return $row->id . '|' . wfTimestamp( TS_ISO_8601, $row->timestamp );
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function getAllowedParams() {
 		return [
 			'month' => null,
@@ -153,6 +165,10 @@ class ApiWigoVotes extends ApiQueryBase {
 		];
 	}
 
+	/**
+	 * @deprecated
+	 * @return string[]
+	 */
 	public function getParamDescription() {
 		return [
 			'month' => 'Only count votes from this month',
@@ -170,10 +186,18 @@ class ApiWigoVotes extends ApiQueryBase {
 		];
 	}
 
+	/**
+	 * @deprecated
+	 * @return string
+	 */
 	public function getDescription() {
 		return 'Get wigo votes';
 	}
 
+	/**
+	 * @deprecated
+	 * @return string[]
+	 */
 	public function getExamples() {
 		return [
 			'api.php?action=query&list=wigovotes',
@@ -183,6 +207,10 @@ class ApiWigoVotes extends ApiQueryBase {
 		];
 	}
 
+	/**
+	 * @deprecated
+	 * @return string
+	 */
 	public function getVersion() {
 		return "1.0";
 	}

@@ -3,6 +3,13 @@
 namespace Wigo3;
 
 class MultiAjax {
+
+	/**
+	 * @param string $pollid
+	 * @param int $vote
+	 * @param int $countoptions
+	 * @return string
+	 */
 	public static function vote( $pollid, $vote, $countoptions ) {
 		$dbw = wfGetDB( DB_MASTER );
 		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
@@ -40,6 +47,10 @@ class MultiAjax {
 		return implode( ":", $results );
 	}
 
+	/**
+	 * @param string $pollid
+	 * @return string
+	 */
 	public static function getmyvote( $pollid ) {
 		$dbr = wfGetDB( DB_REPLICA );
 		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;

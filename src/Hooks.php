@@ -2,27 +2,43 @@
 
 namespace Wigo3;
 
+use DatabaseUpdater;
+use DeferrableUpdate;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RenderedRevision;
+use Parser;
+use Title;
 
 class Hooks {
+
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:$wgExtensionFunctions
+	 */
 	public static function extensionSetup() {
 		global $wgAjaxExportList;
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::vote";
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::vote2";
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::votebatch";
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::invalidate";
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::getmyvotes";
-		$wgAjaxExportList[] = "Wigo3\\MultiAjax::vote";
-		$wgAjaxExportList[] = "Wigo3\\MultiAjax::getmyvote";
+		$wgAjaxExportList[] = [ WigoAjax::class, 'vote' ];
+		$wgAjaxExportList[] = [ WigoAjax::class, 'vote2' ];
+		$wgAjaxExportList[] = [ WigoAjax::class, 'votebatch' ];
+		$wgAjaxExportList[] = [ WigoAjax::class, 'invalidate' ];
+		$wgAjaxExportList[] = [ WigoAjax::class, 'getmyvotes' ];
+		$wgAjaxExportList[] = [ MultiAjax::class, 'vote' ];
+		$wgAjaxExportList[] = [ MultiAjax::class, 'getmyvote' ];
 	}
 
-	public static function onLoadExtensionSchemaUpdates( \DatabaseUpdater $updater ) {
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/LoadExtensionSchemaUpdates
+	 * @param DatabaseUpdater $updater
+	 */
+	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
 		$updater->addExtensionTable( 'wigovote', __DIR__ . '/../sql/wigovote.sql' );
 		$updater->addExtensionTable( 'wigotext', __DIR__ . '/../sql/wigotext.sql' );
 	}
 
-	public static function onParserFirstCallInit( \Parser &$parser ) {
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
+	 * @param Parser $parser
+	 */
+	public static function onParserFirstCallInit( Parser $parser ) {
 		// wigo3
 		$parser->setHook( 'vote',  [ WigoParserHooks::class, 'vote' ] );
 		$parser->setHook( 'votecp', [ WigoParserHooks::class, 'votecp' ] );
@@ -40,12 +56,11 @@ class Hooks {
 		// checkbox
 		$parser->setHook( 'checkbox', [ CheckboxParserHooks::class, 'checkbox' ] );
 		$parser->setHook( 'checkboxes', [ CheckboxParserHooks::class, 'checkboxes' ] );
-
-		return true;
 	}
 
 	/**
-	 * @param \Parser $parser
+	 * @see https://gerrit.wikimedia.org/r/571109
+	 * @param Parser $parser
 	 * @param string &$text
 	 * @return bool
 	 */
@@ -106,9 +121,10 @@ class Hooks {
 	}
 
 	/**
-	 * @param \Title $title
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/RevisionDataUpdates
+	 * @param Title $title
 	 * @param RenderedRevision $renderedRevision
-	 * @param array &$updates
+	 * @param DeferrableUpdate[] &$updates
 	 */
 	public static function onRevisionDataUpdates( $title, $renderedRevision, &$updates ) {
 		$polls = $renderedRevision->getSlotParserOutput( 'main' )->getExtensionData( 'wigo' );
