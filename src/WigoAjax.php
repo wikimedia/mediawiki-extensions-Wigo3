@@ -105,8 +105,8 @@ class WigoAjax {
 		foreach ( $args as $a ) {
 			$myvotes[$a] = false;
 		}
-		while ( $row = $res->fetchRow() ) {
-			$myvotes[$row['id']] = $row['vote'];
+		foreach ( $res as $row ) {
+			$myvotes[$row->id] = $row->vote;
 		}
 		$res->free();
 		return json_encode( $myvotes );

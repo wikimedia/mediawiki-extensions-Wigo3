@@ -30,7 +30,7 @@ class MultiAjax {
 		//$dbr = wfGetDB(DB_SLAVE);
 		$res = $dbw->select(
 			'wigovote',
-			[ 'vote', 'count(vote)' ],
+			[ 'vote', 'count' => 'count(vote)' ],
 			[ 'id' => $pollid ],
 			__METHOD__,
 			[ 'GROUP BY' => [ 'id', 'vote' ] ]
@@ -40,8 +40,8 @@ class MultiAjax {
 			$results[$i] = 0;
 		}
 		// now store values for options that have received votes
-		while ( $row = $res->fetchRow() ) {
-			$results[$row['vote']] = $row['count(vote)'];
+		foreach ( $res as $row ) {
+			$results[$row->vote] = $row->count;
 		}
 		$res->free();
 		return implode( ":", $results );
