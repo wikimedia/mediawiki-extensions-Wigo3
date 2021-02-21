@@ -1,6 +1,6 @@
 {
 	"@metadata": {
-		"authors": ["Nx"]
+		"authors": [ "Nx" ]
 	},
 	"wigo3-description": "Up/down voting system.",
 	"wigoerror": "Missing poll id",
