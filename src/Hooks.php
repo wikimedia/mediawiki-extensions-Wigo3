@@ -16,13 +16,13 @@ class Hooks {
 	 */
 	public static function extensionSetup() {
 		global $wgAjaxExportList;
-		$wgAjaxExportList[] = [ WigoAjax::class, 'vote' ];
-		$wgAjaxExportList[] = [ WigoAjax::class, 'vote2' ];
-		$wgAjaxExportList[] = [ WigoAjax::class, 'votebatch' ];
-		$wgAjaxExportList[] = [ WigoAjax::class, 'invalidate' ];
-		$wgAjaxExportList[] = [ WigoAjax::class, 'getmyvotes' ];
-		$wgAjaxExportList[] = [ MultiAjax::class, 'vote' ];
-		$wgAjaxExportList[] = [ MultiAjax::class, 'getmyvote' ];
+		$wgAjaxExportList[] = "Wigo3\\WigoAjax::vote";
+		$wgAjaxExportList[] = "Wigo3\\WigoAjax::vote2";
+		$wgAjaxExportList[] = "Wigo3\\WigoAjax::votebatch";
+		$wgAjaxExportList[] = "Wigo3\\WigoAjax::invalidate";
+		$wgAjaxExportList[] = "Wigo3\\WigoAjax::getmyvotes";
+		$wgAjaxExportList[] = "Wigo3\\MultiAjax::vote";
+		$wgAjaxExportList[] = "Wigo3\\MultiAjax::getmyvote";
 	}
 
 	/**
