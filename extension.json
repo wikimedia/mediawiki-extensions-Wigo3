@@ -31,9 +31,7 @@
 		"ParserPreSaveTransformComplete": "Wigo3\\Hooks::onParserPreSaveTransformComplete",
 		"RevisionDataUpdates": "Wigo3\\Hooks::onRevisionDataUpdates"
 	},
-	"ExtensionFunctions": [
-		"Wigo3\\Hooks::extensionSetup"
-	],
+	"callback": "Wigo3\\Hooks::onRegistration",
 	"ResourceModules": {
 		"ext.wigo3.wigo3": {
 			"scripts": "js/wigo3.js"
