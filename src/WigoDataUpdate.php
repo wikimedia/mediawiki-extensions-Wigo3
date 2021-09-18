@@ -18,7 +18,7 @@ class WigoDataUpdate extends \DataUpdate {
 	 * @inheritDoc
 	 */
 	public function doUpdate() {
-		$dbw = wfGetDB( DB_MASTER );
+		$dbw = wfGetDB( DB_PRIMARY );
 		foreach ( $this->polls as $poll ) {
 			$dbw->replace(
 				'wigotext',
