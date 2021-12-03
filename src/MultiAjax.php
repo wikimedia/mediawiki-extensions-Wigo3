@@ -27,7 +27,7 @@ class MultiAjax {
 			__METHOD__ );
 		$dbw->endAtomic( __METHOD__ );
 		// get the number of votes for each option
-		//$dbr = wfGetDB(DB_SLAVE);
+		// $dbr = wfGetDB( DB_REPLICA );
 		$res = $dbw->select(
 			'wigovote',
 			[ 'vote', 'count' => 'count(vote)' ],
