@@ -14,7 +14,7 @@ class WigoAjax {
 		// $pagename is wgPageName from javascript
 		$title = \Title::newFromText( $pagename );
 		if ( $title->invalidateCache() === true ) {
-			$dbw = wfGetDB( DB_MASTER );
+			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->commit();
 			return "ok";
 		} else {
@@ -30,7 +30,7 @@ class WigoAjax {
 	 */
 	public static function vote2( $pollid, $vote ) {
 		// Store the vote
-		$dbw = wfGetDB( DB_MASTER );
+		$dbw = wfGetDB( DB_PRIMARY );
 		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
 		$voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
 		$dbw->startAtomic( __METHOD__ );

@@ -11,7 +11,7 @@ class MultiAjax {
 	 * @return string
 	 */
 	public static function vote( $pollid, $vote, $countoptions ) {
-		$dbw = wfGetDB( DB_MASTER );
+		$dbw = wfGetDB( DB_PRIMARY );
 		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
 		$voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
 		$dbw->startAtomic( __METHOD__ );

@@ -10,7 +10,7 @@
 	"version": "5.0.0",
 	"descriptionmsg": "wigo3-description",
 	"requires": {
-		"MediaWiki": ">= 1.31.0"
+		"MediaWiki": ">= 1.35.3"
 	},
 	"APIListModules": {
 		"wigo": "Wigo3\\ApiWigo",
