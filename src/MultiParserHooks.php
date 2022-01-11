@@ -26,7 +26,7 @@ class MultiParserHooks {
 
 		// inject js
 		$parserOutput = $parser->getOutput();
-		$parserOutput->addModules( 'ext.wigo3.multi' );
+		$parserOutput->addModules( [ 'ext.wigo3.multi' ] );
 		$parserOutput->addJsConfigVars( 'wigo3MultiVoteId', $voteid );
 
 		// avoid hacking wigo votes

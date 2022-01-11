@@ -38,7 +38,7 @@ class WigoParserHooks {
 		}
 
 		$parserOutput = $parser->getOutput();
-		$parserOutput->addModules( 'ext.wigo3.wigo3' );
+		$parserOutput->addModules( [ 'ext.wigo3.wigo3' ] );
 
 		// Register the tag in the ParserOutput for WigoDataUpdate
 		$polls = $parserOutput->getExtensionData( 'wigo' );
