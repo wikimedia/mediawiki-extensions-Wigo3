@@ -90,8 +90,6 @@ class ApiWigo extends ApiQueryBase {
 			}
 		}
 
-		$db->freeResult( $res );
-
 		$result->addIndexedTagName( [ 'query', $this->getModuleName() ], 'entry' );
 	}
 
