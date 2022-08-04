@@ -31,8 +31,9 @@ class WigoAjax {
 	public static function vote2( $pollid, $vote ) {
 		// Store the vote
 		$dbw = wfGetDB( DB_PRIMARY );
-		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
-		$voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
+		global $wgWigo3ConfigStoreIPs;
+		$context = \RequestContext::getMain();
+		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();
 		$dbw->startAtomic( __METHOD__ );
 		$result = $dbw->replace(
 			'wigovote',
@@ -97,8 +98,9 @@ class WigoAjax {
 	 */
 	public static function getmyvotes( ...$args ) {
 		$dbr = wfGetDB( DB_REPLICA );
-		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
-		$voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
+		global $wgWigo3ConfigStoreIPs;
+		$context = \RequestContext::getMain();
+		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();
 		$res = $dbr->select( 'wigovote', [ 'id', 'vote' ],
 			[ 'id' => $args, 'voter_name' => $voter ], __METHOD__ );
 		$myvotes = [];

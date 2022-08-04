@@ -12,8 +12,9 @@ class MultiAjax {
 	 */
 	public static function vote( $pollid, $vote, $countoptions ) {
 		$dbw = wfGetDB( DB_PRIMARY );
-		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
-		$voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
+		global $wgWigo3ConfigStoreIPs;
+		$context = \RequestContext::getMain();
+		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();
 		$dbw->startAtomic( __METHOD__ );
 		$dbw->replace(
 			'wigovote',
@@ -53,8 +54,9 @@ class MultiAjax {
 	 */
 	public static function getmyvote( $pollid ) {
 		$dbr = wfGetDB( DB_REPLICA );
-		global $wgUser, $wgWigo3ConfigStoreIPs, $wgRequest;
-		$voter = $wgWigo3ConfigStoreIPs ? $wgRequest->getIP() : $wgUser->getName();
+		global $wgWigo3ConfigStoreIPs;
+		$context = \RequestContext::getMain();
+		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();
 		$res = $dbr->select(
 			'wigovote',
 			[ 'vote' ],
