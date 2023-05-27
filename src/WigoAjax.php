@@ -35,7 +35,7 @@ class WigoAjax {
 		$context = \RequestContext::getMain();
 		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();
 		$dbw->startAtomic( __METHOD__ );
-		$result = $dbw->replace(
+		$dbw->replace(
 			'wigovote',
 			[ [ 'id', 'voter_name' ] ],
 			[
@@ -62,7 +62,7 @@ class WigoAjax {
 		$distribtitle = wfMessage( 'wigovotedistrib' )
 			->params( $plus, $zero, $minus )
 			->text();
-		return "$pollid:$plus:$minus:$zero:$totalvotes:$totaltooltip:$distribtitle:$myvote:$result";
+		return "$pollid:$plus:$minus:$zero:$totalvotes:$totaltooltip:$distribtitle:$myvote:";
 	}
 
 	/**
