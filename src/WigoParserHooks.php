@@ -339,7 +339,7 @@ HTML;
 				}
 			}
 			$form = Xml::openElement(
-					'form', [
+				'form', [
 					'id' => 'bestofoption',
 					'action' => '',
 					'method' => 'GET'

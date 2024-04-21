@@ -40,7 +40,7 @@ class Hooks {
 	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
 		// wigo3
-		$parser->setHook( 'vote',  [ WigoParserHooks::class, 'vote' ] );
+		$parser->setHook( 'vote', [ WigoParserHooks::class, 'vote' ] );
 		$parser->setHook( 'votecp', [ WigoParserHooks::class, 'votecp' ] );
 		$parser->setHook( 'capture', [ WigoParserHooks::class, 'capture' ] );
 		$parser->setFunctionHook( 'captureencode', [ WigoParserHooks::class, 'captureencode' ] );
