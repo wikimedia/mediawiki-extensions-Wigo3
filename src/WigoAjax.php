@@ -2,6 +2,8 @@
 
 namespace Wigo3;
 
+use MediaWiki\MediaWikiServices;
+
 class WigoAjax {
 	/**
 	 * AJAX entry point which invalidates the page cache when a vote on the
@@ -14,7 +16,7 @@ class WigoAjax {
 		// $pagename is wgPageName from javascript
 		$title = \Title::newFromText( $pagename );
 		if ( $title->invalidateCache() === true ) {
-			$dbw = wfGetDB( DB_PRIMARY );
+			$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 			$dbw->commit();
 			return "ok";
 		} else {
@@ -30,7 +32,7 @@ class WigoAjax {
 	 */
 	public static function vote2( $pollid, $vote ) {
 		// Store the vote
-		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		global $wgWigo3ConfigStoreIPs;
 		$context = \RequestContext::getMain();
 		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();
@@ -74,7 +76,7 @@ class WigoAjax {
 	 * @param int &$myvote
 	 */
 	private static function getVotes( $voteid, &$plus, &$minus, &$zero, $voter, &$myvote ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		$res = $dbr->select(
 			'wigovote',
 			[ 'sum(case vote when 1 then 1 else 0 end) as plus',
@@ -97,7 +99,7 @@ class WigoAjax {
 	 * @return string
 	 */
 	public static function getmyvotes( ...$args ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		global $wgWigo3ConfigStoreIPs;
 		$context = \RequestContext::getMain();
 		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();

@@ -3,6 +3,7 @@
 namespace Wigo3;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use Parser;
 use Sanitizer;
 
@@ -87,7 +88,7 @@ class CheckboxParserHooks {
 
 		// avoid conflicts
 		$voteid = "check" . $voteid;
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		$res = $dbr->select( 'wigovote',
 			[ 'count(vote)', 'sum(vote)' ],
 			[ 'id' => $voteid, "vote >= 0", "vote <= 1" ],

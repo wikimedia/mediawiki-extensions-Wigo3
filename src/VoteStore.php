@@ -2,6 +2,8 @@
 
 namespace Wigo3;
 
+use MediaWiki\MediaWikiServices;
+
 class VoteStore {
 
 	/**
@@ -9,7 +11,7 @@ class VoteStore {
 	 * @return int[]
 	 */
 	public static function getVoteCounts( $voteid ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		$res = $dbr->select(
 			'wigovote',
 			[ 'sum(case vote when 1 then 1 else 0 end) as plus',

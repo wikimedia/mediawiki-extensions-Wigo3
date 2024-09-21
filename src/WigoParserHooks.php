@@ -3,6 +3,7 @@
 namespace Wigo3;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use Xml;
 
 class WigoParserHooks {
@@ -365,7 +366,7 @@ HTML;
 	 * @return string
 	 */
 	private static function getBestOf( $pollid, $cutoff, $month, $year, $keyword, $parser, $frame ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		$conds = [ "vote_id " . $dbr->buildLike( $pollid, $dbr->anyString() ) ];
 		$options = [ 'GROUP BY' => 'vote_id', 'ORDER BY' => 'total DESC' ];
 		if ( $cutoff != null ) {

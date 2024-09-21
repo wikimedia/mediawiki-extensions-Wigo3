@@ -2,6 +2,8 @@
 
 namespace Wigo3;
 
+use MediaWiki\MediaWikiServices;
+
 class WigoDataUpdate extends \DataUpdate {
 	/** @var \ArrayObject */
 	private $polls;
@@ -18,7 +20,7 @@ class WigoDataUpdate extends \DataUpdate {
 	 * @inheritDoc
 	 */
 	public function doUpdate() {
-		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		foreach ( $this->polls as $poll ) {
 			$dbw->replace(
 				'wigotext',

@@ -2,6 +2,8 @@
 
 namespace Wigo3;
 
+use MediaWiki\MediaWikiServices;
+
 class MultiAjax {
 
 	/**
@@ -11,7 +13,7 @@ class MultiAjax {
 	 * @return string
 	 */
 	public static function vote( $pollid, $vote, $countoptions ) {
-		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		global $wgWigo3ConfigStoreIPs;
 		$context = \RequestContext::getMain();
 		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();
@@ -28,7 +30,7 @@ class MultiAjax {
 			__METHOD__ );
 		$dbw->endAtomic( __METHOD__ );
 		// get the number of votes for each option
-		// $dbr = wfGetDB( DB_REPLICA );
+		// $dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		$res = $dbw->select(
 			'wigovote',
 			[ 'vote', 'count' => 'count(vote)' ],
@@ -53,7 +55,7 @@ class MultiAjax {
 	 * @return string
 	 */
 	public static function getmyvote( $pollid ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		global $wgWigo3ConfigStoreIPs;
 		$context = \RequestContext::getMain();
 		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();

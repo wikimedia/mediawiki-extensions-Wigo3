@@ -2,6 +2,7 @@
 
 namespace Wigo3;
 
+use MediaWiki\MediaWikiServices;
 use Parser;
 use Sanitizer;
 
@@ -133,7 +134,7 @@ class SliderParserHooks {
 
 		// avoid hacking wigo votes
 		$voteid = "slider" . $voteid;
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		$row = $dbr->selectRow(
 			'wigovote',
 			'sum(vote), count(vote)',

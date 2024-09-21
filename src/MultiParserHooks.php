@@ -2,6 +2,7 @@
 
 namespace Wigo3;
 
+use MediaWiki\MediaWikiServices;
 use Parser;
 use Xml;
 
@@ -32,7 +33,7 @@ class MultiParserHooks {
 		// avoid hacking wigo votes
 		$voteid = "multi" . $voteid;
 
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		// get the total number of votes
 		$sum = intval( $dbr->selectField(
 			'wigovote',
