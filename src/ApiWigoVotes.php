@@ -167,35 +167,6 @@ class ApiWigoVotes extends ApiQueryBase {
 	 * @deprecated
 	 * @return string[]
 	 */
-	public function getParamDescription() {
-		return [
-			'month' => 'Only count votes from this month',
-			'year' => 'Only count votes from this year',
-			'id' => 'Return votes for this entry',
-			'prefix' => 'Return entries whose ids begin with this value. Overrides ' .
-				$this->getModulePrefix() . 'id',
-			'start' => 'The start timestamp to return from',
-			'end' => 'The end timestamp to return to',
-			'continue' => 'When more results are available, use this to continue',
-			'limit' => 'How many total entries to return',
-			'dir' => 'The direction to search (older or newer)',
-			'min' => 'Only return votes greater or equal to this',
-			'max' => 'Only return votes lower or equal to this',
-		];
-	}
-
-	/**
-	 * @deprecated
-	 * @return string
-	 */
-	public function getDescription() {
-		return 'Get wigo votes';
-	}
-
-	/**
-	 * @deprecated
-	 * @return string[]
-	 */
 	public function getExamples() {
 		return [
 			'api.php?action=query&list=wigovotes',
@@ -205,11 +176,4 @@ class ApiWigoVotes extends ApiQueryBase {
 		];
 	}
 
-	/**
-	 * @deprecated
-	 * @return string
-	 */
-	public function getVersion() {
-		return "1.0";
-	}
 }

@@ -21,8 +21,6 @@ class Hooks {
 		$wgAjaxExportList[] = "Wigo3\\WigoAjax::votebatch";
 		$wgAjaxExportList[] = "Wigo3\\WigoAjax::invalidate";
 		$wgAjaxExportList[] = "Wigo3\\WigoAjax::getmyvotes";
-		$wgAjaxExportList[] = "Wigo3\\MultiAjax::vote";
-		$wgAjaxExportList[] = "Wigo3\\MultiAjax::getmyvote";
 	}
 
 	/**

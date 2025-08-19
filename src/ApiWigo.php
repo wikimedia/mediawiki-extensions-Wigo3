@@ -116,28 +116,6 @@ class ApiWigo extends ApiQueryBase {
 	 * @deprecated
 	 * @return string[]
 	 */
-	public function getParamDescription() {
-		return [
-			'month' => 'Only count votes from this month',
-			'year' => 'Only count votes from this year',
-			'prefix' => 'Return entries whose ids begin with this value',
-			'start' => 'Start from this id',
-			'limit' => 'How many total entries to return',
-		];
-	}
-
-	/**
-	 * @deprecated
-	 * @return string
-	 */
-	public function getDescription() {
-		return 'Get wigo entries';
-	}
-
-	/**
-	 * @deprecated
-	 * @return string[]
-	 */
 	public function getExamples() {
 		return [
 			'api.php?action=query&list=wigo',
@@ -145,11 +123,4 @@ class ApiWigo extends ApiQueryBase {
 		];
 	}
 
-	/**
-	 * @deprecated
-	 * @return string
-	 */
-	public function getVersion() {
-		return "1.0";
-	}
 }

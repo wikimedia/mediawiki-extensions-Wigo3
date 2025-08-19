@@ -12,6 +12,10 @@
 	"requires": {
 		"MediaWiki": ">= 1.35.3"
 	},
+	"APIModules": {
+		"wigo-cast-vote": "Wigo3\\API\\MultiAjaxCastVote",
+		"wigo-get-my-vote": "Wigo3\\API\\MultiAjaxGetMyVote"
+	},
 	"APIListModules": {
 		"wigo": "Wigo3\\ApiWigo",
 		"wigovotes": "Wigo3\\ApiWigoVotes"
@@ -20,10 +24,14 @@
 		"Wigo3Magic": "wigo3.i18n.magic.php"
 	},
 	"MessagesDirs": {
-		"Wigo3": "i18n"
+		"Wigo3": [
+			"i18n",
+			"i18n/api"
+		]
 	},
 	"AutoloadNamespaces": {
-		"Wigo3\\": "src/"
+		"Wigo3\\": "src/",
+		"Wigo3\\API\\": "src/api/"
 	},
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": "Wigo3\\Hooks::onLoadExtensionSchemaUpdates",
@@ -40,7 +48,8 @@
 			"scripts": "js/multi.js",
 			"dependencies": [
 				"ext.wigo3.wigo3",
-				"jquery.spinner"
+				"jquery.spinner",
+				"mediawiki.api"
 			]
 		}
 	},

@@ -13,8 +13,6 @@
 	"wigotitlereset": "Used as tooltip for an image",
 	"multi-votebutton": "Used as text for a button",
 	"multi-votetitle": "Used as title for a button",
-	"apihelp-query+wigo-summary": "{{doc-apihelp-summary|query+wigo}}",
-	"apihelp-query+wigovotes-summary": "{{doc-apihelp-summary|query+wigovotes}}",
 	"wigo-bestof-legend": "Used as legend",
 	"wigo-bestof-cutoff": "Used as label",
 	"wigo-bestof-month": "Used as label",

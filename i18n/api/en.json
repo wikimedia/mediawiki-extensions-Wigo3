@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nx"
+		]
+	},
+	"apihelp-query+wigo-summary": "Get wigo entries",
+	"apihelp-query+wigo-param-month": "Only count votes from this month",
+	"apihelp-query+wigo-param-year": "Only count votes from this year",
+	"apihelp-query+wigo-param-prefix": "Return entries whose ids begin with this value",
+	"apihelp-query+wigo-param-start": "Start from this id",
+	"apihelp-query+wigo-param-limit": "How many total entries to return",
+	"apihelp-query+wigovotes-summary": "Get wigo votes",
+	"apihelp-query+wigovotes-param-month": "Only count votes from this month",
+	"apihelp-query+wigovotes-param-year": "Only count votes from this year",
+	"apihelp-query+wigovotes-param-id": "Return votes for this entry",
+	"apihelp-query+wigovotes-param-prefix": "Return entries whose ids begin with this value. Overrides $1id",
+	"apihelp-query+wigovotes-param-start": "The start timestamp to return from",
+	"apihelp-query+wigovotes-param-end": "The end timestamp to return to",
+	"apihelp-query+wigovotes-param-continue": "When more results are available, use this to continue",
+	"apihelp-query+wigovotes-param-limit": "How many total entries to return",
+	"apihelp-query+wigovotes-param-dir": "The direction to search (older or newer)",
+	"apihelp-query+wigovotes-param-min": "Only return votes greater or equal to this",
+	"apihelp-query+wigovotes-param-max": "Only return votes lower or equal to this",
+	"apihelp-wigo-cast-vote-summary": "Cast a wigo vote",
+	"apihelp-wigo-cast-vote-param-pollid": "Unique poll identifier",
+	"apihelp-wigo-cast-vote-param-vote": "Vote value",
+	"apihelp-wigo-cast-vote-param-countoptions": "The total amount of options in the poll",
+	"apihelp-wigo-cast-vote-example-1": "Vote for the 2nd option on the poll that has the ID <code>Birds</code>",
+	"apihelp-wigo-get-my-vote-summary": "Get my vote for a given poll",
+	"apihelp-wigo-get-my-vote-param-pollid": "Unique poll identifier",
+	"apihelp-wigo-get-my-vote-example-1": "Get my vote for the poll that has the ID <code>Birds</code>"
+}
