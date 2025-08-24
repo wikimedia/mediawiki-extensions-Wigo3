@@ -92,28 +92,4 @@ class WigoAjax {
 		$myvote = -2;
 	}
 
-	/**
-	 * Get votes for multiple polls, to cut down on AJAX requests
-	 *
-	 * @param string[] ...$args
-	 * @return string
-	 */
-	public static function getmyvotes( ...$args ) {
-		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
-		global $wgWigo3ConfigStoreIPs;
-		$context = \RequestContext::getMain();
-		$voter = $wgWigo3ConfigStoreIPs ? $context->getRequest()->getIP() : $context->getUser()->getName();
-		$res = $dbr->select( 'wigovote', [ 'id', 'vote' ],
-			[ 'id' => $args, 'voter_name' => $voter ], __METHOD__ );
-		$myvotes = [];
-		foreach ( $args as $a ) {
-			$myvotes[$a] = false;
-		}
-		foreach ( $res as $row ) {
-			$myvotes[$row->id] = $row->vote;
-		}
-		$res->free();
-		return json_encode( $myvotes );
-	}
-
 }

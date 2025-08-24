@@ -16,11 +16,8 @@ class Hooks {
 	 */
 	public static function onRegistration() {
 		global $wgAjaxExportList;
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::vote";
 		$wgAjaxExportList[] = "Wigo3\\WigoAjax::vote2";
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::votebatch";
 		$wgAjaxExportList[] = "Wigo3\\WigoAjax::invalidate";
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::getmyvotes";
 	}
 
 	/**
