@@ -16,7 +16,9 @@
 	},
 	"APIModules": {
 		"wigo-cast-vote": "Wigo3\\API\\MultiAjaxCastVote",
-		"wigo-get-my-vote": "Wigo3\\API\\MultiAjaxGetMyVote"
+		"wigo-get-my-vote": "Wigo3\\API\\MultiAjaxGetMyVote",
+		"wigo-invalidate-page-cache": "Wigo3\\API\\InvalidatePageCache",
+		"wigo-vote-updown": "Wigo3\\API\\UpDownVote"
 	},
 	"APIListModules": {
 		"wigo": "Wigo3\\ApiWigo",
@@ -41,7 +43,6 @@
 		"ParserPreSaveTransformComplete": "Wigo3\\Hooks::onParserPreSaveTransformComplete",
 		"RevisionDataUpdates": "Wigo3\\Hooks::onRevisionDataUpdates"
 	},
-	"callback": "Wigo3\\Hooks::onRegistration",
 	"ResourceModules": {
 		"ext.wigo3.wigo3": {
 			"scripts": "js/wigo3.js"

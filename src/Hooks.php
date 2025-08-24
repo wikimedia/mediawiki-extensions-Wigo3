@@ -12,15 +12,6 @@ use Title;
 class Hooks {
 
 	/**
-	 * @see https://www.mediawiki.org/wiki/Manual:Extension_registration#Customizing_registration
-	 */
-	public static function onRegistration() {
-		global $wgAjaxExportList;
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::vote2";
-		$wgAjaxExportList[] = "Wigo3\\WigoAjax::invalidate";
-	}
-
-	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/LoadExtensionSchemaUpdates
 	 * @param DatabaseUpdater $updater
 	 */

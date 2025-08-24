@@ -25,5 +25,13 @@
 	"apihelp-wigo-cast-vote-example-1": "{{doc-apihelp-example|wigo-cast-vote}}",
 	"apihelp-wigo-get-my-vote-summary": "{{doc-apihelp-summary|wigo-get-vote}}",
 	"apihelp-wigo-get-my-vote-param-pollid": "{{doc-apihelp-param|wigo-get-vote|pollid}}",
-	"apihelp-wigo-get-my-vote-example-1": "{{doc-apihelp-example|wigo-get-vote}}"
+	"apihelp-wigo-get-my-vote-example-1": "{{doc-apihelp-example|wigo-get-vote}}",
+	"apihelp-wigo-invalidate-page-cache-summary": "{{doc-apihelp-summary|wigo-invalidate-page-cache}}",
+	"apihelp-wigo-invalidate-page-cache-param-pagename": "{{doc-apihelp-param|wigo-invalidate-page-cache|pagename}}",
+	"apihelp-wigo-invalidate-page-cache-example-1": "{{doc-apihelp-example|wigo-invalidate-page-cache}}",
+	"apihelp-wigo-vote-updown-summary": "{{doc-apihelp-summary|wigo-vote-updown}}",
+	"apihelp-wigo-vote-updown-param-pollid": "{{doc-apihelp-param|wigo-vote-updown|pollid}}",
+	"apihelp-wigo-vote-updown-param-vote": "{{doc-apihelp-param|wigo-vote-updown|vote}}",
+	"apihelp-wigo-vote-updown-example-1": "{{doc-apihelp-example|wigo-vote-updown}}",
+	"apihelp-wigo-vote-updown-example-2": "{{doc-apihelp-example|wigo-vote-updown}}"
 }

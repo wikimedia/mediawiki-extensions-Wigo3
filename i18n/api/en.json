@@ -29,5 +29,13 @@
 	"apihelp-wigo-cast-vote-example-1": "Vote for the 2nd option on the poll that has the ID <code>Birds</code>",
 	"apihelp-wigo-get-my-vote-summary": "Get my vote for a given poll",
 	"apihelp-wigo-get-my-vote-param-pollid": "Unique poll identifier",
-	"apihelp-wigo-get-my-vote-example-1": "Get my vote for the poll that has the ID <code>Birds</code>"
+	"apihelp-wigo-get-my-vote-example-1": "Get my vote for the poll that has the ID <code>Birds</code>",
+	"apihelp-wigo-invalidate-page-cache-summary": "Invalidate page cache after voting",
+	"apihelp-wigo-invalidate-page-cache-param-pagename": "Name of the page whose cache to invalidate",
+	"apihelp-wigo-invalidate-page-cache-example-1": "Invalidate page cache for the page named <code>Foo bar</code>",
+	"apihelp-wigo-vote-updown-summary": "Cast a wigo vote in a simple up/down poll",
+	"apihelp-wigo-vote-updown-param-pollid": "Unique poll identifier",
+	"apihelp-wigo-vote-updown-param-vote": "Vote value",
+	"apihelp-wigo-vote-updown-example-1": "Vote <code>1</code> (up) on the poll that has the ID <code>cats</code>",
+	"apihelp-wigo-vote-updown-example-2": "Vote <code>-1</code> (down) on the poll that has the ID <code>snakes</code>"
 }
