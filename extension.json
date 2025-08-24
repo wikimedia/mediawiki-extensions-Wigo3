@@ -9,6 +9,8 @@
 	],
 	"version": "5.0.0",
 	"descriptionmsg": "wigo3-description",
+	"url": "https://www.mediawiki.org/wiki/Extension:Wigo3",
+	"license-name": "GPL-2.0-or-later",
 	"requires": {
 		"MediaWiki": ">= 1.35.3"
 	},
