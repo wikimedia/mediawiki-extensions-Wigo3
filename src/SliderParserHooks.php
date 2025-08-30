@@ -151,7 +151,7 @@ class SliderParserHooks {
 		if ( $countvotes != 0 ) {
 			$voteaverage = round( $votes / $countvotes, 2 );
 		} else {
-			$voteaverage = "no votes";
+			$voteaverage = wfMessage( 'wigo-no-votes' )->escaped();
 		}
 
 		$output = $parser->recursiveTagParse( $input );

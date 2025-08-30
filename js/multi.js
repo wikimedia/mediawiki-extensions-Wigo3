@@ -85,8 +85,7 @@
 	 */
 	function multiVoteSend( voteid, val, count ) {
 		if ( voteid.substr( 0, 5 ) !== 'multi' ) {
-			// @todo FIXME: i18n
-			alert( 'Invalid vote id' );
+			alert( mw.msg( 'wigo-error-invalid-vote-id' ) );
 		} else {
 			if ( $spinner ) {
 				$spinner.remove();

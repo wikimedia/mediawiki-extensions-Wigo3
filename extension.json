@@ -45,10 +45,16 @@
 	},
 	"ResourceModules": {
 		"ext.wigo3.wigo3": {
-			"scripts": "js/wigo3.js"
+			"scripts": "js/wigo3.js",
+			"messages": [
+				"wigo-error-invalidating-cache"
+			]
 		},
 		"ext.wigo3.multi": {
 			"scripts": "js/multi.js",
+			"messages": [
+				"wigo-error-invalid-vote-id"
+			],
 			"dependencies": [
 				"ext.wigo3.wigo3",
 				"jquery.spinner",

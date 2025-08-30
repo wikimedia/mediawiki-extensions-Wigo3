@@ -137,7 +137,7 @@ function wigoupdate2( data ) {
 
 function wigoinvalidated( data ) {
 	if ( data[ 'wigo-invalidate-page-cache' ].substring( 0, 2 ) !== 'ok' ) {
-		alert( 'An error occurred while invalidating the cache!' );
+		alert( mw.msg( 'wigo-error-invalidating-cache' ) );
 	}
 }
 
