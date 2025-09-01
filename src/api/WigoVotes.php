@@ -1,12 +1,12 @@
 <?php
 
-namespace Wigo3;
+namespace Wigo3\API;
 
 use ApiBase;
 use ApiQuery;
 use ApiQueryBase;
 
-class ApiWigoVotes extends ApiQueryBase {
+class WigoVotes extends ApiQueryBase {
 
 	/**
 	 * @param ApiQuery $query

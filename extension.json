@@ -21,8 +21,8 @@
 		"wigo-vote-updown": "Wigo3\\API\\UpDownVote"
 	},
 	"APIListModules": {
-		"wigo": "Wigo3\\ApiWigo",
-		"wigovotes": "Wigo3\\ApiWigoVotes"
+		"wigo": "Wigo3\\API\\Wigo",
+		"wigovotes": "Wigo3\\API\\WigoVotes"
 	},
 	"ExtensionMessagesFiles": {
 		"Wigo3Magic": "wigo3.i18n.magic.php"
