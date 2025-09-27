@@ -23,7 +23,7 @@ class SliderParserHooks {
 		if ( !$voteid ) {
 			static $err = null;
 			if ( $err === null ) {
-				$err = wfMessage( 'wigoerror' )->text();
+				$err = wfMessage( 'wigo-error' )->text();
 			}
 			$output = $parser->recursiveTagParse( $input );
 			return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -102,7 +102,7 @@ class SliderParserHooks {
 		if ( !$voteid ) {
 			static $err = null;
 			if ( $err === null ) {
-				$err = wfMessage( 'wigoerror' )->text();
+				$err = wfMessage( 'wigo-error' )->text();
 			}
 			$output = $parser->recursiveTagParse( $input );
 			return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -157,7 +157,7 @@ class SliderParserHooks {
 		$output = $parser->recursiveTagParse( $input );
 
 		// parse magic only, to allow plural
-		$totalvotes = wfMessage( 'wigovotestotal' )->params( $countvotes )->escaped();
+		$totalvotes = wfMessage( 'wigo-votes-total' )->params( $countvotes )->escaped();
 
 		$htmlVoteId = htmlspecialchars( $voteid );
 

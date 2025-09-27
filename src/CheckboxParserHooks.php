@@ -20,7 +20,7 @@ class CheckboxParserHooks {
 		if ( !$voteid ) {
 			static $err = null;
 			if ( $err === null ) {
-				$err = wfMessage( 'wigoerror' )->escaped();
+				$err = wfMessage( 'wigo-error' )->escaped();
 			}
 			$output = $parser->recursiveTagParse( $input );
 			return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -74,7 +74,7 @@ class CheckboxParserHooks {
 		if ( !$voteid ) {
 			static $err = null;
 			if ( $err === null ) {
-				$err = wfMessage( 'wigoerror' )->text();
+				$err = wfMessage( 'wigo-error' )->text();
 			}
 			$output = $parser->recursiveTagParse( $input );
 			return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -106,7 +106,7 @@ class CheckboxParserHooks {
 		$output = $parser->recursiveTagParse( $input );
 
 		// parse magic only, to allow plural
-		$totalvotes = wfMessage( 'wigovotestotal' )->params( $countvotes )->text();
+		$totalvotes = wfMessage( 'wigo-votes-total' )->params( $countvotes )->text();
 
 		return Html::check( "checkbox-input-{$voteid}", $myvote === 1,
 			[

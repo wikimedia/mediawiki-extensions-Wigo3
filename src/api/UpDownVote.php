@@ -51,10 +51,10 @@ class UpDownVote extends ApiBase {
 		self::getVotes( $pollid, $plus, $minus, $zero, $voter, $myVote );
 
 		$totalVotes = $plus + $minus + $zero;
-		$totalTooltip = $this->msg( 'wigovotestotald' )
+		$totalTooltip = $this->msg( 'wigo-votes-total-d' )
 			->params( $totalVotes, $plus, $zero, $minus )
 			->text();
-		$distribTitle = $this->msg( 'wigovotedistrib' )
+		$distribTitle = $this->msg( 'wigo-vote-distrib' )
 			->params( $plus, $zero, $minus )
 			->text();
 

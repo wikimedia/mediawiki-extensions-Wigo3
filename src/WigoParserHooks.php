@@ -32,7 +32,7 @@ class WigoParserHooks {
 		if ( !$voteid ) {
 			static $err = null;
 			if ( $err === null ) {
-				$err = wfMessage( 'wigoerror' )->text();
+				$err = wfMessage( 'wigo-error' )->text();
 			}
 			$output = $parser->recursiveTagParse( $input, $frame );
 			return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
@@ -83,10 +83,10 @@ class WigoParserHooks {
 			$output = self::addCaptureImages( $output, $parser, $frame );
 		}
 
-		$totalvotes = wfMessage( 'wigovotestotald' )
+		$totalvotes = wfMessage( 'wigo-votes-total-d' )
 			->params( $countvotes, $counts['plus'], $counts['zero'], $counts['minus'] )
 			->escaped();
-		$distribtitle = wfMessage( 'wigovotedistrib' )
+		$distribtitle = wfMessage( 'wigo-vote-distrib' )
 			->params( $counts['plus'], $counts['zero'], $counts['minus'] )
 			->escaped();
 		if ( $countvotes != 0 ) {
@@ -157,12 +157,12 @@ HTML;
 				$up = "$wgExtensionAssetsPath/Wigo3/images/wigovoteup.png";
 				$down = "$wgExtensionAssetsPath/Wigo3/images/wigovotedown.png";
 				$reset = "$wgExtensionAssetsPath/Wigo3/images/wigovoteneutral.png";
-				$altup = wfMessage( 'wigoaltup' )->escaped();
-				$altdown = wfMessage( 'wigoaltdown' )->escaped();
-				$altreset = wfMessage( 'wigoaltreset' )->escaped();
-				$titleup = wfMessage( 'wigotitleup' )->escaped();
-				$titledown = wfMessage( 'wigotitledown' )->escaped();
-				$titlereset = wfMessage( 'wigotitlereset' )->escaped();
+				$altup = wfMessage( 'wigo-alt-up' )->escaped();
+				$altdown = wfMessage( 'wigo-alt-down' )->escaped();
+				$altreset = wfMessage( 'wigo-alt-reset' )->escaped();
+				$titleup = wfMessage( 'wigo-title-up' )->escaped();
+				$titledown = wfMessage( 'wigo-title-down' )->escaped();
+				$titlereset = wfMessage( 'wigo-title-reset' )->escaped();
 			}
 
 			// phpcs:disable Generic.Files.LineLength.TooLong
@@ -413,7 +413,7 @@ HTML;
 			$total = $plus - $minus;
 			$totalvotes =
 				htmlspecialchars( $row->vote_id ) . $sep .
-				wfMessage( 'wigovotestotald' )
+				wfMessage( 'wigo-votes-total-d' )
 					->params( $numvotes, $plus, $zero, $minus )
 					->title( $parser->getTitle() )
 					->parse();
