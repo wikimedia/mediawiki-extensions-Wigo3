@@ -28,7 +28,11 @@ class MultiParserHooks {
 		// inject js
 		$parserOutput = $parser->getOutput();
 		$parserOutput->addModules( [ 'ext.wigo3.multi' ] );
-		$parserOutput->addJsConfigVars( 'wigo3MultiVoteId', $voteid );
+		if ( method_exists( $parserOutput, 'appendJsConfigVar' ) ) {
+			$parserOutput->appendJsConfigVar( 'wigo3MultiVoteId', $voteid );
+		} else {
+			$parserOutput->addJsConfigVars( 'wigo3MultiVoteId', $voteid );
+		}
 
 		// avoid hacking wigo votes
 		$voteid = "multi" . $voteid;

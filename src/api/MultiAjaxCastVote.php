@@ -35,11 +35,16 @@ class MultiAjaxCastVote extends ApiBase {
 		$voter = $this->getConfig()->get( 'Wigo3ConfigStoreIPs' ) ? $context->getRequest()->getIP() : $user->getName();
 
 		$dbw->startAtomic( __METHOD__ );
-		$dbw->replace(
+		$dbw->upsert(
 			'wigovote',
-			[ 'id', 'voter_name' ],
 			[
 				'id' => $pollid,
+				'voter_name' => $voter,
+				'vote' => $vote,
+				'timestamp' => $dbw->timestamp( wfTimestampNow() )
+			],
+			[ 'id' ],
+			[
 				'voter_name' => $voter,
 				'vote' => $vote,
 				'timestamp' => $dbw->timestamp( wfTimestampNow() )
