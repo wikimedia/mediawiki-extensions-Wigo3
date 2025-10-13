@@ -8,7 +8,7 @@
 		"Tim Starling"
 	],
 	"version": "5.0.0",
-	"descriptionmsg": "wigo3-description",
+	"descriptionmsg": "wigo3-desc",
 	"url": "https://www.mediawiki.org/wiki/Extension:Wigo3",
 	"license-name": "GPL-2.0-or-later",
 	"requires": {

@@ -1,6 +1,6 @@
 {
 	"@metadata": {},
-	"wigo3-description": "{{desc|name=Wigo3|url=https://www.mediawiki.org/wiki/Extension:Wigo3}}",
+	"wigo3-desc": "{{desc|name=Wigo3|url=https://www.mediawiki.org/wiki/Extension:Wigo3}}",
 	"wigo-error": "Used as error message",
 	"wigo-error-invalid-vote-id": "Error message shown via JavaScript if the user is trying to a cast vote in a wigo multi-choice poll but the required prefix is somehow missing",
 	"wigo-error-invalidating-cache": "Error message shown in a JavaScript <code>alert()</code> dialog if purging the page cache after casting a wigo vote failed",
@@ -14,8 +14,8 @@
 	"wigo-title-up": "Used as tooltip for an image",
 	"wigo-title-down": "Used as tooltip for an image",
 	"wigo-title-reset": "Used as tooltip for an image",
-	"multi-votebutton": "Used as text for a button",
-	"multi-votetitle": "Used as title for a button",
+	"wigo-multi-vote-button": "Used as text for a button",
+	"wigo-multi-vote-title": "Used as title for a button",
 	"wigo-bestof-legend": "Used as legend",
 	"wigo-bestof-cutoff": "Used as label",
 	"wigo-bestof-month": "Used as label",

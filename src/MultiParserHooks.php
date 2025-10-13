@@ -99,8 +99,8 @@ HTML;
 		} else {
 			$output = "<table class=\"multivote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
 			$numLines = count( $outputlines );
-			$votetitle = wfMessage( "multi-votetitle" )->escaped();
-			$votebutton = wfMessage( "multi-votebutton" )->escaped();
+			$votetitle = wfMessage( 'wigo-multi-vote-title' )->escaped();
+			$votebutton = wfMessage( 'wigo-multi-vote-button' )->escaped();
 
 			foreach ( $outputlines as $i => $line ) {
 				if ( $sum == 0 ) {

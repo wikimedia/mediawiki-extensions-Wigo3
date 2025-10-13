@@ -2,7 +2,7 @@
 	"@metadata": {
 		"authors": [ "Nx" ]
 	},
-	"wigo3-description": "Up/down voting system.",
+	"wigo3-desc": "Up/down voting system.",
 	"wigo-error": "Missing poll id",
 	"wigo-error-invalid-vote-id": "Invalid vote ID",
 	"wigo-error-invalidating-cache": "An error occurred while invalidating the cache!",
@@ -16,8 +16,8 @@
 	"wigo-title-up": "vote up",
 	"wigo-title-down": "vote down",
 	"wigo-title-reset": "vote neutral",
-	"multi-votebutton": "Vote",
-	"multi-votetitle": "Click here to vote for this option",
+	"wigo-multi-vote-button": "Vote",
+	"wigo-multi-vote-title": "Click here to vote for this option",
 	"wigo-bestof-legend": "Options",
 	"wigo-bestof-cutoff": "Cutoff for vote value",
 	"wigo-bestof-month": "Year and month to display",
