@@ -60,6 +60,9 @@
 				"jquery.spinner",
 				"mediawiki.api"
 			]
+		},
+		"ext.wigo3.multi.styles": {
+			"styles": "css/multi.css"
 		}
 	},
 	"ResourceFileModulePaths": {

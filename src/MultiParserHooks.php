@@ -25,14 +25,17 @@ class MultiParserHooks {
 			return "<p><span style='color:red;'>{$err}</span> {$output}</p>";
 		}
 
-		// inject js
+		// inject CSS & JS
 		$parserOutput = $parser->getOutput();
+
 		$parserOutput->addModules( [ 'ext.wigo3.multi' ] );
 		if ( method_exists( $parserOutput, 'appendJsConfigVar' ) ) {
 			$parserOutput->appendJsConfigVar( 'wigo3MultiVoteId', $voteid );
 		} else {
 			$parserOutput->addJsConfigVars( 'wigo3MultiVoteId', $voteid );
 		}
+
+		$parserOutput->addModuleStyles( [ 'ext.wigo3.multi.styles' ] );
 
 		// avoid hacking wigo votes
 		$voteid = "multi" . $voteid;
@@ -65,10 +68,11 @@ class MultiParserHooks {
 			$outputlines[] = $parser->recursiveTagParse( $line );
 		}
 
-		if ( array_key_exists( 'closed', $args )
-			&& strcasecmp( $args['closed'], "yes" ) === 0
+		if (
+			array_key_exists( 'closed', $args ) &&
+			strcasecmp( $args['closed'], 'yes' ) === 0
 		) {
-			$output = "<table class=\"multivote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
+			$output = '<table class="multivote">';
 			foreach ( $outputlines as $i => $line ) {
 				if ( $sum == 0 ) {
 					$percent = 0;
@@ -78,15 +82,15 @@ class MultiParserHooks {
 				// phpcs:disable Generic.Files.LineLength.TooLong
 				$output .= <<<HTML
 <tr>
-	<td class="multioption" style="width:20em;">
+	<td class="multioption multiclosed">
 		$line
 	</td>
-	<td class="multiresult" style="width:2em;">"
+	<td class="multiresult">"
 		{$resultstr[$i]}
 	</td>
-	<td style="margin:0; padding:0;">
-		<div class="votecolumnback" style="border: 1px solid black; background:#F0F0F0; width:220px; height:1em;">
-			<div id="$htmlVoteId-{$i}-column" class="votecolumnfront" style="background:blue; width:{$percent}%; height:100%;"></div>
+	<td class="multicolumncontainer">
+		<div class="votecolumnback">
+			<div id="$htmlVoteId-{$i}-column" class="votecolumnfront" style="width:{$percent}%;"></div>
 		</div>
 	</td>
 </tr>
@@ -94,10 +98,10 @@ HTML;
 				// phpcs:enable Generic.Files.LineLength.TooLong
 
 			}
-			$output .= "</table>";
+			$output .= '</table>';
 			return $output;
 		} else {
-			$output = "<table class=\"multivote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
+			$output = '<table class="multivote">';
 			$numLines = count( $outputlines );
 			$votetitle = wfMessage( 'wigo-multi-vote-title' )->escaped();
 			$votebutton = wfMessage( 'wigo-multi-vote-button' )->escaped();
@@ -111,24 +115,24 @@ HTML;
 				// phpcs:disable Generic.Files.LineLength.TooLong
 				$output .= <<<HTML
 <tr>
-	<td class="multioption" style="width:14em;">
+	<td class="multioption">
 		$line
 	</td>
-	<td class="multiresult" style="width:2em;">
+	<td class="multiresult">
 		$resultstr[$i]
 	</td>
-	<td class="multibutton" style="padding-left:1em; padding-right:1em;">
+	<td class="multibutton">
 		<a href="javascript:mediaWiki.multivote.send($htmlJsVoteId,$i,$numLines)" title="$votetitle">$votebutton</a>
 	</td>
-	<td style="margin:0; padding:0;">
-		<div class="votecolumnback" style="border: 1px solid black; background:#F0F0F0; width:220px; height:1em;">
-			<div id="{$htmlVoteId}-{$i}-column" class="votecolumnfront" style="background:blue; width:{$percent}%; height:100%;"></div>
+	<td class="multicolumncontainer">
+		<div class="votecolumnback">
+			<div id="{$htmlVoteId}-{$i}-column" class="votecolumnfront" style="width:{$percent}%;"></div>
 		</div>
 	</td>
 </tr>
 HTML;
 			}
-			$output .= "</table>";
+			$output .= '</table>';
 			// phpcs:enable Generic.Files.LineLength.TooLong
 			return $output;
 		}

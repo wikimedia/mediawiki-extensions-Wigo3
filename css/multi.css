@@ -1,0 +1,45 @@
+/* CSS for the <multi> parser hook */
+.multivote {
+	border: 0;
+	border-collapse: separate;
+	border-spacing: 2px; /* cellspacing equivalent */
+}
+
+.multivote td,
+.multivote th {
+	padding: 2px;
+}
+
+td.multioption {
+	width: 14em;
+}
+
+td.multioption.multiclosed {
+	width: 20em;
+}
+
+td.multiresult {
+	width: 2em;
+}
+
+td.multibutton {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+td.multicolumncontainer {
+	margin: 0;
+	padding: 0;
+}
+
+div.votecolumnback {
+	border: 1px solid #000;
+	background: #f0f0f0;
+	height: 1em;
+	width: 220px;
+}
+
+div.votecolumnfront {
+	background-color: blue;
+	height: 100%;
+}
