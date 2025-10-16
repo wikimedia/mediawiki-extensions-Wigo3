@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"wigo3-desc": "Systeem voor op- en neerstemmen.",
+	"wigo-error": "Peilings-ID ontbreekt",
+	"wigo-error-invalid-vote-id": "Ongeldige stem-ID",
+	"wigo-error-invalidating-cache": "Er is een fout opgetreden bij het ongeldig maken van de cache!",
+	"wigo-no-votes": "geen stemmen",
+	"wigo-votes-total": "$1 {{plural:$1|stem|stemmen}} in totaal",
+	"wigo-votes-total-d": "$1 {{plural:$1|stem|stemmen}} in totaal ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 op, $2 neutraal, $3 neer",
+	"wigo-alt-up": "op",
+	"wigo-alt-down": "neer",
+	"wigo-alt-reset": "neutraal",
+	"wigo-title-up": "opstemmen",
+	"wigo-title-down": "neerstemmen",
+	"wigo-title-reset": "neutraal stemmen",
+	"wigo-multi-vote-button": "Stemmen",
+	"wigo-multi-vote-title": "Klik hier om voor deze optie te stemmen",
+	"wigo-bestof-legend": "Opties",
+	"wigo-bestof-cutoff": "Afkappunt voor stemwaarde",
+	"wigo-bestof-month": "Jaar en maand om weer te geven",
+	"wigo-bestof-filter": "Op trefwoord filteren",
+	"wigo-bestof-submit": "Indienen"
+}

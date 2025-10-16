@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"apihelp-query+wigo-summary": "Ontvang wigo-inzendingen",
+	"apihelp-query+wigo-param-month": "Tel alleen stemmen van deze maand mee",
+	"apihelp-query+wigo-param-year": "Tel alleen stemmen van dit jaar mee",
+	"apihelp-query+wigo-param-prefix": "Retourneer items waarvan de ID’s met deze waarde beginnen",
+	"apihelp-query+wigo-param-start": "Begin vanaf deze ID",
+	"apihelp-query+wigo-param-limit": "Hoeveel inzendingen er in totaal moeten worden geretourneerd",
+	"apihelp-query+wigovotes-summary": "Ontvang wigo-stemmen",
+	"apihelp-query+wigovotes-param-month": "Tel alleen stemmen van deze maand mee",
+	"apihelp-query+wigovotes-param-year": "Tel alleen stemmen van dit jaar mee",
+	"apihelp-query+wigovotes-param-id": "Retourneer stemmen voor deze inzending",
+	"apihelp-query+wigovotes-param-prefix": "Retourneer inzendingen waarvan de ID’s met deze waarde beginnen. Omzeilt $1id",
+	"apihelp-query+wigovotes-param-start": "Het begintijdstip waarvanaf moet worden geretourneerd",
+	"apihelp-query+wigovotes-param-end": "Het eindtijdstip waartoe moet worden geretourneerd",
+	"apihelp-query+wigovotes-param-continue": "Wanneer er meer resultaten beschikbaar zijn, dit gebruiken om verder te gaan",
+	"apihelp-query+wigovotes-param-limit": "Hoeveel inzendingen er in totaal moeten worden geretourneerd",
+	"apihelp-query+wigovotes-param-dir": "De zoekrichting (ouder of nieuwer)",
+	"apihelp-query+wigovotes-param-min": "Alleen stemmen retourneren die groter of gelijk zijn aan dit",
+	"apihelp-query+wigovotes-param-max": "Alleen stemmen retourneren die lager of gelijk zijn aan dit",
+	"apihelp-wigo-cast-vote-summary": "Breng een wigo-stem uit",
+	"apihelp-wigo-cast-vote-param-pollid": "Unieke identificatiecode van de peiling",
+	"apihelp-wigo-cast-vote-param-vote": "Stemwaarde",
+	"apihelp-wigo-cast-vote-param-countoptions": "Het totale aantal opties in de peiling",
+	"apihelp-wigo-cast-vote-example-1": "Stem op de 2e optie in de peiling met de ID <code>Birds</code>",
+	"apihelp-wigo-get-my-vote-summary": "Haal mijn stem op voor een bepaalde peiling",
+	"apihelp-wigo-get-my-vote-param-pollid": "Unieke identificatiecode van de peiling",
+	"apihelp-wigo-get-my-vote-example-1": "Haal mijn stem op voor de peiling met de ID <code>Birds</code>",
+	"apihelp-wigo-invalidate-page-cache-summary": "Paginacache laten vervallen na het stemmen",
+	"apihelp-wigo-invalidate-page-cache-param-pagename": "Naam van de pagina waarvan de cache moet vervallen",
+	"apihelp-wigo-invalidate-page-cache-example-1": "Paginecache voor de pagina met de naam <code>Foo bar</code> laten vervallen",
+	"apihelp-wigo-vote-updown-summary": "Breng een wigo-stem uit in een eenvoudige op/neer-peiling",
+	"apihelp-wigo-vote-updown-param-pollid": "Unieke identificatiecode van de peiling",
+	"apihelp-wigo-vote-updown-param-vote": "Stemwaarde",
+	"apihelp-wigo-vote-updown-example-1": "Stem <code>1</code> (op) in de peiling met de ID <code>cats</code>",
+	"apihelp-wigo-vote-updown-example-2": "Stem <code>-1</code> (neer) in de peiling met de ID <code>snakes</code>"
+}

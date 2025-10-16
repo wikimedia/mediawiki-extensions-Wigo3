@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"wigo3-desc": "贊成/反對投票系統。",
+	"wigo-error": "缺少調查 ID",
+	"wigo-error-invalid-vote-id": "無效投票 ID",
+	"wigo-error-invalidating-cache": "快取無效化時發生錯誤！",
+	"wigo-no-votes": "無投票",
+	"wigo-votes-total": "總計 $1 {{plural:$1|票}}",
+	"wigo-votes-total-d": "總計 $1 {{plural:$1|票}}（$2/$3/$4）",
+	"wigo-vote-distrib": "$1 贊成、$2 中立、$3 反對",
+	"wigo-alt-up": "贊成",
+	"wigo-alt-down": "反對",
+	"wigo-alt-reset": "中立",
+	"wigo-title-up": "投贊成",
+	"wigo-title-down": "投反對",
+	"wigo-title-reset": "投中立",
+	"wigo-multi-vote-button": "投票",
+	"wigo-multi-vote-title": "點擊此處來為此選項投票",
+	"wigo-bestof-legend": "選項",
+	"wigo-bestof-cutoff": "投票值截止值",
+	"wigo-bestof-month": "顯示的年份和月份",
+	"wigo-bestof-filter": "按關鍵字過濾",
+	"wigo-bestof-submit": "送出"
+}

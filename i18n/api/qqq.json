@@ -1,5 +1,7 @@
 {
-	"@metadata": {},
+	"@metadata": {
+		"authors": []
+	},
 	"apihelp-query+wigo-summary": "{{doc-apihelp-summary|query+wigo}}",
 	"apihelp-query+wigo-param-month": "{{doc-apihelp-param|query+wigo|month}}",
 	"apihelp-query+wigo-param-year": "{{doc-apihelp-param|query+wigo|year}}",

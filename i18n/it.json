@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"wigo-votes-total-d": "$1 {{plural:$1|voto|voti}} totale ($2/$3/$4)",
+	"wigo-bestof-legend": "Opzioni"
+}

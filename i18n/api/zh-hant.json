@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"apihelp-query+wigo-summary": "取得 wigo 項目",
+	"apihelp-query+wigo-param-month": "僅計算本月的投票數",
+	"apihelp-query+wigo-param-year": "僅計算今年的選票",
+	"apihelp-query+wigo-param-prefix": "回傳 ID 以此值開頭的項目",
+	"apihelp-query+wigo-param-start": "從這個 id 開始",
+	"apihelp-query+wigo-param-limit": "要回傳的項目總數。",
+	"apihelp-query+wigovotes-summary": "取得 wigo 投票",
+	"apihelp-query+wigovotes-param-month": "僅計算本月的投票數",
+	"apihelp-query+wigovotes-param-year": "僅計算今年的選票",
+	"apihelp-query+wigovotes-param-id": "回傳此項目的投票",
+	"apihelp-query+wigovotes-param-prefix": "回傳 ID 以此值開頭的項目。覆蓋$1id",
+	"apihelp-query+wigovotes-param-start": "回傳的開始時間戳記",
+	"apihelp-query+wigovotes-param-end": "回傳的結束時間戳記",
+	"apihelp-query+wigovotes-param-continue": "當有更多結果可用時，使用這個繼續。",
+	"apihelp-query+wigovotes-param-limit": "要回傳的項目總數。",
+	"apihelp-query+wigovotes-param-dir": "搜尋方向（較舊或較新）",
+	"apihelp-query+wigovotes-param-min": "僅回傳大於或等於此值的投票",
+	"apihelp-query+wigovotes-param-max": "僅回傳小於或等於此值的投票",
+	"apihelp-wigo-cast-vote-summary": "投下 wigo 一票",
+	"apihelp-wigo-cast-vote-param-pollid": "唯一調查識別碼",
+	"apihelp-wigo-cast-vote-param-vote": "投票值",
+	"apihelp-wigo-cast-vote-param-countoptions": "調查選項總數",
+	"apihelp-wigo-cast-vote-example-1": "在 ID 為 <code>Birds</code> 的調查中投票給第二個選項",
+	"apihelp-wigo-get-my-vote-summary": "取得我對特定調查的投票",
+	"apihelp-wigo-get-my-vote-param-pollid": "唯一調查識別碼",
+	"apihelp-wigo-get-my-vote-example-1": "取得我對 ID 為 <code>Birds</code> 的調查的投票",
+	"apihelp-wigo-invalidate-page-cache-summary": "投票後將頁面快取無效",
+	"apihelp-wigo-invalidate-page-cache-param-pagename": "要讓快取無效的頁面名稱",
+	"apihelp-wigo-invalidate-page-cache-example-1": "使頁面名稱為 <code>Foo bar</code> 的頁面快取無效",
+	"apihelp-wigo-vote-updown-summary": "在簡易的贊成/反對投票中用 wigo 投出一票",
+	"apihelp-wigo-vote-updown-param-pollid": "唯一調查識別碼",
+	"apihelp-wigo-vote-updown-param-vote": "投票值",
+	"apihelp-wigo-vote-updown-example-1": "在 ID 為 <code>cats</code> 的調查中投 <code>1</code> 票（贊成）",
+	"apihelp-wigo-vote-updown-example-2": "在 ID 為 <code>snakes</code> 的調查中投 <code>-1</code> 票（反對）"
+}

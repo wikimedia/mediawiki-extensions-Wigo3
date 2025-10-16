@@ -1,5 +1,7 @@
 {
-	"@metadata": {},
+	"@metadata": {
+		"authors": []
+	},
 	"wigo3-desc": "{{desc|name=Wigo3|url=https://www.mediawiki.org/wiki/Extension:Wigo3}}",
 	"wigo-error": "Used as error message",
 	"wigo-error-invalid-vote-id": "Error message shown via JavaScript if the user is trying to a cast vote in a wigo multi-choice poll but the required prefix is somehow missing",

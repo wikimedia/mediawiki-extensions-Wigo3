@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jack Phoenix"
+		]
+	},
+	"wigo-error": "Äänestyksen tunniste puuttuu",
+	"wigo-error-invalid-vote-id": "Kelpaamaton äänestyksen tunniste",
+	"wigo-error-invalidating-cache": "Välimuistia tyhjennettäessä tapahtui virhe!",
+	"wigo-no-votes": "ei ääniä",
+	"wigo-votes-total": "yhteensä $1 {{PLURAL:$1|ääni|ääntä}}",
+	"wigo-votes-total-d": "yhteensä $1 {{PLURAL:$1|ääni|ääntä}} ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 ylös, $2 neutraalia, $3 alas",
+	"wigo-alt-up": "ylös",
+	"wigo-alt-down": "alas",
+	"wigo-alt-reset": "neutraali",
+	"wigo-title-up": "äänestä ylös",
+	"wigo-title-down": "äänestä alas",
+	"wigo-title-reset": "äänestä neutraalia",
+	"wigo-multi-vote-button": "Äänestä",
+	"wigo-multi-vote-title": "Napsauta tästä äänestääksesi tätä vaihtoehtoa",
+	"wigo-bestof-legend": "Valinnat",
+	"wigo-bestof-cutoff": "Äänestysarvon raja-arvo",
+	"wigo-bestof-month": "Näytettävä vuosi ja kuukausi",
+	"wigo-bestof-filter": "Suodata avainsanan mukaan",
+	"wigo-bestof-submit": "Lähetä"
+}
