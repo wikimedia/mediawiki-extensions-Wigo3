@@ -39,6 +39,8 @@ class WigoParserHooks {
 		}
 
 		$parserOutput = $parser->getOutput();
+		// Add CSS & JS
+		$parserOutput->addModuleStyles( [ 'ext.wigo3.wigo3.styles' ] );
 		$parserOutput->addModules( [ 'ext.wigo3.wigo3' ] );
 
 		// Register the tag in the ParserOutput for WigoDataUpdate
@@ -116,21 +118,21 @@ class WigoParserHooks {
 		if ( array_key_exists( 'closed', $args ) && strcasecmp( $args['closed'], "yes" ) === 0 ) {
 			// phpcs:disable Generic.Files.LineLength.TooLong
 			return <<<HTML
-<table class="vote" cellspacing="2" cellpadding="2" border="0">
+<table class="vote">
 	<tr>
-		<td style="white-space:nowrap;">
-			<table id="{$htmlVoteId}-dist" class="wigodistribution" style="width:48px; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;" title="{$distribtitle}">
+		<td class="vote-distrib-table-container">
+			<table id="{$htmlVoteId}-dist" class="wigodistribution voting-closed" title="{$distribtitle}">
 				<tr>
-					<td class="wigodist-up" style="border:none; background-color:limegreen; margin:0; padding:0; width:{$uppercent}; height:100%; $displayNoneIfEmpty"></td>
-					<td class="wigodist-neutral" style="border:none; background-color:orange; margin:0; padding:0; width:{$neutralpercent}; height:100%; $displayNoneIfEmpty"></td>
-					<td class="wigodist-down" style="border:none; background-color:red; margin:0; padding:0; width:{$downpercent}; height:100%; $displayNoneIfEmpty"></td>
+					<td class="wigodist-up" style="width:{$uppercent}; $displayNoneIfEmpty"></td>
+					<td class="wigodist-neutral" style="width:{$neutralpercent}; $displayNoneIfEmpty"></td>
+					<td class="wigodist-down" style="width:{$downpercent}; $displayNoneIfEmpty"></td>
 				</tr>
 			</table>
 		</td>
-		<td style="min-width:25px; text-align:center;">
+		<td class="vote-totals-container">
 			<span id="{$htmlVoteId}" title="{$totalvotes}">{$votes}</span>
 		</td>
-		<td style="vertical-align:middle;">
+		<td class="vote-output">
 			<!--{$htmlVoteId}-->$output
 		</td>
 	</tr>
@@ -166,26 +168,26 @@ HTML;
 			}
 
 			// phpcs:disable Generic.Files.LineLength.TooLong
-			return "<table class=\"vote\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">" .
+			return "<table class=\"vote\">" .
 			"<tr>" .
-			"<td style=\"white-space:nowrap;\">" .
+			"<td class=\"vote-distrib-table-container\">" .
 				"<a href=\"javascript:mediaWiki.wigo.voteup($jsVoteId)\" id=\"{$htmlVoteId}-up\" class=\"wigobutton wigoupbutton\">" .
 				"<img alt=\"{$altup}\" title=\"{$titleup}\" src=\"$up\"></a>" .
 				"<a href=\"javascript:mediaWiki.wigo.votereset($jsVoteId)\" id=\"{$htmlVoteId}-neutral\" class=\"wigobutton wigoneutralbutton\">" .
 				"<img alt=\"{$altreset}\" title=\"{$titlereset}\" src=\"$reset\"></a>" .
 				"<a href=\"javascript:mediaWiki.wigo.votedown($jsVoteId)\" id=\"{$htmlVoteId}-down\" class=\"wigobutton wigodownbutton\">" .
 				"<img alt=\"{$altdown}\" title=\"{$titledown}\" src=\"$down\"></a>" .
-				"<table id=\"{$htmlVoteId}-dist\" class=\"wigodistribution\" style=\"width:100%; height:6px; border:1px solid grey; margin:0; padding:0; border-spacing:0;\" title=\"{$distribtitle}\">" .
+				"<table id=\"{$htmlVoteId}-dist\" class=\"wigodistribution voting-open\" title=\"{$distribtitle}\">" .
 					"<tr>" .
-						"<td class=\"wigodist-up\" style=\"border:none; background-color:limegreen; margin:0; padding:0; width:{$uppercent}; height:100%; " . ( $totalvotes == 0 ? "display:none;" : "" ) . "\"></td>" .
-						"<td class=\"wigodist-neutral\" style=\"border:none; background-color:orange; margin:0; padding:0; width:{$neutralpercent}; height:100%; " . ( $totalvotes == 0 ? "display:none;" : "" ) . "\"></td>" .
-						"<td class=\"wigodist-down\" style=\"border:none; background-color:red; margin:0; padding:0; width:{$downpercent}; height:100%; " . ( $totalvotes == 0 ? "display:none;" : "" ) . "\"></td>" .
+						"<td class=\"wigodist-up\" style=\"width:{$uppercent}; " . ( $totalvotes == 0 ? "display:none;" : "" ) . "\"></td>" .
+						"<td class=\"wigodist-neutral\" style=\"width:{$neutralpercent}; " . ( $totalvotes == 0 ? "display:none;" : "" ) . "\"></td>" .
+						"<td class=\"wigodist-down\" style=\"width:{$downpercent}; " . ( $totalvotes == 0 ? "display:none;" : "" ) . "\"></td>" .
 					"</tr></table>" .
 			"</td>" .
-			"<td style=\"min-width:25px; text-align:center;\">" .
+			"<td class=\"vote-totals-container\">" .
 				"<span id=\"{$htmlVoteId}\" title=\"{$totalvotes}\">{$votes}</span>" .
 			"</td>" .
-			"<td style=\"vertical-align:middle;\">" .
+			"<td class=\"vote-output\">" .
 				"<!--$htmlVoteId-->$output" .
 			"</td>" .
 			"</tr>" .

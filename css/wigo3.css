@@ -1,0 +1,59 @@
+/* CSS for the <vote> and <votecp> parser hooks */
+.vote {
+	border: 0;
+	border-collapse: separate;
+	border-spacing: 2px; /* cellspacing equivalent */
+}
+
+.vote-distrib-table-container {
+	white-space: nowrap;
+}
+
+.wigodistribution {
+	height: 6px;
+	border: 1px solid grey;
+	margin: 0;
+	padding: 0;
+	border-spacing: 0;
+}
+
+.wigodistribution.voting-closed {
+	width: 48px;
+}
+
+.wigodistribution.voting-open {
+	width: 100%;
+}
+
+.wigodist-up {
+	border: none;
+	background-color: limegreen;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.wigodist-neutral {
+	border: none;
+	background-color: orange;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.wigodist-down {
+	border: none;
+	background-color: red;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.vote-totals-container {
+	min-width: 25px;
+	text-align: center;
+}
+
+.vote-output {
+	vertical-align: middle;
+}

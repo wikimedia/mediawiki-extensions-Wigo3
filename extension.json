@@ -63,6 +63,9 @@
 		},
 		"ext.wigo3.multi.styles": {
 			"styles": "css/multi.css"
+		},
+		"ext.wigo3.wigo3.styles": {
+			"styles": "css/wigo3.css"
 		}
 	},
 	"ResourceFileModulePaths": {
