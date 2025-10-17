@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"apihelp-query+wigo-summary": "Дај ставки од Wigo",
+	"apihelp-query+wigo-param-month": "Број само гласови од овој месец",
+	"apihelp-query+wigo-param-year": "Број само гласови од оваа година",
+	"apihelp-query+wigo-param-prefix": "Дај ставки чии назнаки почнуваат со оваа вредност",
+	"apihelp-query+wigo-param-start": "Почни од оваа назнака",
+	"apihelp-query+wigo-param-limit": "Колку вкупно ставки да се дадат.",
+	"apihelp-query+wigovotes-summary": "Дај гласови од Wigo",
+	"apihelp-query+wigovotes-param-month": "Број само гласови од овој месец",
+	"apihelp-query+wigovotes-param-year": "Број само гласови од оваа година",
+	"apihelp-query+wigovotes-param-id": "Дај гласови за оваа ставка",
+	"apihelp-query+wigovotes-param-prefix": "Дај ставки чии назнаки почнуваат со оваа вредност. Го заменува $1id",
+	"apihelp-query+wigovotes-param-start": "Од кое почетно време и датум да се даде бараното",
+	"apihelp-query+wigovotes-param-end": "Од кое завршно време и датум да се даде бараното",
+	"apihelp-query+wigovotes-param-continue": "Употребете го ова за да продолжите кога има повеќе расположливи ставки.",
+	"apihelp-query+wigovotes-param-limit": "Колку вкупно ставки да се дадат.",
+	"apihelp-query+wigovotes-param-dir": "Насока на пребарување (постари или понови)",
+	"apihelp-query+wigovotes-param-min": "Дај само гласови поголеми или еднакви на ова",
+	"apihelp-query+wigovotes-param-max": "Дај само гласови помали или еднакви на ова",
+	"apihelp-wigo-cast-vote-summary": "Дај глас на Wigo",
+	"apihelp-wigo-cast-vote-param-pollid": "Единствена анкетна назнака",
+	"apihelp-wigo-cast-vote-param-vote": "Гласовна вредност",
+	"apihelp-wigo-cast-vote-param-countoptions": "Вкупен број на можности во анкетата",
+	"apihelp-wigo-cast-vote-example-1": "Гласај за втората можност во анкетата која ја има знанаката <code>Birds</code>",
+	"apihelp-wigo-get-my-vote-summary": "Дај мој глас за дадена анкета",
+	"apihelp-wigo-get-my-vote-param-pollid": "Единствена анкетна назнака",
+	"apihelp-wigo-get-my-vote-example-1": "Дај мој глас за анкетата со назнака <code>Birds</code>",
+	"apihelp-wigo-invalidate-page-cache-summary": "Поништи меѓусклад во страница по гласањето",
+	"apihelp-wigo-invalidate-page-cache-param-pagename": "Име на страницата чиј меѓусклад треба да се поништи",
+	"apihelp-wigo-invalidate-page-cache-example-1": "Поништи меѓусклад во страницата наречена <code>Foo bar</code>",
+	"apihelp-wigo-vote-updown-summary": "Гласајте во Wigo со проста анкета нагоре/надолу",
+	"apihelp-wigo-vote-updown-param-pollid": "Единствена анкетна назнака",
+	"apihelp-wigo-vote-updown-param-vote": "Гласовна вредност",
+	"apihelp-wigo-vote-updown-example-1": "Гласајте <code>1</code> (нагоре) на анкетата со назнака <code>cats</code>",
+	"apihelp-wigo-vote-updown-example-2": "Гласајте <code>-1</code> (надолу) на анкетата со назнака <code>snakes</code>"
+}

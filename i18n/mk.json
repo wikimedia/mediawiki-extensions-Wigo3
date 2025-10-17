@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"wigo3-desc": "Гласачки систем со нагоре и надолу.",
+	"wigo-error": "Недостасува назнака на анкетата",
+	"wigo-error-invalid-vote-id": "Неважечка назнака на гласот",
+	"wigo-error-invalidating-cache": "Се јави грешка при поништувањето на меѓускладот.",
+	"wigo-no-votes": "нема гласови",
+	"wigo-votes-total": "Вкупно $1 {{plural:$1|глас|гласови}}",
+	"wigo-votes-total-d": "Вкупно $1 {{plural:$1|глас|гласови}} ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 нагоре, $2 неутрално, $3 надолу",
+	"wigo-alt-up": "нагоре",
+	"wigo-alt-down": "надолу",
+	"wigo-alt-reset": "неутрално",
+	"wigo-title-up": "глас нагоре",
+	"wigo-title-down": "глас надолу",
+	"wigo-title-reset": "глас неутрално",
+	"wigo-multi-vote-button": "Гласајте",
+	"wigo-multi-vote-title": "Стиснете тука за да гласате за оваа можност",
+	"wigo-bestof-legend": "Можности",
+	"wigo-bestof-cutoff": "Праг за гласовна вредност",
+	"wigo-bestof-month": "Година и месец за прикажување",
+	"wigo-bestof-filter": "Филтрирај по клучен збор",
+	"wigo-bestof-submit": "Поднеси"
+}
