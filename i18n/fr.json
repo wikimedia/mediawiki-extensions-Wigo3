@@ -1,8 +1,26 @@
 {
 	"@metadata": {
 		"authors": [
-			"EmDashUser002"
+			"EmDashUser002",
+			"Jack Phoenix"
 		]
 	},
-	"wigo-bestof-legend": "Options"
+	"wigo-error": "Identifiant de sondage manquant",
+	"wigo-error-invalid-vote-id": "Identifiant de vote non valide",
+	"wigo-error-invalidating-cache": "Une erreur s'est produite lors de l'invalidation du cache !",
+	"wigo-no-votes": "aucun vote",
+	"wigo-votes-total": "{{PLURAL:$1|un vote|$1 votes}} au total",
+	"wigo-votes-total-d": "{{PLURAL:$1|un vote|$1 votes}} au total ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 positif{{PLURAL:$1||s}}, $2 neutre{{PLURAL:$2||s}}, $3 négatif{{PLURAL:$3||s}}",
+	"wigo-alt-up": "positif",
+	"wigo-alt-down": "négatif",
+	"wigo-alt-reset": "neutre",
+	"wigo-title-up": "vote positif",
+	"wigo-title-down": "vote négatif",
+	"wigo-title-reset": "vote neutre",
+	"wigo-multi-vote-button": "Voter",
+	"wigo-multi-vote-title": "Cliquez ici pour voter pour cette option",
+	"wigo-bestof-legend": "Options",
+	"wigo-bestof-month": "Année et mois à afficher",
+	"wigo-bestof-submit": "Soumettre"
 }
