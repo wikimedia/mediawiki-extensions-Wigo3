@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jack Phoenix"
+		]
+	},
+	"wigo-bestof-legend": "Valinnat",
+	"wigo-bestof-cutoff": "Äänestysarvon raja-arvo",
+	"wigo-bestof-month": "Näytettävä vuosi ja kuukausi",
+	"wigo-bestof-filter": "Suodata avainsanan mukaan",
+	"wigo-bestof-submit": "Lähetä"
+}
