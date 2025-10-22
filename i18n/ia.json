@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"wigo3-desc": "Systema de votation positive/negative.",
+	"wigo-error": "ID de sondage mancante",
+	"wigo-error-invalid-vote-id": "ID de voto non valide",
+	"wigo-error-invalidating-cache": "Un error ha occurrite durante le invalidation del cache!",
+	"wigo-no-votes": "sin votos",
+	"wigo-votes-total": "$1 voto{{plural:$1||s}} in total",
+	"wigo-votes-total-d": "$1 voto{{plural:$1||s}} in total ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 positive, $2 neutral, $3 negative",
+	"wigo-alt-up": "positive",
+	"wigo-alt-down": "negative",
+	"wigo-alt-reset": "neutral",
+	"wigo-title-up": "voto positive",
+	"wigo-title-down": "voto negative",
+	"wigo-title-reset": "voto neutral",
+	"wigo-multi-vote-button": "Votar",
+	"wigo-multi-vote-title": "Clicca hic pro votar pro iste option",
+	"wigo-bestof-legend": "Optiones",
+	"wigo-bestof-cutoff": "Limite pro le valor del voto",
+	"wigo-bestof-month": "Anno e mense a monstrar",
+	"wigo-bestof-filter": "Filtrar per parola-clave",
+	"wigo-bestof-submit": "Submitter"
+}

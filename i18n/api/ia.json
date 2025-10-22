@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"apihelp-query+wigo-summary": "Obtener entratas wigo",
+	"apihelp-query+wigo-param-month": "Solmente contar le votos de iste mense",
+	"apihelp-query+wigo-param-year": "Solmente contar le votos de iste anno",
+	"apihelp-query+wigo-param-prefix": "Retornar entratas con IDs que comencia con iste valor`",
+	"apihelp-query+wigo-param-start": "Comenciar per iste ID",
+	"apihelp-query+wigo-param-limit": "Quante entratas retornar in total",
+	"apihelp-query+wigovotes-summary": "Obtener votos wigo",
+	"apihelp-query+wigovotes-param-month": "Solmente contar le votos de iste mense",
+	"apihelp-query+wigovotes-param-year": "Solmente contar le votos de iste anno",
+	"apihelp-query+wigovotes-param-id": "Retornar le votos pro iste entrata",
+	"apihelp-query+wigovotes-param-prefix": "Retornar le entratas con IDs que comencia per iste valor. Supplanta $1id",
+	"apihelp-query+wigovotes-param-start": "Le data e hora de initio desde le qual restituer",
+	"apihelp-query+wigovotes-param-end": "Le data e hora de fin usque al qual restituer",
+	"apihelp-query+wigovotes-param-continue": "Quando plus resultatos es disponibile, usar isto pro continuar",
+	"apihelp-query+wigovotes-param-limit": "Quante entratas retornar in total",
+	"apihelp-query+wigovotes-param-dir": "Le direction in le qual cercar (plus ancian o plus nove)",
+	"apihelp-query+wigovotes-param-min": "Solmente retornar votos superior o equal a iste",
+	"apihelp-query+wigovotes-param-max": "Solmente retornar votos inferior o equal a iste",
+	"apihelp-wigo-cast-vote-summary": "Inviar un voto wigo",
+	"apihelp-wigo-cast-vote-param-pollid": "Identificator unic del sondage",
+	"apihelp-wigo-cast-vote-param-vote": "Valor del voto",
+	"apihelp-wigo-cast-vote-param-countoptions": "Le numero total de optiones in le sondage",
+	"apihelp-wigo-cast-vote-example-1": "Votar pro le secunde option in le sondage que ha le ID <code>Birds</code>",
+	"apihelp-wigo-get-my-vote-summary": "Obtener mi voto pro un sondage date",
+	"apihelp-wigo-get-my-vote-param-pollid": "Identificator unic del sondage",
+	"apihelp-wigo-get-my-vote-example-1": "Obtener mi voto pro le sondage que ha le ID <code>Birds</code>",
+	"apihelp-wigo-invalidate-page-cache-summary": "Invalidar le cache del pagina post votar",
+	"apihelp-wigo-invalidate-page-cache-param-pagename": "Nomine del pagina cuje cache invalidar",
+	"apihelp-wigo-invalidate-page-cache-example-1": "Invalidar le cache del pagina con le nomine <code>Foo bar</code>",
+	"apihelp-wigo-vote-updown-summary": "Inviar un voto wigo in un simple sondage a votos positive/negative",
+	"apihelp-wigo-vote-updown-param-pollid": "Identificator unic del sondage",
+	"apihelp-wigo-vote-updown-param-vote": "Valor del voto",
+	"apihelp-wigo-vote-updown-example-1": "Votar <code>1</code> (positive) in le sondage con le ID <code>cats</code>",
+	"apihelp-wigo-vote-updown-example-2": "Votar <code>-1</code> (negative) in le sondage con le ID <code>snakes</code>"
+}
