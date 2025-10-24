@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mansil alfalb"
+		]
+	},
+	"apihelp-query+wigo-param-month": "Contar apenas os votos deste mês",
+	"apihelp-query+wigo-param-year": "Contar apenas os votos deste ano",
+	"apihelp-query+wigovotes-param-id": "Devolver votos para esta entrada",
+	"apihelp-query+wigovotes-param-min": "Devolver apenas votos maiores ou iguais a este",
+	"apihelp-wigo-cast-vote-param-vote": "Valor do voto",
+	"apihelp-wigo-vote-updown-param-vote": "Valor do voto"
+}

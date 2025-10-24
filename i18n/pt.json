@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mansil alfalb"
+		]
+	},
+	"wigo3-desc": "Sistema de votação de \"favor/contra\".",
+	"wigo-error-invalidating-cache": "Ocorreu um erro enquanto invalidava a ''cache''!",
+	"wigo-no-votes": "sem votos",
+	"wigo-votes-total-d": "$1 {{plural:$1|voto|votos}} total ($2/$3/$4)",
+	"wigo-title-down": "votar contra",
+	"wigo-multi-vote-title": "Clique aqui para votar nesta opção",
+	"wigo-bestof-legend": "Opções",
+	"wigo-bestof-month": "Ano e mês a exibir",
+	"wigo-bestof-filter": "Filtrar por palavra-chave",
+	"wigo-bestof-submit": "Submeter"
+}
