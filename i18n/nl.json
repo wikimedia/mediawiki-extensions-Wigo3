@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"wigo-bestof-legend": "Opties",
+	"wigo-bestof-cutoff": "Afkappunt voor stemwaarde",
+	"wigo-bestof-month": "Jaar en maand om weer te geven",
+	"wigo-bestof-filter": "Op trefwoord filteren",
+	"wigo-bestof-submit": "Indienen"
+}

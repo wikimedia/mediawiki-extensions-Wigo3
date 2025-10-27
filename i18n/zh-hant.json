@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"wigo-bestof-legend": "選項",
+	"wigo-bestof-cutoff": "投票值截止值",
+	"wigo-bestof-month": "顯示的年份和月份",
+	"wigo-bestof-filter": "按關鍵字過濾",
+	"wigo-bestof-submit": "送出"
+}

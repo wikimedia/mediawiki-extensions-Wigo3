@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"wigo-bestof-legend": "Optiones",
+	"wigo-bestof-cutoff": "Limite pro le valor del voto",
+	"wigo-bestof-month": "Anno e mense a monstrar",
+	"wigo-bestof-filter": "Filtrar per parola-clave",
+	"wigo-bestof-submit": "Submitter"
+}
