@@ -9,9 +9,7 @@
 namespace Wigo3\API;
 
 use ApiBase;
-// use MediaWiki\ParamValidator\TypeDef\TitleDef;
-// use MediaWiki\Title\Title;
-use Title;
+use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class InvalidatePageCache extends ApiBase {

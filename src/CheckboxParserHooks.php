@@ -2,7 +2,7 @@
 
 namespace Wigo3;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use Parser;
 use Sanitizer;

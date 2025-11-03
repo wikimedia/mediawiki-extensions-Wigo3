@@ -6,8 +6,8 @@ use DatabaseUpdater;
 use DeferrableUpdate;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RenderedRevision;
+use MediaWiki\Title\Title;
 use Parser;
-use Title;
 
 class Hooks {
 
