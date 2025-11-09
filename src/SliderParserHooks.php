@@ -3,8 +3,9 @@
 namespace Wigo3;
 
 use MediaWiki\MediaWikiServices;
-use Parser;
-use Sanitizer;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\Sanitizer;
+use MediaWiki\Xml\Xml;
 
 /**
  * <slider> and <sliders> show archived slider votes. To reduce the maintenance
@@ -73,7 +74,7 @@ class SliderParserHooks {
 				$id = Sanitizer::escapeClass( $parts[0] );
 			}
 			$output .= "<p>" .
-				\Xml::element( 'slider',
+				Xml::element( 'slider',
 					[
 						'poll' => "{$voteid}-slider-{$id}",
 						'min' => $minvalue,

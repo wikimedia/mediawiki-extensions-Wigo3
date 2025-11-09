@@ -7,12 +7,12 @@
 		"[http://rationalwiki.com/wiki/User:Tmtoulouse Trent Toulouse]",
 		"Tim Starling"
 	],
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"descriptionmsg": "wigo3-desc",
 	"url": "https://www.mediawiki.org/wiki/Extension:Wigo3",
 	"license-name": "GPL-2.0-or-later",
 	"requires": {
-		"MediaWiki": ">= 1.40"
+		"MediaWiki": ">= 1.43"
 	},
 	"APIModules": {
 		"wigo-cast-vote": "Wigo3\\API\\MultiAjaxCastVote",

@@ -4,14 +4,14 @@ namespace Wigo3;
 
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use Xml;
+use MediaWiki\Xml\Xml;
 
 class WigoParserHooks {
 	/**
 	 * @param string $input
 	 * @param string[] $args
-	 * @param \Parser $parser
-	 * @param \PPFrame $frame
+	 * @param \MediaWiki\Parser\Parser $parser
+	 * @param \MediaWiki\Parser\PPFrame $frame
 	 * @return string
 	 */
 	public static function votecp( $input, $args, $parser, $frame ) {
@@ -21,8 +21,8 @@ class WigoParserHooks {
 	/**
 	 * @param string $input
 	 * @param string[] $args
-	 * @param \Parser $parser
-	 * @param \PPFrame $frame
+	 * @param \MediaWiki\Parser\Parser $parser
+	 * @param \MediaWiki\Parser\PPFrame $frame
 	 * @param bool $cp Whether the conservapedia/capture variant was called
 	 * @return string
 	 */
@@ -198,8 +198,8 @@ HTML;
 
 	/**
 	 * @param string $output
-	 * @param \Parser $parser
-	 * @param \PPFrame $frame
+	 * @param \MediaWiki\Parser\Parser $parser
+	 * @param \MediaWiki\Parser\PPFrame $frame
 	 * @return string
 	 */
 	private static function addCaptureImages( $output, $parser, $frame ) {
@@ -230,8 +230,8 @@ HTML;
 	/**
 	 * @param string $input
 	 * @param string[] $args
-	 * @param \Parser $parser
-	 * @param \PPFrame $frame
+	 * @param \MediaWiki\Parser\Parser $parser
+	 * @param \MediaWiki\Parser\PPFrame $frame
 	 * @return string
 	 */
 	public static function capture( $input, $args, $parser, $frame ) {
@@ -264,7 +264,7 @@ HTML;
 	/**
 	 * the parser function, returns the encoded image filename
 	 *
-	 * @param \Parser $parser
+	 * @param \MediaWiki\Parser\Parser $parser
 	 * @param string $param1
 	 * @return string
 	 */
@@ -275,8 +275,8 @@ HTML;
 	/**
 	 * @param string $input
 	 * @param string[] $args
-	 * @param \Parser $parser
-	 * @param \PPFrame $frame
+	 * @param \MediaWiki\Parser\Parser $parser
+	 * @param \MediaWiki\Parser\PPFrame $frame
 	 * @return string
 	 */
 	public static function bestof( $input, $args, $parser, $frame ) {
@@ -363,8 +363,8 @@ HTML;
 	 * @param string|null $month
 	 * @param string|null $year
 	 * @param string|null $keyword
-	 * @param \Parser $parser
-	 * @param \PPFrame $frame
+	 * @param \MediaWiki\Parser\Parser $parser
+	 * @param \MediaWiki\Parser\PPFrame $frame
 	 * @return string
 	 */
 	private static function getBestOf( $pollid, $cutoff, $month, $year, $keyword, $parser, $frame ) {

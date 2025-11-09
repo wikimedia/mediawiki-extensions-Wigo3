@@ -8,8 +8,8 @@
  */
 namespace Wigo3\API;
 
-use ApiBase;
-use RequestContext;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Context\RequestContext;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class MultiAjaxGetMyVote extends ApiBase {

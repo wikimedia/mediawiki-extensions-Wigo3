@@ -3,8 +3,8 @@
 namespace Wigo3;
 
 use MediaWiki\MediaWikiServices;
-use Parser;
-use Xml;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Xml\Xml;
 
 class MultiParserHooks {
 	/**
@@ -29,11 +29,7 @@ class MultiParserHooks {
 		$parserOutput = $parser->getOutput();
 
 		$parserOutput->addModules( [ 'ext.wigo3.multi' ] );
-		if ( method_exists( $parserOutput, 'appendJsConfigVar' ) ) {
-			$parserOutput->appendJsConfigVar( 'wigo3MultiVoteId', $voteid );
-		} else {
-			$parserOutput->addJsConfigVars( 'wigo3MultiVoteId', $voteid );
-		}
+		$parserOutput->appendJsConfigVar( 'wigo3MultiVoteId', $voteid );
 
 		$parserOutput->addModuleStyles( [ 'ext.wigo3.multi.styles' ] );
 

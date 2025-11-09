@@ -2,12 +2,12 @@
 
 namespace Wigo3;
 
-use DatabaseUpdater;
-use DeferrableUpdate;
+use MediaWiki\Deferred\DeferrableUpdate;
+use MediaWiki\Installer\DatabaseUpdater;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\Parser;
 use MediaWiki\Revision\RenderedRevision;
 use MediaWiki\Title\Title;
-use Parser;
 
 class Hooks {
 

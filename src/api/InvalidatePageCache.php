@@ -8,7 +8,8 @@
  */
 namespace Wigo3\API;
 
-use ApiBase;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\ParamValidator\TypeDef\TitleDef;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -23,15 +24,6 @@ class InvalidatePageCache extends ApiBase {
 		$retVal = 'notok';
 
 		$title = Title::newFromText( $params['pagename'] );
-
-		// Some basic validation copied from ApiBase#getTitleOrPageId
-		if ( !$title || $title->isExternal() ) {
-			$this->dieWithError( [ 'apierror-invalidtitle', wfEscapeWikiText( $params['pagename'] ) ] );
-		}
-		if ( !$title->canExist() ) {
-			$this->dieWithError( 'apierror-pagecannotexist' );
-		}
-		// End copied validation code
 
 		if ( $title->invalidateCache() === true ) {
 			$retVal = 'ok';
@@ -59,15 +51,9 @@ class InvalidatePageCache extends ApiBase {
 	public function getAllowedParams() {
 		return [
 			'pagename' => [
-				// Per CR, once MW 1.43+ is supported&required, we can change this to:
-				/*
 				ParamValidator::PARAM_TYPE => 'title',
 				ParamValidator::PARAM_REQUIRED => true,
 				TitleDef::PARAM_RETURN_OBJECT => true,
-				*/
-				// and simplify #execute by removing some of the copied code from it.
-				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_REQUIRED => true
 			]
 		];
 	}

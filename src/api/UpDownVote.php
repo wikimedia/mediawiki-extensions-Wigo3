@@ -8,9 +8,9 @@
  */
 namespace Wigo3\API;
 
-use ApiBase;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
-use RequestContext;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class UpDownVote extends ApiBase {

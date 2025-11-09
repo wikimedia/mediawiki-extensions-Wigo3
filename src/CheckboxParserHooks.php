@@ -4,8 +4,8 @@ namespace Wigo3;
 
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use Parser;
-use Sanitizer;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\Sanitizer;
 
 class CheckboxParserHooks {
 	/**
