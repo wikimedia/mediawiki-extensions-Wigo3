@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"wigo3-desc": "Sistema de votación a favor/en contra.",
+	"wigo-error": "Falta o identificador da enquisa",
+	"wigo-error-invalid-vote-id": "O identificador do voto é incorrecto",
+	"wigo-error-invalidating-cache": "Produciuse un erro ao invalidar a caché!",
+	"wigo-no-votes": "sen votos",
+	"wigo-votes-total": "$1 {{plural:$1|voto|votos}} en total",
+	"wigo-votes-total-d": "$1 {{plural:$1|voto|votos}} en total ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 a favor, $2 neutros, $3 en contra",
+	"wigo-alt-up": "a favor",
+	"wigo-alt-down": "en contra",
+	"wigo-alt-reset": "neutros",
+	"wigo-title-up": "voto a favor",
+	"wigo-title-down": "voto en contra",
+	"wigo-title-reset": "voto neutro",
+	"wigo-multi-vote-button": "Votar",
+	"wigo-multi-vote-title": "Fai clic aquí para votares por esta opción",
+	"wigo-bestof-legend": "Opcións",
+	"wigo-bestof-cutoff": "Límite para o valor dos votos",
+	"wigo-bestof-month": "Ano e mes a mostrar",
+	"wigo-bestof-filter": "Filtrar por palabra clave",
+	"wigo-bestof-submit": "Enviar"
+}
