@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"wigo-bestof-legend": "Opcións",
+	"wigo-bestof-cutoff": "Límite para o valor dos votos",
+	"wigo-bestof-month": "Ano e mes a mostrar",
+	"wigo-bestof-filter": "Filtrar por palabra clave",
+	"wigo-bestof-submit": "Enviar"
+}
