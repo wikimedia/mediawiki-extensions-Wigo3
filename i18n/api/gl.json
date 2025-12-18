@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"apihelp-query+wigo-summary": "Obter entradas de wigo",
+	"apihelp-query+wigo-param-month": "Só contar os votos deste mes",
+	"apihelp-query+wigo-param-year": "Só contar os votos deste ano",
+	"apihelp-query+wigo-param-prefix": "Devolver as entradas cuxos identificadores comezan por este valor",
+	"apihelp-query+wigo-param-start": "Comezar desde este identificador",
+	"apihelp-query+wigo-param-limit": "Número total de entradas a devolver",
+	"apihelp-query+wigovotes-summary": "Obter os votos de wigo",
+	"apihelp-query+wigovotes-param-month": "Só contar os votos deste mes",
+	"apihelp-query+wigovotes-param-year": "Só contar os votos deste ano",
+	"apihelp-query+wigovotes-param-id": "Devolver os votos desta entrada",
+	"apihelp-query+wigovotes-param-prefix": "Devolver as entradas cuxos identificadores comezan por este valor. Sobrescribe «$1id».",
+	"apihelp-query+wigovotes-param-start": "A marca de tempo inicial desde a que devolver resultados",
+	"apihelp-query+wigovotes-param-end": "A marca de tempo final ata a que devolver resultados",
+	"apihelp-query+wigovotes-param-continue": "Cando estean dispoñibles máis resultados, utiliza isto para continuar",
+	"apihelp-query+wigovotes-param-limit": "Número total de entradas a devolver",
+	"apihelp-query+wigovotes-param-dir": "A dirección de busca (máis antigo ou máis recente)",
+	"apihelp-query+wigovotes-param-min": "Só devolver os votos maiores ou iguais a isto",
+	"apihelp-query+wigovotes-param-max": "Só devolver os votos menores ou iguais a isto",
+	"apihelp-wigo-cast-vote-summary": "Enviar un voto de wigo",
+	"apihelp-wigo-cast-vote-param-pollid": "Identificador único da enquisa",
+	"apihelp-wigo-cast-vote-param-vote": "Valor do voto",
+	"apihelp-wigo-cast-vote-param-countoptions": "O número total de opcións na enquisa",
+	"apihelp-wigo-cast-vote-example-1": "Votar pola segunda opción da enquisa que ten o identificador <code>Birds</code>",
+	"apihelp-wigo-get-my-vote-summary": "Obter o meu voto nunha enquisa determinada",
+	"apihelp-wigo-get-my-vote-param-pollid": "Identificador único da enquisa",
+	"apihelp-wigo-get-my-vote-example-1": "Obter o meu voto na enquisa que ten o identificador <code>Birds</code>",
+	"apihelp-wigo-invalidate-page-cache-summary": "Invalidar a caché da páxina despois de votar",
+	"apihelp-wigo-invalidate-page-cache-param-pagename": "Nome da páxina cuxa caché se invalidará",
+	"apihelp-wigo-invalidate-page-cache-example-1": "Invalidar a caché da páxina chamada <code>Foo bar</code>",
+	"apihelp-wigo-vote-updown-summary": "Enviar un voto de wigo nunha enquisa sinxela de votos a favor e en contra",
+	"apihelp-wigo-vote-updown-param-pollid": "Identificador único da enquisa",
+	"apihelp-wigo-vote-updown-param-vote": "Valor do voto",
+	"apihelp-wigo-vote-updown-example-1": "Votar <code>1</code> (a favor) na enquisa que ten o identificador <code>cats</code>",
+	"apihelp-wigo-vote-updown-example-2": "Votar <code>-1</code> (en contra) na enquisa que ten o identificador <code>snakes</code>"
+}
