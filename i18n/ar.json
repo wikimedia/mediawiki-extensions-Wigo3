@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Meno25"
+		]
+	},
+	"wigo3-desc": "نظام التصويت بالإيجاب أو السلب.",
+	"wigo-error": "معرف الاستطلاع مفقود",
+	"wigo-error-invalid-vote-id": "هوية تصويت غير صالحة",
+	"wigo-error-invalidating-cache": "حدث خطأ أثناء إبطال ذاكرة التخزين المؤقت!",
+	"wigo-no-votes": "لا أصوات",
+	"wigo-votes-total": "إجمالي $1 {{plural:$1|تصويت|تصويتات}}",
+	"wigo-votes-total-d": "$1 {{plural:$1|تصويت|تصويتات}} إجمالي ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 للزيادة، $2 محايدان، $3 للانخفاض",
+	"wigo-alt-up": "أعلى",
+	"wigo-alt-down": "تحت",
+	"wigo-alt-reset": "حيادي",
+	"wigo-title-up": "صوتوا بالإيجاب",
+	"wigo-title-down": "التصويت بالرفض",
+	"wigo-title-reset": "التصويت محايد",
+	"wigo-multi-vote-button": "تصويت",
+	"wigo-multi-vote-title": "انقر هنا للتصويت لهذا الخيار",
+	"wigo-bestof-legend": "خيارات",
+	"wigo-bestof-cutoff": "الحد الأدنى لقيمة الصوت",
+	"wigo-bestof-month": "السنة والشهر المراد عرضهما",
+	"wigo-bestof-filter": "تصفية حسب الكلمة الرئيسية",
+	"wigo-bestof-submit": "إرسال"
+}
