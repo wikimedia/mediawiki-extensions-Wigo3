@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Meno25"
+		]
+	},
+	"wigo-bestof-legend": "خيارات",
+	"wigo-bestof-cutoff": "الحد الأدنى لقيمة الصوت",
+	"wigo-bestof-month": "السنة والشهر المراد عرضهما",
+	"wigo-bestof-filter": "تصفية حسب الكلمة الرئيسية",
+	"wigo-bestof-submit": "إرسال"
+}
