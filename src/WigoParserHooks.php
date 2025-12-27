@@ -112,7 +112,7 @@ class WigoParserHooks {
 		}
 
 		$htmlVoteId = htmlspecialchars( $voteid );
-		$jsVoteId = htmlspecialchars( Xml::encodeJsVar( $voteid ) );
+		$jsVoteId = htmlspecialchars( Html::encodeJsVar( $voteid ) );
 		$displayNoneIfEmpty = $totalvotes == 0 ? "display:none;" : "";
 
 		if ( array_key_exists( 'closed', $args ) && strcasecmp( $args['closed'], "yes" ) === 0 ) {
@@ -316,20 +316,20 @@ HTML;
 				Xml::closeElement( 'tr' ) . "\n" .
 				Xml::openElement( 'tr' ) .
 				Xml::openElement( 'td' ) .
-				Xml::input( 'bfcutoff', 3, $cutoff, [ 'maxlength' => 3 ] ) . ' ' .
+				Html::input( 'bfcutoff', $cutoff, 'text', [ 'size' => 3, 'maxlength' => 3 ] ) . ' ' .
 				Xml::closeElement( 'td' ) .
 				Xml::openElement( 'td' ) .
-				Xml::input( 'bfyear', 4, $year, [ 'maxlength' => 4 ] ) . ' ' .
+				Html::input( 'bfyear', $year, 'text', [ 'size' => 4, 'maxlength' => 4 ] ) . ' ' .
 				Xml::openElement( 'select',
 					[ 'name' => 'bfmonth', 'class' => 'mw-month-selector' ] ) .
 				implode( "\n", $monthOpts ) .
 				Xml::closeElement( 'select' ) .
 				Xml::closeElement( 'td' ) .
 				Xml::openElement( 'td' ) .
-				Xml::input( 'bfsearch', 25, $keyword ) . ' ' .
+				Html::input( 'bfsearch', $keyword, 'text', [ 'size' => 35 ] ) . ' ' .
 				Xml::closeElement( 'td' ) .
 				Xml::openElement( 'td' ) .
-				Xml::submitButton( wfMessage( 'wigo-bestof-submit' )->text() ) .
+				Html::submitButton( wfMessage( 'wigo-bestof-submit' )->text() ) .
 				Xml::closeElement( 'td' ) .
 				Xml::closeElement( 'tr' ) .
 				Xml::closeElement( 'table' );

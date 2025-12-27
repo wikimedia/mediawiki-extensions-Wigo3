@@ -2,9 +2,9 @@
 
 namespace Wigo3;
 
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\Parser;
-use MediaWiki\Xml\Xml;
 
 class MultiParserHooks {
 	/**
@@ -55,7 +55,7 @@ class MultiParserHooks {
 				__METHOD__
 			) );
 
-			$jsVoteId = Xml::encodeJsVar( $voteid );
+			$jsVoteId = Html::encodeJsVar( $voteid );
 			$htmlVoteId = htmlspecialchars( $voteid );
 			$htmlJsVoteId = htmlspecialchars( $jsVoteId );
 
