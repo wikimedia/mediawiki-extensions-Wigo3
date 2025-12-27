@@ -305,13 +305,13 @@ HTML;
 			$formInside = Xml::openElement( 'table', [ 'cellpadding' => 8 ] ) .
 				Xml::openElement( 'tr' ) .
 				Xml::openElement( 'td' ) .
-				Xml::label( wfMessage( 'wigo-bestof-cutoff' )->text(), 'bfcutoff' ) .
+				Html::label( wfMessage( 'wigo-bestof-cutoff' )->text(), 'bfcutoff' ) .
 				Xml::closeElement( 'td' ) .
 				Xml::openElement( 'td' ) .
-				Xml::label( wfMessage( 'wigo-bestof-month' )->text(), 'bfmonth' ) .
+				Html::label( wfMessage( 'wigo-bestof-month' )->text(), 'bfmonth' ) .
 				Xml::closeElement( 'td' ) .
 				Xml::openElement( 'td' ) .
-				Xml::label( wfMessage( 'wigo-bestof-filter' )->text(), 'bfsearch' ) .
+				Html::label( wfMessage( 'wigo-bestof-filter' )->text(), 'bfsearch' ) .
 				Xml::closeElement( 'td' ) .
 				Xml::closeElement( 'tr' ) . "\n" .
 				Xml::openElement( 'tr' ) .
