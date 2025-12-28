@@ -4,7 +4,6 @@ namespace Wigo3;
 
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Xml\Xml;
 
 class WigoParserHooks {
 	/**
@@ -297,42 +296,49 @@ HTML;
 
 			$lang = $parser->getTargetLanguage();
 			$selected = $month === null ? 'all' : intval( $month );
-			$monthOpts[] = Xml::option(
-				wfMessage( 'monthsall' )->text(), 'all', $selected === 'all' );
+			$monthOpts[] = Html::element(
+				'option',
+				[ 'value' => 'all', 'selected' => $selected === 'all' ],
+				wfMessage( 'monthsall' )->text()
+			);
 			for ( $i = 1; $i < 13; ++$i ) {
-				$monthOpts[] = Xml::option( $lang->getMonthName( $i ), $i, $selected === $i );
+				$monthOpts[] = Html::element(
+					'option',
+					[ 'value' => $i, 'selected' => $selected === $i ],
+					$lang->getMonthName( $i )
+				);
 			}
-			$formInside = Xml::openElement( 'table', [ 'cellpadding' => 8 ] ) .
-				Xml::openElement( 'tr' ) .
-				Xml::openElement( 'td' ) .
+			$formInside = Html::openElement( 'table', [ 'cellpadding' => 8 ] ) .
+				Html::openElement( 'tr' ) .
+				Html::openElement( 'td' ) .
 				Html::label( wfMessage( 'wigo-bestof-cutoff' )->text(), 'bfcutoff' ) .
-				Xml::closeElement( 'td' ) .
-				Xml::openElement( 'td' ) .
+				Html::closeElement( 'td' ) .
+				Html::openElement( 'td' ) .
 				Html::label( wfMessage( 'wigo-bestof-month' )->text(), 'bfmonth' ) .
-				Xml::closeElement( 'td' ) .
-				Xml::openElement( 'td' ) .
+				Html::closeElement( 'td' ) .
+				Html::openElement( 'td' ) .
 				Html::label( wfMessage( 'wigo-bestof-filter' )->text(), 'bfsearch' ) .
-				Xml::closeElement( 'td' ) .
-				Xml::closeElement( 'tr' ) . "\n" .
-				Xml::openElement( 'tr' ) .
-				Xml::openElement( 'td' ) .
+				Html::closeElement( 'td' ) .
+				Html::closeElement( 'tr' ) . "\n" .
+				Html::openElement( 'tr' ) .
+				Html::openElement( 'td' ) .
 				Html::input( 'bfcutoff', $cutoff, 'text', [ 'size' => 3, 'maxlength' => 3 ] ) . ' ' .
-				Xml::closeElement( 'td' ) .
-				Xml::openElement( 'td' ) .
+				Html::closeElement( 'td' ) .
+				Html::openElement( 'td' ) .
 				Html::input( 'bfyear', $year, 'text', [ 'size' => 4, 'maxlength' => 4 ] ) . ' ' .
-				Xml::openElement( 'select',
+				Html::openElement( 'select',
 					[ 'name' => 'bfmonth', 'class' => 'mw-month-selector' ] ) .
 				implode( "\n", $monthOpts ) .
-				Xml::closeElement( 'select' ) .
-				Xml::closeElement( 'td' ) .
-				Xml::openElement( 'td' ) .
+				Html::closeElement( 'select' ) .
+				Html::closeElement( 'td' ) .
+				Html::openElement( 'td' ) .
 				Html::input( 'bfsearch', $keyword, 'text', [ 'size' => 35 ] ) . ' ' .
-				Xml::closeElement( 'td' ) .
-				Xml::openElement( 'td' ) .
+				Html::closeElement( 'td' ) .
+				Html::openElement( 'td' ) .
 				Html::submitButton( wfMessage( 'wigo-bestof-submit' )->text() ) .
-				Xml::closeElement( 'td' ) .
-				Xml::closeElement( 'tr' ) .
-				Xml::closeElement( 'table' );
+				Html::closeElement( 'td' ) .
+				Html::closeElement( 'tr' ) .
+				Html::closeElement( 'table' );
 
 			foreach ( $wgRequest->getValues() as $key => $value ) {
 				if ( $key != 'bfcutoff' && $key != 'bfyear' && $key != 'bfmonth'
@@ -341,14 +347,17 @@ HTML;
 					$formInside .= "\n" . Html::hidden( $key, $value );
 				}
 			}
-			$form = Xml::openElement(
+			$form = Html::openElement(
 				'form', [
 					'id' => 'bestofoption',
 					'action' => '',
 					'method' => 'GET'
 				] ) .
-				Xml::fieldset( wfMessage( 'wigo-bestof-legend' )->text(), $formInside ) .
-				Xml::closeElement( 'form' );
+				Html::openElement( 'fieldset' ) . "\n" .
+				Html::element( 'legend', [], wfMessage( 'wigo-bestof-legend' )->text() ) . "\n" .
+				$formInside . "\n" .
+				Html::closeElement( 'fieldset' ) . "\n" .
+				Html::closeElement( 'form' );
 			$output = $form;
 		}
 		$list = self::getBestOf( $args['poll'], $cutoff, $month === 'all' ? null : $month,
