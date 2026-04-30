@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tensama0415"
+		]
+	},
+	"wigo3-desc": "찬성/반대 투표 시스템.",
+	"wigo-error": "누락된 설문조사 ID",
+	"wigo-error-invalid-vote-id": "잘못된 설문조사 ID",
+	"wigo-error-invalidating-cache": "캐시 무효화 중 오류가 발생했습니다!",
+	"wigo-no-votes": "투표 없음",
+	"wigo-votes-total": "총 $1표 {{plural:$1|투표됨}}",
+	"wigo-votes-total-d": "총 $1표 {{plural:$1|투표됨}} ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 찬성, $2 중립, $3 반대",
+	"wigo-alt-up": "찬성",
+	"wigo-alt-down": "반대",
+	"wigo-alt-reset": "중립",
+	"wigo-title-up": "찬성에 투표",
+	"wigo-title-down": "반대에 투표",
+	"wigo-title-reset": "중립에 투표",
+	"wigo-multi-vote-button": "투표",
+	"wigo-multi-vote-title": "이 옵션에 투표하려면 여기를 클릭",
+	"wigo-bestof-legend": "옵션",
+	"wigo-bestof-cutoff": "투표 값 기준",
+	"wigo-bestof-month": "표시할 연월",
+	"wigo-bestof-filter": "키워드로 필터링",
+	"wigo-bestof-submit": "제출"
+}
