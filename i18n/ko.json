@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tensama0415"
+		]
+	},
+	"wigo-bestof-legend": "옵션",
+	"wigo-bestof-cutoff": "투표 값 기준",
+	"wigo-bestof-month": "표시할 연월",
+	"wigo-bestof-filter": "키워드로 필터링",
+	"wigo-bestof-submit": "제출"
+}
