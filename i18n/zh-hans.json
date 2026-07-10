@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"简纸Paper"
+		]
+	},
+	"wigo3-desc": "赞成/反对投票系统。",
+	"wigo-error": "缺少调查ID",
+	"wigo-error-invalid-vote-id": "无效投票ID",
+	"wigo-error-invalidating-cache": "缓存无效化错误！",
+	"wigo-no-votes": "无投票",
+	"wigo-votes-total": "总计$1{{plural:$1|票}}",
+	"wigo-votes-total-d": "总计$1{{plural:$1|票}}（$2/$3/$4）",
+	"wigo-vote-distrib": "$1赞成、$2中立、$3反对",
+	"wigo-alt-up": "赞成",
+	"wigo-alt-down": "反对",
+	"wigo-alt-reset": "中立",
+	"wigo-title-up": "赞成",
+	"wigo-title-down": "反对",
+	"wigo-title-reset": "中立",
+	"wigo-multi-vote-button": "投票",
+	"wigo-multi-vote-title": "点击此处来为此选项投票",
+	"wigo-bestof-legend": "选项",
+	"wigo-bestof-cutoff": "投票截止值",
+	"wigo-bestof-month": "显示的年份和月份",
+	"wigo-bestof-filter": "按关键词筛选",
+	"wigo-bestof-submit": "提交"
+}

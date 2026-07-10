@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"简纸Paper"
+		]
+	},
+	"apihelp-query+wigo-summary": "获取wigo项目",
+	"apihelp-query+wigo-param-month": "仅计算本月的投票数",
+	"apihelp-query+wigo-param-year": "仅计算今年的投票数",
+	"apihelp-query+wigo-param-prefix": "返回ID以此值开头的项目",
+	"apihelp-query+wigo-param-start": "从此ID开始",
+	"apihelp-query+wigo-param-limit": "要返回的项目总数。",
+	"apihelp-query+wigovotes-summary": "获取wigo投票",
+	"apihelp-query+wigovotes-param-month": "仅计算本月的投票数",
+	"apihelp-query+wigovotes-param-year": "仅计算今年的投票数",
+	"apihelp-query+wigovotes-param-id": "返回此项目的投票",
+	"apihelp-query+wigovotes-param-prefix": "返回ID以此值开头的项目。覆盖$1ID。",
+	"apihelp-query+wigovotes-param-start": "返回的起始时间戳",
+	"apihelp-query+wigovotes-param-end": "返回的结束时间戳",
+	"apihelp-query+wigovotes-param-continue": "当有更多结果时，延续此设置",
+	"apihelp-query+wigovotes-param-limit": "要返回的项目总数。",
+	"apihelp-query+wigovotes-param-dir": "搜索方向（较旧或较新）",
+	"apihelp-query+wigovotes-param-min": "仅返回大于或等于此值的投票",
+	"apihelp-query+wigovotes-param-max": "仅返回小于或等于此值的投票",
+	"apihelp-wigo-cast-vote-summary": "投下wigo一票",
+	"apihelp-wigo-cast-vote-param-pollid": "唯一标识符",
+	"apihelp-wigo-cast-vote-param-vote": "投票值",
+	"apihelp-wigo-cast-vote-param-countoptions": "调查选项总数",
+	"apihelp-wigo-cast-vote-example-1": "在ID为<code>Birds</code>的调查中投票给第二个选项",
+	"apihelp-wigo-get-my-vote-summary": "获取我对特定调查的投票",
+	"apihelp-wigo-get-my-vote-param-pollid": "唯一标识符",
+	"apihelp-wigo-get-my-vote-example-1": "获取我对ID為<code>Birds</code>的调查的投票",
+	"apihelp-wigo-invalidate-page-cache-summary": "投票后使页面缓存无效",
+	"apihelp-wigo-invalidate-page-cache-param-pagename": "要使缓存无效的页面名称",
+	"apihelp-wigo-invalidate-page-cache-example-1": "使页面名称为<code>Foo bar</code>的页面缓存无效",
+	"apihelp-wigo-vote-updown-summary": "在简易的赞成/反对投票中用wigo投出一票",
+	"apihelp-wigo-vote-updown-param-pollid": "唯一标识符",
+	"apihelp-wigo-vote-updown-param-vote": "投票值",
+	"apihelp-wigo-vote-updown-example-1": "在ID为<code>cats</code>的调查中投<code>1</code>票（赞成）",
+	"apihelp-wigo-vote-updown-example-2": "在ID为<code>cats</code>的调查中投<code>1</code>票（反对）"
+}
