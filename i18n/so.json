@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"AhmedG612"
+		]
+	},
+	"wigo3-desc": "Nidaamka codbixinta kor/hoos.",
+	"wigo-error": "Aqoonsiga codbixinta ayaa maqan",
+	"wigo-error-invalid-vote-id": "Aqoonsiga codka waa khalad",
+	"wigo-error-invalidating-cache": "Khalad ayaa dhacay intii lagu jiray burinta kaydka!",
+	"wigo-no-votes": "codad la'aan",
+	"wigo-votes-total": "Wadarta $1 {{plural:$1|cod|codad}}",
+	"wigo-votes-total-d": "Wadarta $1 {{plural:$1|cod|codad}} ($2/$3/$4)",
+	"wigo-vote-distrib": "$1 kor, $2 dhexdhexaad, $3 hoos",
+	"wigo-alt-up": "kor",
+	"wigo-alt-down": "hoos",
+	"wigo-alt-reset": "dhexdhexaad",
+	"wigo-title-up": "U codee kor",
+	"wigo-title-down": "U codee hoos",
+	"wigo-title-reset": "U codee dhexdhexaad",
+	"wigo-multi-vote-button": "Codayn",
+	"wigo-multi-vote-title": "Guji halkan si aad ugu codayso doorashadan",
+	"wigo-bestof-legend": "Xulashooyinka",
+	"wigo-bestof-cutoff": "Xadka qiimaha codka",
+	"wigo-bestof-month": "Sannadka iyo bisha la muujinayo",
+	"wigo-bestof-filter": "Ku shaandhee ereyga muhiimka ah",
+	"wigo-bestof-submit": "Gudbi"
+}
